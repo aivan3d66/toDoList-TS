@@ -1,35 +1,29 @@
 import React from "react";
-import {TaskType} from "../App";
+import {TodoListItem} from "./TodoListItems/TodoListItem";
+import {TaskType} from "../redux/state";
 
 type TodoListProps = {
   title: string,
-  tasks: Array<TaskType>,
+  tasks: Array<TaskType>
 }
 
-const TodoList = (props: TodoListProps) => {
+const TodoList: React.FC<TodoListProps> = (props) => {
+  let tasksList = props.tasks.map((task: any, index: number) => <TodoListItem title={task.title}
+                                                                           isDone={task.isDone}
+                                                                           key={task.id}
+                                                                           id={index}/>);
   return (
-    <div>
+    <div className="tasks-list">
       <div>
-        <h3>{props.title}</h3>
-        <div>
+        <h3 className="tasks-list__title">{props.title}</h3>
+        <div className="tasks-list__field">
           <input/>
           <button>+</button>
         </div>
-        <ul>
-          <li>
-            <input type="checkbox" checked={props.tasks[0].isDone}/>
-            <span>{props.tasks[0].title}</span>
-          </li>
-          <li>
-            <input type="checkbox" checked={props.tasks[1].isDone}/>
-            <span>{props.tasks[1].title}</span>
-          </li>
-          <li>
-            <input type="checkbox" checked={props.tasks[2].isDone}/>
-            <span>{props.tasks[2].title}</span>
-          </li>
+        <ul className="tasks-list__items">
+          {tasksList}
         </ul>
-        <div>
+        <div className="tasks-list__buttons">
           <button>All</button>
           <button>Active</button>
           <button>Completed</button>
