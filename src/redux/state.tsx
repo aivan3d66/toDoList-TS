@@ -1,8 +1,9 @@
 // BLL
 export type TaskType = {
-  title?: string
-  isDone?: boolean
-  id?: number
+  title: string
+  isDone: boolean
+  id: number
+  removeTask?: Function,
 }
 
 export type StateType = {
@@ -16,7 +17,9 @@ const state: StateType = {
   tasksWeb: [
     {id: 1, title: "HTML", isDone: true},
     {id: 2, title: "CSS", isDone: false},
-    {id: 3, title: "JS/TS", isDone: true},
+    {id: 4, title: "JavaScript", isDone: false},
+    {id: 5, title: "TypeScript", isDone: false},
+    {id: 6, title: "React", isDone: false},
   ],
 
   tasksBuy: [
