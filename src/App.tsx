@@ -1,12 +1,19 @@
 import React, {useState} from 'react';
 import './App.css';
 import TodoList from "./components/ToDoList";
-import state from "./redux/state";
+import state, {TaskType} from "./redux/state";
+
+export type FilterValueType = "all" | "completed" | "active";
+
 
 function App() {
   let initTasksWeb = state.tasksWeb;
-  let [tasks, setTasks] = useState(initTasksWeb);
-  let [filter, setFilter] = useState("all");
+  let [tasks, setTasks] = useState<Array<TaskType>>(initTasksWeb);
+  let [filter, setFilter] = useState<FilterValueType>("all");
+
+  function changeFilter(value: FilterValueType) {
+    setFilter(value);
+  }
 
   let tasksForTodoList = tasks;
   if (filter === "completed") {
@@ -26,7 +33,8 @@ function App() {
     <div className="App">
       <TodoList title={state.todoListTitle[0]}
                 tasks={tasksForTodoList}
-                removeTask={removeTask}/>
+                removeTask={removeTask}
+                changeFilter={changeFilter}/>
       {/*<TodoList title={state.todoListTitle[1]}*/}
       {/*          tasks={state.tasksBuy}*/}
       {/*          removeTask={removeTask}/>*/}
