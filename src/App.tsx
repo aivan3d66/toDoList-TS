@@ -5,10 +5,7 @@ import state from "./redux/state";
 
 function App() {
   let initTasksWeb = state.tasksWeb;
-
-  let arr = useState(initTasksWeb);
-  let tasks = arr[0];
-  let setTasks = arr[1];
+  let [tasks, setTasks] = useState(initTasksWeb);
 
   function removeTask(id: number) {
     let filteredTasks = tasks.filter((t) => t.id !== id);
