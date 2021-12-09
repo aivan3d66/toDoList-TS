@@ -4,14 +4,16 @@ import {TaskType} from "../redux/state";
 
 type TodoListProps = {
   title: string,
-  tasks: Array<TaskType>
+  tasks: Array<TaskType>,
+  removeTask: Function,
 }
 
 const TodoList: React.FC<TodoListProps> = (props) => {
-  let tasksList = props.tasks.map((task: any, index: number) => <TodoListItem title={task.title}
-                                                                           isDone={task.isDone}
-                                                                           key={task.id}
-                                                                           id={index}/>);
+  let tasksList = props.tasks.map((task: TaskType, index: number) => <TodoListItem title={task.title}
+                                                                              removeTask={props.removeTask}
+                                                                              isDone={task.isDone}
+                                                                              key={index}
+                                                                              id={task.id}/>);
   return (
     <div className="tasks-list">
       <div>
