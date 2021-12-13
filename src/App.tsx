@@ -2,13 +2,14 @@ import React, {useState} from 'react';
 import './App.css';
 import TodoList from "./components/ToDoList";
 import state, {TaskType} from "./redux/state";
+import {FILTER_ALL, FILTER_COMPLETED, FILTER_ACTIVE} from './common/constants';
 
-export type FilterValueType = "all" | "completed" | "active";
+export type FilterValueType = typeof FILTER_ALL | typeof  FILTER_COMPLETED | typeof  FILTER_ACTIVE;
 
 function App() {
   let initTasks: Array<TaskType> = state.tasks;
   let [tasks, setTasks] = useState<Array<TaskType>>(initTasks);
-  let [filter, setFilter] = useState<FilterValueType>("all");
+  let [filter, setFilter] = useState<FilterValueType>(FILTER_ALL);
 
   function changeFilter(value: FilterValueType) {
     setFilter(value);
@@ -16,10 +17,10 @@ function App() {
 
   function getTasksForTodoList() {
     switch (filter) {
-      case "completed":
+      case FILTER_COMPLETED:
         return tasks.filter(t => t.isDone);
 
-      case "active":
+      case FILTER_ACTIVE:
         return tasks.filter(t => !t.isDone);
 
       default:
