@@ -2,6 +2,8 @@ import React from "react";
 import {TodoListItem} from "./TodoListItems/TodoListItem";
 import {TaskType} from "../redux/state";
 import {FilterValueType} from "../App";
+import {FILTER_ALL, FILTER_COMPLETED, FILTER_ACTIVE} from "../common/constants";
+
 
 type TodoListProps = {
   title: string,
@@ -35,15 +37,15 @@ const TodoList: React.FC<TodoListProps> = (props) => {
         </ul>
         <div className="tasks-list__buttons">
           <button onClick={() => {
-            props.changeFilter("all")
+            props.changeFilter(FILTER_ALL)
           }}>All
           </button>
           <button onClick={() => {
-            props.changeFilter("active")
+            props.changeFilter(FILTER_ACTIVE)
           }}>Active
           </button>
           <button onClick={() => {
-            props.changeFilter("completed")
+            props.changeFilter(FILTER_COMPLETED)
           }}>Completed
           </button>
         </div>
