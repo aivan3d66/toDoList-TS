@@ -35,9 +35,6 @@ function App() {
                 tasks={tasksForTodoList}
                 removeTask={removeTask}
                 changeFilter={changeFilter}/>
-      {/*<TodoList title={state.todoListTitle[1]}*/}
-      {/*          tasks={state.tasksBuy}*/}
-      {/*          removeTask={removeTask}/>*/}
     </div>
   );
 }
