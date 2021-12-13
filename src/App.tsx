@@ -5,7 +5,6 @@ import state, {TaskType} from "./redux/state";
 
 export type FilterValueType = "all" | "completed" | "active";
 
-
 function App() {
   let initTasksWeb = state.tasksWeb;
   let [tasks, setTasks] = useState<Array<TaskType>>(initTasksWeb);
@@ -31,7 +30,7 @@ function App() {
 
   return (
     <div className="App">
-      <TodoList title={state.todoListTitle[0]}
+      <TodoList title={state.todoListTitle}
                 tasks={tasksForTodoList}
                 removeTask={removeTask}
                 changeFilter={changeFilter}/>
