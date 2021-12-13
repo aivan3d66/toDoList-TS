@@ -7,25 +7,18 @@ export type TaskType = {
 }
 
 export type StateType = {
-  todoListTitle: Array<string>,
+  todoListTitle: string,
   tasksWeb: Array<TaskType>,
-  tasksBuy: Array<TaskType>,
 }
 
 const state: StateType = {
-  todoListTitle: ["What to do", "What to buy"],
+  todoListTitle: "What to do",
   tasksWeb: [
     {id: 1, title: "HTML", isDone: true},
     {id: 2, title: "CSS", isDone: true},
     {id: 4, title: "JavaScript", isDone: false},
     {id: 5, title: "TypeScript", isDone: false},
     {id: 6, title: "React", isDone: false},
-  ],
-
-  tasksBuy: [
-    {id: 4, title: "Potato", isDone: true},
-    {id: 5, title: "Beer", isDone: true},
-    {id: 6, title: "Fish", isDone: false},
   ],
 }
 
