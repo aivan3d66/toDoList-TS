@@ -14,13 +14,17 @@ function App() {
     setFilter(value);
   }
 
-  let tasksForTodoList = tasks;
-  if (filter === "completed") {
-    tasksForTodoList = tasks.filter(t => t.isDone);
-  }
+  function getTasksForTodoList() {
+    switch (filter) {
+      case "completed":
+        return tasks.filter(t => t.isDone);
 
-  if (filter === "active") {
-    tasksForTodoList = tasks.filter(t => !t.isDone);
+      case "active":
+        return tasks.filter(t => !t.isDone);
+
+      default:
+        return tasks;
+    }
   }
 
   function removeTask(id: number) {
@@ -31,7 +35,7 @@ function App() {
   return (
     <div className="App">
       <TodoList title={state.todoListTitle}
-                tasks={tasksForTodoList}
+                tasks={getTasksForTodoList()}
                 removeTask={removeTask}
                 changeFilter={changeFilter}/>
     </div>
