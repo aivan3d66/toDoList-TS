@@ -11,11 +11,17 @@ type TodoListProps = {
 }
 
 const TodoList: React.FC<TodoListProps> = (props) => {
-  let tasksList = props.tasks.map((task: TaskType, index: number) => <TodoListItem title={task.title}
-                                                                              removeTask={props.removeTask}
-                                                                              isDone={task.isDone}
-                                                                              key={index}
-                                                                              id={task.id}/>);
+  let tasksList = props.tasks.map((task: TaskType, index: number) => {
+      return (
+        <TodoListItem title={task.title}
+                      removeTask={props.removeTask}
+                      isDone={task.isDone}
+                      key={index}
+                      id={task.id}/>
+      )
+    }
+  );
+
   return (
     <div className="tasks-list">
       <div>
@@ -28,9 +34,18 @@ const TodoList: React.FC<TodoListProps> = (props) => {
           {tasksList}
         </ul>
         <div className="tasks-list__buttons">
-          <button onClick={() => {props.changeFilter("all")}}>All</button>
-          <button onClick={() => {props.changeFilter("active")}}>Active</button>
-          <button onClick={() => {props.changeFilter("completed")}}>Completed</button>
+          <button onClick={() => {
+            props.changeFilter("all")
+          }}>All
+          </button>
+          <button onClick={() => {
+            props.changeFilter("active")
+          }}>Active
+          </button>
+          <button onClick={() => {
+            props.changeFilter("completed")
+          }}>Completed
+          </button>
         </div>
       </div>
     </div>
