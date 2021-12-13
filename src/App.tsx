@@ -6,7 +6,7 @@ import state, {TaskType} from "./redux/state";
 export type FilterValueType = "all" | "completed" | "active";
 
 function App() {
-  let initTasks = state.tasks;
+  let initTasks: Array<TaskType> = state.tasks;
   let [tasks, setTasks] = useState<Array<TaskType>>(initTasks);
   let [filter, setFilter] = useState<FilterValueType>("all");
 
@@ -24,7 +24,7 @@ function App() {
   }
 
   function removeTask(id: number) {
-    let filteredTasks = tasks.filter((t) => t.id !== id);
+    let filteredTasks: Array<TaskType> = tasks.filter((t) => t.id !== id);
     setTasks(filteredTasks)
   }
 
