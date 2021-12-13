@@ -6,7 +6,7 @@ import state, {TaskType} from "./redux/state";
 export type FilterValueType = "all" | "completed" | "active";
 
 function App() {
-  let initTasksWeb = state.tasksWeb;
+  let initTasksWeb = state.tasks;
   let [tasks, setTasks] = useState<Array<TaskType>>(initTasksWeb);
   let [filter, setFilter] = useState<FilterValueType>("all");
 

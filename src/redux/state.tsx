@@ -8,12 +8,12 @@ export type TaskType = {
 
 export type StateType = {
   todoListTitle: string,
-  tasksWeb: Array<TaskType>,
+  tasks: Array<TaskType>,
 }
 
 const state: StateType = {
   todoListTitle: "What to do",
-  tasksWeb: [
+  tasks: [
     {id: 1, title: "HTML", isDone: true},
     {id: 2, title: "CSS", isDone: true},
     {id: 4, title: "JavaScript", isDone: false},
