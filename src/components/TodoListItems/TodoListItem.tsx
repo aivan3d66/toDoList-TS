@@ -4,7 +4,7 @@ type TodoListItemProps = {
   title: string
   isDone: boolean
   id: number
-  removeTask: Function,
+  removeTask: (id: number) => void,
 }
 
 export const TodoListItem: React.FC<TodoListItemProps> = (props) => {
