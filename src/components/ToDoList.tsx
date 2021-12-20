@@ -8,7 +8,7 @@ import {FILTER_ALL, FILTER_COMPLETED, FILTER_ACTIVE} from "../common/constants";
 type TodoListProps = {
   title: string,
   tasks: Array<TaskType>,
-  removeTask: (id: number) => void,
+  removeTask: (id: string) => void,
   changeFilter: (value: FilterValueType) => void,
 }
 

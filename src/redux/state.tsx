@@ -5,7 +5,7 @@ import {v1} from "uuid";
 export type TaskType = {
   title: string
   isDone: boolean
-  id: any
+  id: string
   removeTask?: (id: number) => void,
 }
 

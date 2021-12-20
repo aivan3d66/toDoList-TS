@@ -3,8 +3,8 @@ import React from "react";
 type TodoListItemProps = {
   title: string
   isDone: boolean
-  id: number
-  removeTask: (id: number) => void,
+  id: string
+  removeTask: (id: string) => void,
 }
 
 export const TodoListItem: React.FC<TodoListItemProps> = (props) => {

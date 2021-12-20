@@ -5,14 +5,15 @@ import state, {TaskType} from "./redux/state";
 import {FILTER_ALL, FILTER_COMPLETED, FILTER_ACTIVE} from './common/constants';
 
 export type FilterValueType = typeof FILTER_ALL | typeof FILTER_COMPLETED | typeof FILTER_ACTIVE;
-export type RemoveTask = (id: number) => void;
+export type RemoveTask = (id: string) => void;
+export type ChangeFilter = (value: FilterValueType) => any
 
 const App = () => {
   let initTasks: Array<TaskType> = state.tasks;
   let [tasks, setTasks] = useState<Array<TaskType>>(initTasks);
   let [filter, setFilter] = useState<FilterValueType>(FILTER_ALL);
 
-  const changeFilter = (value: FilterValueType) => {
+  const changeFilter: ChangeFilter = (value) => {
     setFilter(value);
   }
 
@@ -29,7 +30,7 @@ const App = () => {
     }
   }
 
-  const removeTask: RemoveTask = (id: number) => {
+  const removeTask: RemoveTask = (id) => {
     let filteredTasks: Array<TaskType> = tasks.filter((t) => t.id !== id);
     setTasks(filteredTasks)
   }
