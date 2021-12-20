@@ -25,9 +25,7 @@ const App = () => {
   }
 
   const addTask: AddTask = (title) => {
-    const task: TaskType = {id: v1(), title: title, isDone: false};
-    const newTask = [task, ...tasks];
-    setTasks(newTask);
+    setTasks([...tasks, {id: v1(), title: title, isDone: false}]);
   }
 
   const getTasksForTodoList = () => {
