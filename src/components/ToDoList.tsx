@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {ChangeEvent, KeyboardEvent, useState} from "react";
 import {TodoListItem} from "./TodoListItems/TodoListItem";
 import {TaskType} from "../redux/state";
 import {AddTask, FilterValueType, RemoveTask} from "../App";
@@ -31,30 +31,39 @@ const TodoList: React.FC<TodoListProps> = (props) => {
     setTitle("")
   }
 
+  const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.charCode === 13) {
+      addTask();
+    }
+  }
+
+  const onAllFilterHandler = () => props.changeFilter(FILTER_ALL);
+  const onActiveFilterHandler = () => props.changeFilter(FILTER_ACTIVE);
+  const onCompletedFilterHandler = () => props.changeFilter(FILTER_COMPLETED);
+
+  const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    setTitle(e.currentTarget.value)
+  }
+
   return (
     <div className="tasks-list">
       <div>
         <h3 className="tasks-list__title">{props.title}</h3>
         <div className="tasks-list__field">
           <input value={title}
-                 onChange={(e) => setTitle(e.currentTarget.value)}/>
+                 onKeyPress={onKeyPressHandler}
+                 onChange={onChangeHandler}/>
           <button onClick={addTask}>+</button>
         </div>
         <ul className="tasks-list__items">
           {tasksList}
         </ul>
         <div className="tasks-list__buttons">
-          <button onClick={() => {
-            props.changeFilter(FILTER_ALL)
-          }}>All
+          <button onClick={onAllFilterHandler}>All
           </button>
-          <button onClick={() => {
-            props.changeFilter(FILTER_ACTIVE)
-          }}>Active
+          <button onClick={onActiveFilterHandler}>Active
           </button>
-          <button onClick={() => {
-            props.changeFilter(FILTER_COMPLETED)
-          }}>Completed
+          <button onClick={onCompletedFilterHandler}>Completed
           </button>
         </div>
       </div>
