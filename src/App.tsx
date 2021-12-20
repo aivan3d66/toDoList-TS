@@ -7,16 +7,16 @@ import {FILTER_ALL, FILTER_COMPLETED, FILTER_ACTIVE} from './common/constants';
 export type FilterValueType = typeof FILTER_ALL | typeof FILTER_COMPLETED | typeof FILTER_ACTIVE;
 export type RemoveTask = (id: number) => void;
 
-function App() {
+const App = () => {
   let initTasks: Array<TaskType> = state.tasks;
   let [tasks, setTasks] = useState<Array<TaskType>>(initTasks);
   let [filter, setFilter] = useState<FilterValueType>(FILTER_ALL);
 
-  function changeFilter(value: FilterValueType) {
+  const changeFilter = (value: FilterValueType) => {
     setFilter(value);
   }
 
-  function getTasksForTodoList() {
+  const getTasksForTodoList = () => {
     switch (filter) {
       case FILTER_COMPLETED:
         return tasks.filter(t => t.isDone);
