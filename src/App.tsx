@@ -4,7 +4,8 @@ import TodoList from "./components/ToDoList";
 import state, {TaskType} from "./redux/state";
 import {FILTER_ALL, FILTER_COMPLETED, FILTER_ACTIVE} from './common/constants';
 
-export type FilterValueType = typeof FILTER_ALL | typeof  FILTER_COMPLETED | typeof  FILTER_ACTIVE;
+export type FilterValueType = typeof FILTER_ALL | typeof FILTER_COMPLETED | typeof FILTER_ACTIVE;
+export type RemoveTask = (id: number) => void;
 
 function App() {
   let initTasks: Array<TaskType> = state.tasks;
@@ -28,7 +29,7 @@ function App() {
     }
   }
 
-  function removeTask(id: number) {
+  const removeTask: RemoveTask = (id: number) => {
     let filteredTasks: Array<TaskType> = tasks.filter((t) => t.id !== id);
     setTasks(filteredTasks)
   }
