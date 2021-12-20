@@ -6,7 +6,6 @@ export type TaskType = {
   title: string
   isDone: boolean
   id: string
-  removeTask?: (id: number) => void,
 }
 
 export type StateType = {
