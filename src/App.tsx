@@ -6,7 +6,7 @@ import {FILTER_ALL, FILTER_COMPLETED, FILTER_ACTIVE} from './common/constants';
 
 export type FilterValueType = typeof FILTER_ALL | typeof FILTER_COMPLETED | typeof FILTER_ACTIVE;
 export type RemoveTask = (id: string) => void;
-export type ChangeFilter = (value: FilterValueType) => any
+export type ChangeFilter = (value: FilterValueType) => void
 
 const App = () => {
   let initTasks: Array<TaskType> = state.tasks;
