@@ -3,10 +3,12 @@ import './App.css';
 import TodoList from "./components/ToDoList";
 import state, {TaskType} from "./redux/state";
 import {FILTER_ALL, FILTER_COMPLETED, FILTER_ACTIVE} from './common/constants';
+import {v1} from 'uuid';
 
 export type FilterValueType = typeof FILTER_ALL | typeof FILTER_COMPLETED | typeof FILTER_ACTIVE;
 export type RemoveTask = (id: string) => void;
 export type ChangeFilter = (value: FilterValueType) => void
+export type AddTask = (title: string) => void;
 
 const App = () => {
   let initTasks: Array<TaskType> = state.tasks;
@@ -35,11 +37,18 @@ const App = () => {
     setTasks(filteredTasks)
   }
 
+  const addTask: AddTask = (title) => {
+    const task: TaskType = {id: v1(), title: title, isDone: false};
+    const newTask = [task, ...tasks];
+    setTasks(newTask);
+  }
+
   return (
     <div className="App">
       <TodoList title={state.todoListTitle}
                 tasks={getTasksForTodoList()}
                 removeTask={removeTask}
+                addTask={addTask}
                 changeFilter={changeFilter}/>
     </div>
   );
