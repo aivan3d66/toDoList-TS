@@ -19,6 +19,17 @@ const App = () => {
     setFilter(value);
   }
 
+  const removeTask: RemoveTask = (id) => {
+    let filteredTasks: Array<TaskType> = tasks.filter((t) => t.id !== id);
+    setTasks(filteredTasks)
+  }
+
+  const addTask: AddTask = (title) => {
+    const task: TaskType = {id: v1(), title: title, isDone: false};
+    const newTask = [task, ...tasks];
+    setTasks(newTask);
+  }
+
   const getTasksForTodoList = () => {
     switch (filter) {
       case FILTER_COMPLETED:
@@ -30,17 +41,6 @@ const App = () => {
       default:
         return tasks;
     }
-  }
-
-  const removeTask: RemoveTask = (id) => {
-    let filteredTasks: Array<TaskType> = tasks.filter((t) => t.id !== id);
-    setTasks(filteredTasks)
-  }
-
-  const addTask: AddTask = (title) => {
-    const task: TaskType = {id: v1(), title: title, isDone: false};
-    const newTask = [task, ...tasks];
-    setTasks(newTask);
   }
 
   return (
