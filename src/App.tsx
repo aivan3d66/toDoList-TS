@@ -26,9 +26,6 @@ const App = () => {
   };
 
   const addTask: AddTask = (title) => {
-    if (title.trim() === "") {
-      return;
-    }
     setTasks([...tasks, {id: v1(), title: title, isDone: false}]);
   };
 
