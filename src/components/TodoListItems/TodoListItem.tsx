@@ -1,6 +1,6 @@
-import React, {ChangeEvent} from "react";
+import React from "react";
 import {ChangeStatus} from "../../App";
-import SuperCheckbox from "../../common/super-components/SuperCheckbox";
+import SuperCheckbox from "../../common/super-components/SuperCheckboxComponent/SuperCheckbox";
 
 type TodoListItemProps = {
   title: string
@@ -22,15 +22,13 @@ export const TodoListItem: React.FC<TodoListItemProps> = (
   }
 ) => {
   const onClickHandler: OnClickHandler = () => removeTask(id);
-  const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    changeStatus(id, e.currentTarget.checked);
-  }
 
   return (
     <li>
-      <input type="checkbox"
-             onChange={onChangeHandler}
-             checked={isDone}
+      <SuperCheckbox
+        checked={isDone}
+        changeStatus={changeStatus}
+        id={id}
       />
       <span>{title}</span>
       <button onClick={onClickHandler}>-</button>
