@@ -1,16 +1,16 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from "react";
 import {TodoListItem} from "./TodoListItems/TodoListItem";
 import {TaskType} from "../redux/state";
-import {AddTask, FilterValueType, RemoveTask} from "../App";
+import {AddTask, ChangeStatus, FilterValueType, RemoveTask} from "../App";
 import {FILTER_ALL, FILTER_COMPLETED, FILTER_ACTIVE} from "../common/constants";
 
-
 type TodoListProps = {
-  title: string,
+  titleList: string,
   tasks: Array<TaskType>,
   removeTask: RemoveTask,
   changeFilter: (value: FilterValueType) => void,
-  addTask: AddTask;
+  addTask: AddTask,
+  changeStatus: ChangeStatus,
 }
 
 const TodoList: React.FC<TodoListProps> = (
@@ -24,19 +24,21 @@ const TodoList: React.FC<TodoListProps> = (
   }
 ) => {
   const [title, setTitle] = useState<string>("");
-  const tasksList = props.tasks.map((task: TaskType, index: number) => {
+  const tasksList = tasks.map((task: TaskType, index: number) => {
       return (
         <TodoListItem title={task.title}
-                      removeTask={props.removeTask}
+                      removeTask={removeTask}
                       isDone={task.isDone}
+                      id={task.id}
+                      changeStatus={changeStatus}
                       key={index}
-                      id={task.id}/>
+        />
       )
     }
   );
 
   const addTaskHandler  = () => {
-    props.addTask(title);
+    addTask(title);
     setTitle("")
   }
 
@@ -50,14 +52,14 @@ const TodoList: React.FC<TodoListProps> = (
     setTitle(e.currentTarget.value)
   }
 
-  const onAllFilterHandler = () => props.changeFilter(FILTER_ALL);
-  const onActiveFilterHandler = () => props.changeFilter(FILTER_ACTIVE);
-  const onCompletedFilterHandler = () => props.changeFilter(FILTER_COMPLETED);
+  const onAllFilterHandler = () => changeFilter(FILTER_ALL);
+  const onActiveFilterHandler = () => changeFilter(FILTER_ACTIVE);
+  const onCompletedFilterHandler = () => changeFilter(FILTER_COMPLETED);
 
   return (
     <div className="tasks-list">
       <div>
-        <h3 className="tasks-list__title">{props.title}</h3>
+        <h3 className="tasks-list__title">{titleList}</h3>
         <div className="tasks-list__field">
           <input value={title}
                  onKeyPress={onKeyPressHandler}
