@@ -26,6 +26,7 @@ const TodoList: React.FC<TodoListProps> = (
   }
 ) => {
   const [title, setTitle] = useState<string>("");
+  const [error, setError] = useState<string>("");
   const tasksList = tasks.map((task: TaskType, index: number) => {
       return (
         <TodoListItem title={task.title}
@@ -39,9 +40,14 @@ const TodoList: React.FC<TodoListProps> = (
     }
   );
 
-  const addTaskHandler  = () => {
-    addTask(title);
-    setTitle("")
+  const addTaskHandler = () => {
+    if (title.trim() !== "") {
+      addTask(title);
+      setTitle("")
+      setError("")
+    } else {
+      setError("Field is required")
+    }
   }
 
   const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
