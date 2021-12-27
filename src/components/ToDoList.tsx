@@ -11,6 +11,7 @@ type TodoListProps = {
   changeFilter: (value: FilterValueType) => void,
   addTask: AddTask,
   changeStatus: ChangeStatus,
+  filter: FilterValueType,
 }
 
 const TodoList: React.FC<TodoListProps> = (
@@ -20,7 +21,8 @@ const TodoList: React.FC<TodoListProps> = (
     removeTask,
     changeFilter,
     addTask,
-    changeStatus
+    changeStatus,
+    filter
   }
 ) => {
   const [title, setTitle] = useState<string>("");
