@@ -26,7 +26,15 @@ const App = () => {
 
   const addTask: AddTask = (title) => {
     setTasks([...tasks, {id: v1(), title: title, isDone: false}]);
-  }
+  };
+
+  const changeStatus: ChangeStatus = (taskId, isDone) => {
+    let task = tasks.find(t => t.id === taskId);
+    if (task) {
+      task.isDone = isDone;
+    }
+    setTasks([...tasks]);
+  };
 
   const getTasksForTodoList = () => {
     switch (filter) {
