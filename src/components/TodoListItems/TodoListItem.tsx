@@ -9,8 +9,19 @@ type TodoListItemProps = {
 
 type OnClickHandler = () => void
 
-export const TodoListItem: React.FC<TodoListItemProps> = (props) => {
-  const onClickHandler: OnClickHandler = () => props.removeTask(props.id);
+export const TodoListItem: React.FC<TodoListItemProps> = (
+  {
+    title,
+    isDone,
+    id,
+    removeTask,
+    changeStatus
+  }
+) => {
+  const onClickHandler: OnClickHandler = () => removeTask(id);
+  const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    changeStatus(id, e.currentTarget.checked);
+  }
 
   return (
     <li>
