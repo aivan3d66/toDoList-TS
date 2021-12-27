@@ -66,22 +66,31 @@ const TodoList: React.FC<TodoListProps> = (
 
   return (
     <div className="tasks-list">
-      <div>
-        <h3 className="tasks-list__title">{titleList}</h3>
-        <div className="tasks-list__field">
-          <input value={title}
-                 onKeyPress={onKeyPressHandler}
-                 onChange={onChangeHandler}/>
-          <button onClick={addTaskHandler}>+</button>
-        </div>
-        <ul className="tasks-list__items">
-          {tasksList}
-        </ul>
-        <div className="tasks-list__buttons">
-          <button onClick={onAllFilterHandler}>All</button>
-          <button onClick={onActiveFilterHandler}>Active</button>
-          <button onClick={onCompletedFilterHandler}>Completed</button>
-        </div>
+      <h3 className="tasks-list__title">{titleList}</h3>
+      <div className="tasks-list__field">
+        <input value={title}
+               className={error ? "error" : ""}
+               onKeyPress={onKeyPressHandler}
+               onChange={onChangeHandler}
+        />
+        <button onClick={addTaskHandler}>+</button>
+        {error && <div className="error-message">{error}</div>}
+      </div>
+
+      <ul className="tasks-list__items">
+        {tasksList}
+      </ul>
+
+      <div className="tasks-list__buttons">
+        <button className={filter === FILTER_ALL ? "active-class" : ""}
+                onClick={onAllFilterHandler}>All
+        </button>
+        <button className={filter === FILTER_ACTIVE ? "active-class" : ""}
+                onClick={onActiveFilterHandler}>Active
+        </button>
+        <button className={filter === FILTER_COMPLETED ? "active-class" : ""}
+                onClick={onCompletedFilterHandler}>Completed
+        </button>
       </div>
     </div>
   )
