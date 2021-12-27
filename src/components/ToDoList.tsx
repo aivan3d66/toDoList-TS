@@ -13,7 +13,16 @@ type TodoListProps = {
   addTask: AddTask;
 }
 
-const TodoList: React.FC<TodoListProps> = (props) => {
+const TodoList: React.FC<TodoListProps> = (
+  {
+    titleList,
+    tasks,
+    removeTask,
+    changeFilter,
+    addTask,
+    changeStatus
+  }
+) => {
   const [title, setTitle] = useState<string>("");
   const tasksList = props.tasks.map((task: TaskType, index: number) => {
       return (
