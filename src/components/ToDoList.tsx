@@ -3,6 +3,7 @@ import {TodoListItem} from "./TodoListItems/TodoListItem";
 import {TaskType} from "../redux/state";
 import {AddTask, ChangeStatus, FilterValueType, RemoveTask} from "../App";
 import {FILTERS} from "../common/constants";
+import SuperButton from "../common/super-components/SuperButton/SuperButton";
 
 type TodoListProps = {
   titleList: string,
@@ -76,7 +77,12 @@ const TodoList: React.FC<TodoListProps> = (
           onKeyPress={onKeyPressHandler}
           onChange={onChangeHandler}
         />
-        <button onClick={addTaskHandler}>+</button>
+        <SuperButton
+          red={!!error}
+          onClick={addTaskHandler}
+        >
+          +
+        </SuperButton>
         {error && <div className="error-message">{error}</div>}
       </div>
 
