@@ -4,6 +4,7 @@ import {TaskType} from "../redux/state";
 import {AddTask, ChangeStatus, FilterValueType, RemoveTask} from "../App";
 import {FILTERS} from "../common/constants";
 import SuperButton from "../common/super-components/SuperButton/SuperButton";
+import s from './../common/super-components/SuperButton/SuperButton.module.css';
 
 type TodoListProps = {
   titleList: string,
@@ -91,15 +92,24 @@ const TodoList: React.FC<TodoListProps> = (
       </ul>
 
       <div className="tasks-list__buttons">
-        <button className={filter === FILTERS.ALL ? "active-class" : ""}
-                onClick={onAllFilterHandler}>All
-        </button>
-        <button className={filter === FILTERS.ACTIVE ? "active-class" : ""}
-                onClick={onActiveFilterHandler}>Active
-        </button>
-        <button className={filter === FILTERS.COMPLETED ? "active-class" : ""}
-                onClick={onCompletedFilterHandler}>Completed
-        </button>
+        <SuperButton
+          className={filter === FILTERS.ALL ? s.activeClass : ""}
+          onClick={onAllFilterHandler}
+        >
+          All
+        </SuperButton>
+        <SuperButton
+          className={filter === FILTERS.ACTIVE ? s.activeClass : ""}
+          onClick={onActiveFilterHandler}
+        >
+          Active
+        </SuperButton>
+        <SuperButton
+          className={filter === FILTERS.COMPLETED ? s.activeClass : ""}
+          onClick={onCompletedFilterHandler}
+        >
+          Completed
+        </SuperButton>
       </div>
     </div>
   )
