@@ -1,7 +1,7 @@
 .default {
   min-width: 30px;
   padding: 4px;
-  margin: 0 0 0 10px;
+  margin: 0;
 
   color: white;
   border-radius: 5px;
@@ -11,8 +11,7 @@
   cursor: pointer;
 }
 
-.default:hover,
-.default:focus {
+.default:hover{
   color: #000000;
   transition: 0.3s;
   background-color: rgba(220, 220, 220, 0.8);
@@ -31,7 +30,7 @@
 }
 
 .red {
-  min-width: 40px;
+  min-width: 30px;
   padding: 4px;
   margin: 0;
   color: white;
@@ -45,7 +44,7 @@
 .activeClass {
   min-width: 30px;
   padding: 4px;
-  margin: 0 0 0 10px;
+  margin: 0;
 
   color: white;
   border-radius: 5px;
