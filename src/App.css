@@ -4,9 +4,17 @@
 }
 
 .App ul {
+  display: flex;
+  flex-direction: column;
+
   margin: 0;
   padding: 0;
   list-style: none;
+}
+
+.App li {
+  display: flex;
+  padding: 4px 6px;
 }
 
 .App > div {
