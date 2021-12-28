@@ -1,6 +1,7 @@
 import React from "react";
 import {ChangeStatus} from "../../App";
 import SuperCheckbox from "../../common/super-components/SuperCheckboxComponent/SuperCheckbox";
+import SuperButton from "../../common/super-components/SuperButton/SuperButton";
 
 type TodoListItemProps = {
   title: string
@@ -30,7 +31,9 @@ export const TodoListItem: React.FC<TodoListItemProps> = (
         id={id}
       />
       <span>{title}</span>
-      <button onClick={onClickHandler}>-</button>
+      <SuperButton onClick={onClickHandler}>
+        -
+      </SuperButton>
     </li>
   )
 }
