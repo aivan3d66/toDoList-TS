@@ -12,7 +12,10 @@ type TodoListProps = {
   addTask: AddTask,
   changeStatus: ChangeStatus,
   filter: FilterValueType,
-}
+};
+type OnKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => void;
+type OnChangeHandler = (e: ChangeEvent<HTMLInputElement>) => void;
+type AddTaskHandler = () => void;
 
 const TodoList: React.FC<TodoListProps> = (
   {
@@ -40,7 +43,7 @@ const TodoList: React.FC<TodoListProps> = (
     }
   );
 
-  const addTaskHandler = () => {
+  const addTaskHandler: AddTaskHandler = () => {
     if (title.trim() !== "") {
       addTask(title);
       setTitle("")
@@ -49,14 +52,12 @@ const TodoList: React.FC<TodoListProps> = (
       setError("Field is required")
     }
   }
-
-  const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
+  const onKeyPressHandler: OnKeyPressHandler = (e) => {
     if (e.charCode === 13) {
       addTaskHandler();
     }
   }
-
-  const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+  const onChangeHandler: OnChangeHandler = (e) => {
     setTitle(e.currentTarget.value)
   }
 
