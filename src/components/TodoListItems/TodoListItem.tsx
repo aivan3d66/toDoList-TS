@@ -9,7 +9,6 @@ type TodoListItemProps = {
   removeTask: (id: string) => void,
   changeStatus: ChangeStatus,
 }
-
 type OnClickHandler = () => void
 
 export const TodoListItem: React.FC<TodoListItemProps> = (
