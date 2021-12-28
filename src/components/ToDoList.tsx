@@ -2,7 +2,7 @@ import React, {ChangeEvent, KeyboardEvent, useState} from "react";
 import {TodoListItem} from "./TodoListItems/TodoListItem";
 import {TaskType} from "../redux/state";
 import {AddTask, ChangeStatus, FilterValueType, RemoveTask} from "../App";
-import {FILTER_ALL, FILTER_COMPLETED, FILTER_ACTIVE} from "../common/constants";
+import {FILTERS} from "../common/constants";
 
 type TodoListProps = {
   titleList: string,
@@ -32,12 +32,13 @@ const TodoList: React.FC<TodoListProps> = (
   const [error, setError] = useState<string>("");
   const tasksList = tasks.map((task: TaskType, index: number) => {
       return (
-        <TodoListItem title={task.title}
-                      removeTask={removeTask}
-                      isDone={task.isDone}
-                      id={task.id}
-                      changeStatus={changeStatus}
-                      key={index}
+        <TodoListItem
+          title={task.title}
+          removeTask={removeTask}
+          isDone={task.isDone}
+          id={task.id}
+          changeStatus={changeStatus}
+          key={index}
         />
       )
     }
@@ -61,18 +62,19 @@ const TodoList: React.FC<TodoListProps> = (
     setTitle(e.currentTarget.value)
   }
 
-  const onAllFilterHandler = () => changeFilter(FILTER_ALL);
-  const onActiveFilterHandler = () => changeFilter(FILTER_ACTIVE);
-  const onCompletedFilterHandler = () => changeFilter(FILTER_COMPLETED);
+  const onAllFilterHandler = () => changeFilter(FILTERS.ALL);
+  const onActiveFilterHandler = () => changeFilter(FILTERS.ACTIVE);
+  const onCompletedFilterHandler = () => changeFilter(FILTERS.COMPLETED);
 
   return (
     <div className="tasks-list">
       <h3 className="tasks-list__title">{titleList}</h3>
       <div className="tasks-list__field">
-        <input value={title}
-               className={error ? "error" : ""}
-               onKeyPress={onKeyPressHandler}
-               onChange={onChangeHandler}
+        <input
+          value={title}
+          className={error ? "error" : ""}
+          onKeyPress={onKeyPressHandler}
+          onChange={onChangeHandler}
         />
         <button onClick={addTaskHandler}>+</button>
         {error && <div className="error-message">{error}</div>}
@@ -83,13 +85,13 @@ const TodoList: React.FC<TodoListProps> = (
       </ul>
 
       <div className="tasks-list__buttons">
-        <button className={filter === FILTER_ALL ? "active-class" : ""}
+        <button className={filter === FILTERS.ALL ? "active-class" : ""}
                 onClick={onAllFilterHandler}>All
         </button>
-        <button className={filter === FILTER_ACTIVE ? "active-class" : ""}
+        <button className={filter === FILTERS.ACTIVE ? "active-class" : ""}
                 onClick={onActiveFilterHandler}>Active
         </button>
-        <button className={filter === FILTER_COMPLETED ? "active-class" : ""}
+        <button className={filter === FILTERS.COMPLETED ? "active-class" : ""}
                 onClick={onCompletedFilterHandler}>Completed
         </button>
       </div>
