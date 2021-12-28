@@ -1,6 +1,8 @@
-const FILTER_ALL: string = "all";
-const FILTER_COMPLETED: string = "completed";
-const FILTER_ACTIVE: string = "active";
+export type Filters = {
+  ALL: string,
+  COMPLETED: string,
+  ACTIVE: string,
+}
 
 export const FILTERS: Filters = {
   ALL: 'all',
