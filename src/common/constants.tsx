@@ -9,3 +9,5 @@ export const FILTERS: Filters = {
   COMPLETED: 'completed',
   ACTIVE: 'active',
 }
+
+export const SET_ERROR_NAME = 'Field is required';
