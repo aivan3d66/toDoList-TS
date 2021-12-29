@@ -64,9 +64,9 @@ const TodoList: React.FC<TodoListProps> = (
     setTitle(e.currentTarget.value)
   }
 
-  // const getActiveBtnClassName = (filter: FilterValueType) => {
-  //   return filter === filter ? s.activeClass : "";
-  // }
+  const getActiveBtnClassName = (filterValue: FilterValueType) => {
+    return filter === filterValue ? s.activeClass : "";
+  }
 
   const onAllFilterHandler = () => changeFilter(FILTERS.ALL);
   const onActiveFilterHandler = () => changeFilter(FILTERS.ACTIVE);
@@ -97,19 +97,19 @@ const TodoList: React.FC<TodoListProps> = (
 
       <div className="tasks-list__buttons">
         <SuperButton
-          className={filter === FILTERS.ALL ? s.activeClass : ""}
+          className={getActiveBtnClassName(FILTERS.ALL)}
           onClick={onAllFilterHandler}
         >
           All
         </SuperButton>
         <SuperButton
-          className={filter === FILTERS.ACTIVE ? s.activeClass : ""}
+          className={getActiveBtnClassName(FILTERS.ACTIVE)}
           onClick={onActiveFilterHandler}
         >
           Active
         </SuperButton>
         <SuperButton
-          className={filter === FILTERS.COMPLETED ? s.activeClass : ""}
+          className={getActiveBtnClassName(FILTERS.COMPLETED)}
           onClick={onCompletedFilterHandler}
         >
           Completed
