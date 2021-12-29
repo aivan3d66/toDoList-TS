@@ -64,6 +64,10 @@ const TodoList: React.FC<TodoListProps> = (
     setTitle(e.currentTarget.value)
   }
 
+  // const getActiveBtnClassName = (filter: FilterValueType) => {
+  //   return filter === filter ? s.activeClass : "";
+  // }
+
   const onAllFilterHandler = () => changeFilter(FILTERS.ALL);
   const onActiveFilterHandler = () => changeFilter(FILTERS.ACTIVE);
   const onCompletedFilterHandler = () => changeFilter(FILTERS.COMPLETED);
