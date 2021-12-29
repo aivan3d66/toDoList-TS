@@ -30,11 +30,7 @@ const App = () => {
   };
 
   const changeStatus: ChangeStatus = (taskId, isDone) => {
-    let task = tasks.find(t => t.id === taskId);
-    if (task) {
-      task.isDone = isDone;
-    }
-    setTasks([...tasks]);
+    setTasks(tasks.map(t => t.id === taskId ? {...t, isDone} : t));
   };
 
   const getTasksForTodoList = () => {
