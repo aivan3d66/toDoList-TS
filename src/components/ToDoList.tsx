@@ -60,8 +60,9 @@ const TodoList: React.FC<TodoListProps> = (
       addTaskHandler();
     }
   }
-  const onChangeHandler: OnChangeHandler = (e) => {
-    setTitle(e.currentTarget.value)
+  const onChangeTitleHandler: OnChangeHandler = (e) => {
+    setTitle(e.currentTarget.value);
+    setError("");
   }
 
   const getActiveBtnClassName = (filterValue: FilterValueType) => {
@@ -80,7 +81,7 @@ const TodoList: React.FC<TodoListProps> = (
           value={title}
           className={error ? "error" : ""}
           onKeyPress={onKeyPressHandler}
-          onChange={onChangeHandler}
+          onChange={onChangeTitleHandler}
         />
         <SuperButton
           red={!!error}
