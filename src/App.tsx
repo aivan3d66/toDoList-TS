@@ -21,8 +21,7 @@ const App = () => {
   };
 
   const removeTask: RemoveTask = (id) => {
-    let filteredTasks: Array<TaskType> = tasks.filter((t) => t.id !== id);
-    setTasks(filteredTasks)
+    setTasks(tasks.filter((t) => t.id !== id))
   };
 
   const addTask: AddTask = (title) => {
