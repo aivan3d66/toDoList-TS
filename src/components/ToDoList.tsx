@@ -49,10 +49,10 @@ const TodoList: React.FC<TodoListProps> = (
   const addTaskHandler: AddTaskHandler = () => {
     if (title.trim() !== "") {
       addTask(title);
-      setTitle("")
-      setError("")
+      setTitle("");
+      setError("");
     } else {
-      setError(SET_ERROR_NAME)
+      setError(SET_ERROR_NAME);
     }
   }
   const onKeyPressHandler: OnKeyPressHandler = (e) => {
