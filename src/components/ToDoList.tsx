@@ -73,13 +73,15 @@ const TodoList: React.FC<TodoListProps> = (
   const onActiveFilterHandler = () => changeFilter(FILTERS.ACTIVE);
   const onCompletedFilterHandler = () => changeFilter(FILTERS.COMPLETED);
 
+  const getErrorClassName = error ? "error" : "";
+
   return (
     <div className="tasks-list">
       <h3 className="tasks-list__title">{titleList}</h3>
       <div className="tasks-list__field">
         <input
           value={title}
-          className={error ? "error" : ""}
+          className={getErrorClassName}
           onKeyPress={onKeyPressHandler}
           onChange={onChangeTitleHandler}
         />
