@@ -22,9 +22,10 @@ export const TodoListItem: React.FC<TodoListItemProps> = (
   }
 ) => {
   const onClickHandler: OnClickHandler = () => removeTask(id);
+  const getIsDoneClassName = isDone ? "is-done" : "";
 
   return (
-    <li className={isDone ? "is-done" : ""}>
+    <li className={getIsDoneClassName}>
       <SuperCheckbox
         checked={isDone}
         changeStatus={changeStatus}
