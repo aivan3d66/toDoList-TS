@@ -13,9 +13,8 @@ export type ChangeStatus = (taskId: string, isDone: boolean, todoListId: string)
 export type RemoveTodoList = (id: string) => void;
 
 const App = () => {
-  let initTasks: Array<TaskType> = state.tasks;
-  let [tasks, setTasks] = useState<Array<TaskType>>(initTasks);
-  let [filter, setFilter] = useState<FilterValueType>(FILTERS.ALL);
+  const [tasks, setTasks] = useState<TodoListTasksType>(initialStateTasks);
+  const [todoLists, setTodoLists] = useState<Array<TodoListsType>>(todoList);
 
   const changeFilter: ChangeFilter = (value) => {
     setFilter(value);
