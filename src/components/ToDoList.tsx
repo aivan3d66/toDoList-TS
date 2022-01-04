@@ -72,11 +72,12 @@ const TodoList: React.FC<TodoListProps> = (
   };
   const getActiveBtnClassName = (filterValue: FilterValueType) => {
     return filter === filterValue ? s.activeClass : "";
-  }
+  };
+  const onRemoveListHandler: OnRemoveListHandler = () => removeTodoList(id);
 
-  const onAllFilterHandler = () => changeFilter(FILTERS.ALL);
-  const onActiveFilterHandler = () => changeFilter(FILTERS.ACTIVE);
-  const onCompletedFilterHandler = () => changeFilter(FILTERS.COMPLETED);
+  const onAllFilterHandler = () => changeFilter(FILTERS.ALL, id);
+  const onActiveFilterHandler = () => changeFilter(FILTERS.ACTIVE, id);
+  const onCompletedFilterHandler = () => changeFilter(FILTERS.COMPLETED, id);
 
   const getErrorClassName = error ? "error" : "";
 
