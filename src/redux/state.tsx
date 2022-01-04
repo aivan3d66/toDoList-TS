@@ -16,10 +16,21 @@ export type TodoListTasksType = {
   [key: string]: Array<TaskType>,
 }
 
-export type StateType = {
-  todoListTitle: string,
-  tasks: Array<TaskType>,
-}
+export const todoListId1 = v1();
+export const todoListId2 = v1();
+
+export const todoList: Array<TodoListsType> = [
+  {
+    id: todoListId1,
+    title: "What to learn",
+    filter: FILTERS.ALL,
+  },
+  {
+    id: todoListId2,
+    title: "What to buy",
+    filter: FILTERS.ALL,
+  },
+]
 
 const state: StateType = {
   todoListTitle: "What to do",
