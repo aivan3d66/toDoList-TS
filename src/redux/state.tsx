@@ -1,6 +1,6 @@
 import {v1} from "uuid";
-
-// BLL
+import {FILTERS} from "../common/constants";
+import {FilterValueType} from "../App";
 
 export type TaskType = {
   title: string
