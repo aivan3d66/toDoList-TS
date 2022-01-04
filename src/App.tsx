@@ -16,8 +16,17 @@ const App = () => {
   const [tasks, setTasks] = useState<TodoListTasksType>(initialStateTasks);
   const [todoLists, setTodoLists] = useState<Array<TodoListsType>>(todoList);
 
-  const changeFilter: ChangeFilter = (value) => {
-    setFilter(value);
+  const removeTodoList: RemoveTodoList = (id) => {
+    setTodoLists(todoLists.filter(t => t.id !== id));
+    delete tasks[id];
+    setTasks({...tasks});
+  }
+  const changeFilter: ChangeFilter = (value, todoListId) => {
+    let todoList = todoLists.find(t => t.id === todoListId);
+    if (todoList) {
+      todoList.filter = value;
+      setTodoLists([...todoLists]);
+    }
   };
 
   const removeTask: RemoveTask = (id) => {
