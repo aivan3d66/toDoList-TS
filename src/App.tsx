@@ -28,17 +28,24 @@ const App = () => {
       setTodoLists([...todoLists]);
     }
   };
-
-  const removeTask: RemoveTask = (id) => {
-    setTasks(tasks.filter((t) => t.id !== id))
+  const addTask: AddTask = (title, todoListId) => {
+    let task = {id: v1(), title: title, isDone: false};
+    let newTasks = tasks[todoListId];
+    tasks[todoListId] = [task, ...newTasks];
+    setTasks({...tasks});
   };
-
-  const addTask: AddTask = (title) => {
-    setTasks([...tasks, {id: v1(), title: title, isDone: false}]);
+  const removeTask: RemoveTask = (id, todoListId) => {
+    let todolistTasks = tasks[todoListId];
+    tasks[todoListId] = todolistTasks.filter((t: TaskType) => t.id !== id)
+    setTasks({...tasks});
   };
-
-  const changeStatus: ChangeStatus = (taskId, isDone) => {
-    setTasks(tasks.map(t => t.id === taskId ? {...t, isDone} : t));
+  const changeStatus: ChangeStatus = (taskId, isDone, todoListId) => {
+    let todoListTasks = tasks[todoListId];
+    let task = todoListTasks.find((t: TaskType) => t.id === taskId);
+    if (task) {
+      task.isDone = isDone;
+      setTasks({...tasks});
+    }
   };
 
   const getTasksForTodoList = () => {
