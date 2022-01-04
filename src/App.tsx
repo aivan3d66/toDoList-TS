@@ -48,19 +48,6 @@ const App = () => {
     }
   };
 
-  const getTasksForTodoList = () => {
-    switch (filter) {
-      case FILTERS.COMPLETED:
-        return tasks.filter(t => t.isDone);
-
-      case FILTERS.ACTIVE:
-        return tasks.filter(t => !t.isDone);
-
-      default:
-        return tasks;
-    }
-  }
-
   return (
     <div className="App">
       <TodoList
