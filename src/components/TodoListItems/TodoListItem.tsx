@@ -6,11 +6,12 @@ import SuperButton from "../../common/super-components/SuperButton/SuperButton";
 type TodoListItemProps = {
   title: string
   isDone: boolean
-  id: string
-  removeTask: (id: string) => void,
+  listItemId: string,
+  listId: string,
+  removeTask: RemoveTask,
   changeStatus: ChangeStatus,
-}
-type OnClickHandler = () => void
+};
+type OnClickHandler = () => void;
 
 export const TodoListItem: React.FC<TodoListItemProps> = (
   {
