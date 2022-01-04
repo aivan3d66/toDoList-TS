@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import './App.css';
 import TodoList from "./components/ToDoList";
-import state, {TaskType} from "./redux/state";
+import {initialStateTasks, TaskType, todoList, TodoListsType, TodoListTasksType} from "./redux/state";
 import {v1} from 'uuid';
 import {FILTERS} from "./common/constants";
 
