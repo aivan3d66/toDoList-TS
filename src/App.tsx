@@ -6,10 +6,11 @@ import {v1} from 'uuid';
 import {FILTERS} from "./common/constants";
 
 export type FilterValueType = typeof FILTERS.ALL | typeof FILTERS.COMPLETED | typeof FILTERS.ACTIVE;
-export type RemoveTask = (id: string) => void;
-export type ChangeFilter = (value: FilterValueType) => void;
-export type AddTask = (title: string) => void;
-export type ChangeStatus = (taskId: string, isDone: boolean) => void;
+export type RemoveTask = (id: string, todoListId: string) => void;
+export type ChangeFilter = (value: FilterValueType, todoListId: string) => void;
+export type AddTask = (title: string, todoListId: string) => void;
+export type ChangeStatus = (taskId: string, isDone: boolean, todoListId: string) => void;
+export type RemoveTodoList = (id: string) => void;
 
 const App = () => {
   let initTasks: Array<TaskType> = state.tasks;
