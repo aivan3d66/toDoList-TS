@@ -84,6 +84,12 @@ const TodoList: React.FC<TodoListProps> = (
   return (
     <div className="tasks-list">
       <h3 className="tasks-list__title">{titleList}</h3>
+      <SuperButton
+        onClick={onRemoveListHandler}
+        red
+      >
+        X
+      </SuperButton>
       <div className="tasks-list__field">
         <input
           value={title}
