@@ -20,15 +20,18 @@ type TodoListProps = {
 type OnKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => void;
 type OnChangeHandler = (e: ChangeEvent<HTMLInputElement>) => void;
 type AddTaskHandler = () => void;
+type OnRemoveListHandler = () => void;
 
 const TodoList: React.FC<TodoListProps> = (
   {
+    id,
     titleList,
     tasks,
     removeTask,
     changeFilter,
     addTask,
     changeStatus,
+    removeTodoList,
     filter
   }
 ) => {
@@ -40,7 +43,8 @@ const TodoList: React.FC<TodoListProps> = (
           title={task.title}
           removeTask={removeTask}
           isDone={task.isDone}
-          id={task.id}
+          listItemId={task.id}
+          listId={id}
           changeStatus={changeStatus}
           key={index}
         />
@@ -50,23 +54,22 @@ const TodoList: React.FC<TodoListProps> = (
 
   const addTaskHandler: AddTaskHandler = () => {
     if (title.trim() !== "") {
-      addTask(title);
+      addTask(title, id);
       setTitle("");
       setError("");
     } else {
       setError(SET_ERROR_NAME);
     }
-  }
+  };
   const onKeyPressHandler: OnKeyPressHandler = (e) => {
     if (e.charCode === 13) {
       addTaskHandler();
     }
-  }
+  };
   const onChangeTitleHandler: OnChangeHandler = (e) => {
     setTitle(e.currentTarget.value);
     setError("");
-  }
-
+  };
   const getActiveBtnClassName = (filterValue: FilterValueType) => {
     return filter === filterValue ? s.activeClass : "";
   }
