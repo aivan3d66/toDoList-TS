@@ -1,5 +1,5 @@
 import React from "react";
-import {ChangeStatus} from "../../App";
+import {ChangeStatus, RemoveTask} from "../../App";
 import SuperCheckbox from "../../common/super-components/SuperCheckboxComponent/SuperCheckbox";
 import SuperButton from "../../common/super-components/SuperButton/SuperButton";
 
