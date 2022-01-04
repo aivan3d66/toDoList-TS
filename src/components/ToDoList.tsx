@@ -7,13 +7,15 @@ import SuperButton from "../common/super-components/SuperButton/SuperButton";
 import s from './../common/super-components/SuperButton/SuperButton.module.css';
 
 type TodoListProps = {
+  id: string,
   titleList: string,
   tasks: Array<TaskType>,
   removeTask: RemoveTask,
-  changeFilter: (value: FilterValueType) => void,
+  changeFilter: ChangeFilter,
   addTask: AddTask,
   changeStatus: ChangeStatus,
   filter: FilterValueType,
+  removeTodoList: RemoveTodoList,
 };
 type OnKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => void;
 type OnChangeHandler = (e: ChangeEvent<HTMLInputElement>) => void;
