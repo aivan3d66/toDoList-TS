@@ -17,12 +17,14 @@ export const TodoListItem: React.FC<TodoListItemProps> = (
   {
     title,
     isDone,
-    id,
+    listItemId,
+    listId,
     removeTask,
     changeStatus
   }
 ) => {
-  const onClickHandler: OnClickHandler = () => removeTask(id);
+
+  const onClickHandler: OnClickHandler = () => removeTask(listItemId, listId);
   const getIsDoneClassName = isDone ? "is-done" : "";
 
   return (
@@ -30,7 +32,8 @@ export const TodoListItem: React.FC<TodoListItemProps> = (
       <SuperCheckbox
         checked={isDone}
         changeStatus={changeStatus}
-        id={id}
+        id={listItemId}
+        listId={listId}
       />
       <span>{title}</span>
       <SuperButton onClick={onClickHandler}>
