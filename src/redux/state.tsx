@@ -32,15 +32,19 @@ export const todoList: Array<TodoListsType> = [
   },
 ]
 
-const state: StateType = {
-  todoListTitle: "What to do",
-  tasks: [
+
+
+export const initialStateTasks: TodoListTasksType = {
+  [todoListId1]: [
     {id: v1(), title: "HTML", isDone: true},
     {id: v1(), title: "CSS", isDone: true},
     {id: v1(), title: "JavaScript", isDone: false},
     {id: v1(), title: "TypeScript", isDone: false},
     {id: v1(), title: "React", isDone: false},
   ],
+  [todoListId2]: [
+    {id: v1(), title: "Coffee", isDone: true},
+    {id: v1(), title: "New brains", isDone: false},
+    {id: v1(), title: "React book", isDone: false},
+  ]
 }
-
-export default state;
