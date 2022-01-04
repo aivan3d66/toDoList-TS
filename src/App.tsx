@@ -50,15 +50,34 @@ const App = () => {
 
   return (
     <div className="App">
-      <TodoList
-        titleList={state.todoListTitle}
-        tasks={getTasksForTodoList()}
-        removeTask={removeTask}
-        addTask={addTask}
-        changeFilter={changeFilter}
-        changeStatus={changeStatus}
-        filter={filter}
-      />
+      {
+        todoLists.map(t => {
+          let allTodoListTasks = tasks[t.id];
+          let taskForTodoList = allTodoListTasks;
+
+          if (t.filter === FILTERS.ACTIVE) {
+            taskForTodoList = allTodoListTasks.filter((t: TaskType) => !t.isDone)
+          }
+          if (t.filter === FILTERS.COMPLETED) {
+            taskForTodoList = allTodoListTasks.filter((t: TaskType) => t.isDone)
+          }
+
+          return (
+            <TodoList
+              key={t.id}
+              id={t.id}
+              titleList={t.title}
+              filter={t.filter}
+              tasks={taskForTodoList}
+              removeTask={removeTask}
+              addTask={addTask}
+              changeFilter={changeFilter}
+              changeStatus={changeStatus}
+              removeTodoList={removeTodoList}
+            />
+          )
+        })
+      }
     </div>
   );
 }
