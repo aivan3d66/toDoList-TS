@@ -40,6 +40,8 @@
 
 .tasks-list {
   width: 240px;
+  padding: 20px;
+  border: 1px solid #bababa;
 }
 
 .tasks-list__header {
@@ -50,6 +52,7 @@
 
 .tasks-list__field {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   margin: 0 0 20px 0;
 }
