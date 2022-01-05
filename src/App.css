@@ -41,6 +41,11 @@
   border: 1px solid #bababa;
 }
 
+.tasks-list:hover {
+  transition: 0.3s;
+  box-shadow: 0 2px 5px 1px #b2b2b2;
+}
+
 .tasks-list__header {
   display: flex;
   align-items: center;
@@ -48,6 +53,7 @@
 }
 
 .tasks-list__field {
+  position: relative;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
