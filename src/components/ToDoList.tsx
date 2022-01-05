@@ -5,8 +5,11 @@ import {AddTask, ChangeFilter, ChangeStatus, FilterValueType, RemoveTask, Remove
 import {FILTERS, SET_ERROR_NAME} from "../common/constants";
 import SuperButton from "../common/super-components/SuperButton/SuperButton";
 import s from './../common/super-components/SuperButton/SuperButton.module.css';
+import SuperInputText from "../common/super-components/SuperInputText/SuperInputText";
+import '../App.css';
 
-type TodoListProps = {
+
+export type TodoListProps = {
   todoListID: string,
   titleList: string,
   tasks: Array<TaskType>,
@@ -17,10 +20,10 @@ type TodoListProps = {
   filter: FilterValueType,
   removeTodoList: RemoveTodoList,
 };
-type OnKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => void;
-type OnChangeHandler = (e: ChangeEvent<HTMLInputElement>) => void;
-type AddTaskHandler = () => void;
-type OnRemoveListHandler = () => void;
+export type OnKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => void;
+export type OnChangeHandler = (e: ChangeEvent<HTMLInputElement>) => void;
+export type AddTaskHandler = () => void;
+export type OnRemoveListHandler = () => void;
 
 const TodoList: React.FC<TodoListProps> = (
   {
@@ -79,8 +82,6 @@ const TodoList: React.FC<TodoListProps> = (
   const onActiveFilterHandler = () => changeFilter(todoListID, FILTERS.ACTIVE);
   const onCompletedFilterHandler = () => changeFilter(todoListID, FILTERS.COMPLETED);
 
-  const getErrorClassName = error ? "error" : "";
-
   return (
     <div className="tasks-list">
       <div className="tasks-list__header">
@@ -93,9 +94,9 @@ const TodoList: React.FC<TodoListProps> = (
         </SuperButton>
       </div>
       <div className="tasks-list__field">
-        <input
+        <SuperInputText
           value={title}
-          className={getErrorClassName}
+          error={error}
           onKeyPress={onKeyPressHandler}
           onChange={onChangeTitleHandler}
         />
