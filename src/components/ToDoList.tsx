@@ -7,7 +7,7 @@ import SuperButton from "../common/super-components/SuperButton/SuperButton";
 import s from './../common/super-components/SuperButton/SuperButton.module.css';
 
 type TodoListProps = {
-  id: string,
+  todoListID: string,
   titleList: string,
   tasks: Array<TaskType>,
   removeTask: RemoveTask,
@@ -24,7 +24,7 @@ type OnRemoveListHandler = () => void;
 
 const TodoList: React.FC<TodoListProps> = (
   {
-    id,
+    todoListID,
     titleList,
     tasks,
     removeTask,
@@ -44,7 +44,7 @@ const TodoList: React.FC<TodoListProps> = (
           removeTask={removeTask}
           isDone={task.isDone}
           listItemId={task.id}
-          listId={id}
+          todoListID={todoListID}
           changeStatus={changeStatus}
           key={index}
         />
@@ -54,7 +54,7 @@ const TodoList: React.FC<TodoListProps> = (
 
   const addTaskHandler: AddTaskHandler = () => {
     if (title.trim() !== "") {
-      addTask(title, id);
+      addTask(todoListID, title);
       setTitle("");
       setError("");
     } else {
@@ -73,11 +73,11 @@ const TodoList: React.FC<TodoListProps> = (
   const getActiveBtnClassName = (filterValue: FilterValueType) => {
     return filter === filterValue ? s.activeClass : "";
   };
-  const onRemoveListHandler: OnRemoveListHandler = () => removeTodoList(id);
+  const onRemoveListHandler: OnRemoveListHandler = () => removeTodoList(todoListID);
 
-  const onAllFilterHandler = () => changeFilter(FILTERS.ALL, id);
-  const onActiveFilterHandler = () => changeFilter(FILTERS.ACTIVE, id);
-  const onCompletedFilterHandler = () => changeFilter(FILTERS.COMPLETED, id);
+  const onAllFilterHandler = () => changeFilter(todoListID, FILTERS.ALL);
+  const onActiveFilterHandler = () => changeFilter(todoListID, FILTERS.ACTIVE);
+  const onCompletedFilterHandler = () => changeFilter(todoListID, FILTERS.COMPLETED);
 
   const getErrorClassName = error ? "error" : "";
 
