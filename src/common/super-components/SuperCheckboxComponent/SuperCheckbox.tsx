@@ -8,7 +8,7 @@ type SuperCheckboxPropsType = DefaultInputPropsType & {
   spanClassName?: string,
   changeStatus: ChangeStatus,
   id: string,
-  listId: string,
+  todoListID: string,
 }
 
 const SuperCheckbox: React.FC<SuperCheckboxPropsType> = (
@@ -21,13 +21,13 @@ const SuperCheckbox: React.FC<SuperCheckboxPropsType> = (
     children,
     changeStatus,
     id,
-    listId,
+    todoListID,
     ...restProps
   }
 ) => {
   const onChangeCallback = (e: ChangeEvent<HTMLInputElement>) => {
     onChangeChecked && onChangeChecked(e.currentTarget.checked)
-    changeStatus(id, e.currentTarget.checked, listId)
+    changeStatus(todoListID, id, e.currentTarget.checked)
     onChange && onChange(e)
   }
 
@@ -39,7 +39,6 @@ const SuperCheckbox: React.FC<SuperCheckboxPropsType> = (
         type={'checkbox'}
         onChange={onChangeCallback}
         className={finalInputClassName}
-
         {...restProps}
       />
       {children && <span className={s.spanClassName}>{children}</span>}
