@@ -106,7 +106,6 @@ const TodoList: React.FC<TodoListProps> = (
         >
           +
         </SuperButton>
-        {error && <div className="error-message">{error}</div>}
       </div>
 
       <ul className="tasks-list__items">
