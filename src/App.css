@@ -6,9 +6,6 @@
 .App ul {
   display: flex;
   flex-direction: column;
-
-  margin: 0;
-  padding: 0;
   list-style: none;
 }
 
@@ -60,9 +57,24 @@
 .tasks-list__buttons {
   display: flex;
   justify-content: space-between;
+
   margin: 20px 0 20px 0;
 }
 
 .tasks-list__buttons button {
-  min-width: 50px;
+  min-width: 40px;
+}
+
+.tasks-list__items {
+  padding: 0;
+  margin: 0;
+}
+
+.tasks-list__items li {
+  display: flex;
+  justify-content: space-between;
+
+  margin: 0;
+  padding: 5px 0;
+  text-align: left;
 }
