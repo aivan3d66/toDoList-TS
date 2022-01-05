@@ -32,8 +32,6 @@ export const todoList: Array<TodoListsType> = [
   },
 ]
 
-
-
 export const initialStateTasks: TodoListTasksType = {
   [todoListId1]: [
     {id: v1(), title: "HTML", isDone: true},
