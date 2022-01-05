@@ -37,3 +37,29 @@
 .is-done {
   opacity: 0.5;
 }
+
+.tasks-list {
+  width: 240px;
+}
+
+.tasks-list__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.tasks-list__field {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 0 20px 0;
+}
+
+.tasks-list__buttons {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 0 20px 0;
+}
+
+.tasks-list__buttons button {
+  min-width: 50px;
+}
