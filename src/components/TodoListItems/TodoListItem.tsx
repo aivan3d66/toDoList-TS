@@ -7,7 +7,7 @@ type TodoListItemProps = {
   title: string
   isDone: boolean
   listItemId: string,
-  listId: string,
+  todoListID: string,
   removeTask: RemoveTask,
   changeStatus: ChangeStatus,
 };
@@ -18,13 +18,13 @@ export const TodoListItem: React.FC<TodoListItemProps> = (
     title,
     isDone,
     listItemId,
-    listId,
+    todoListID,
     removeTask,
     changeStatus
   }
 ) => {
 
-  const onClickHandler: OnClickHandler = () => removeTask(listItemId, listId);
+  const onClickHandler: OnClickHandler = () => removeTask(todoListID, listItemId);
   const getIsDoneClassName = isDone ? "is-done" : "";
 
   return (
@@ -33,7 +33,7 @@ export const TodoListItem: React.FC<TodoListItemProps> = (
         checked={isDone}
         changeStatus={changeStatus}
         id={listItemId}
-        listId={listId}
+        todoListID={todoListID}
       />
       <span>{title}</span>
       <SuperButton onClick={onClickHandler}>
