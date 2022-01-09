@@ -4,6 +4,7 @@ import TodoList from "./components/ToDoList";
 import {initialStateTasks, TaskType, todoList, TodoListsType, TodoListTasksType} from "./redux/state";
 import {FILTERS} from "./common/constants";
 import {v1} from 'uuid';
+import {AddItemForm} from "./components/AddItemForm";
 
 export type FilterValueType = typeof FILTERS.ALL | typeof FILTERS.COMPLETED | typeof FILTERS.ACTIVE;
 export type RemoveTask = (todoListId: string, id: string) => void;
@@ -35,8 +36,25 @@ const App = () => {
     setTasks({...tasks, [todoListId]: tasks[todoListId].map(t => t.id === taskId ? {...t, isDone} : t)})
   };
 
+  const addTodoList = (title: string) => {
+    let todoList: TodoListsType = {
+      id: v1(),
+      filter: FILTERS.ALL,
+      title: title
+    }
+    setTodoLists([todoList, ...todoLists]);
+    setTasks({
+      ...tasks,
+      [todoList.id]: []
+    })
+  }
+
   return (
     <div className="App">
+      <AddItemForm
+        addTask={addTodoList}
+      />
+
       {
         todoLists.map(t => {
           let taskForTodoList = tasks[t.id];
