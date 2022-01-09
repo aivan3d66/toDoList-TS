@@ -56,6 +56,9 @@ const TodoList: React.FC<TodoListProps> = (
     return filter === filterValue ? s.activeClass : "";
   };
   const onRemoveListHandler: OnRemoveListHandler = () => removeTodoList(todoListID);
+  const addTaskHandler = (title: string) => {
+    addTask(todoListID, title)
+  }
 
   const onAllFilterHandler = () => changeFilter(todoListID, FILTERS.ALL);
   const onActiveFilterHandler = () => changeFilter(todoListID, FILTERS.ACTIVE);
@@ -73,9 +76,7 @@ const TodoList: React.FC<TodoListProps> = (
         </SuperButton>
       </div>
       <AddItemForm
-        todoListID={todoListID}
-        addTask={addTask}
-        id={todoListID}
+        addTask={addTaskHandler}
       />
 
       <ul className="tasks-list__items">
