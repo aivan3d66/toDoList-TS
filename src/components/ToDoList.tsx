@@ -5,9 +5,8 @@ import {AddTask, ChangeFilter, ChangeStatus, FilterValueType, RemoveTask, Remove
 import {FILTERS, SET_ERROR_NAME} from "../common/constants";
 import SuperButton from "../common/super-components/SuperButton/SuperButton";
 import s from './../common/super-components/SuperButton/SuperButton.module.css';
-import SuperInputText from "../common/super-components/SuperInputText/SuperInputText";
 import '../App.css';
-
+import {AddItemForm} from "./AddItemForm";
 
 export type TodoListProps = {
   todoListID: string,
@@ -38,8 +37,6 @@ const TodoList: React.FC<TodoListProps> = (
     filter
   }
 ) => {
-  const [title, setTitle] = useState<string>("");
-  const [error, setError] = useState<string>("");
   const tasksList = tasks.map((task: TaskType, index: number) => {
       return (
         <TodoListItem
@@ -55,24 +52,6 @@ const TodoList: React.FC<TodoListProps> = (
     }
   );
 
-  const addTaskHandler: AddTaskHandler = () => {
-    if (title.trim() !== "") {
-      addTask(todoListID, title);
-      setTitle("");
-      setError("");
-    } else {
-      setError(SET_ERROR_NAME);
-    }
-  };
-  const onKeyPressHandler: OnKeyPressHandler = (e) => {
-    if (e.charCode === 13) {
-      addTaskHandler();
-    }
-  };
-  const onChangeTitleHandler: OnChangeHandler = (e) => {
-    setTitle(e.currentTarget.value);
-    setError("");
-  };
   const getActiveBtnClassName = (filterValue: FilterValueType) => {
     return filter === filterValue ? s.activeClass : "";
   };
@@ -93,25 +72,15 @@ const TodoList: React.FC<TodoListProps> = (
           X
         </SuperButton>
       </div>
-      <div className="tasks-list__field">
-        <SuperInputText
-          value={title}
-          error={error}
-          onKeyPress={onKeyPressHandler}
-          onChange={onChangeTitleHandler}
-        />
-        <SuperButton
-          red={!!error}
-          onClick={addTaskHandler}
-        >
-          +
-        </SuperButton>
-      </div>
+      <AddItemForm
+        todoListID={todoListID}
+        addTask={addTask}
+        id={todoListID}
+      />
 
       <ul className="tasks-list__items">
         {tasksList}
       </ul>
-
       <div className="tasks-list__buttons">
         <SuperButton
           className={getActiveBtnClassName(FILTERS.ALL)}
