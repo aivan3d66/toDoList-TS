@@ -1,8 +1,8 @@
-import React, {ChangeEvent, KeyboardEvent, useState} from "react";
+import React, {ChangeEvent, KeyboardEvent} from "react";
 import {TodoListItem} from "./TodoListItems/TodoListItem";
 import {TaskType} from "../redux/state";
 import {AddTask, ChangeFilter, ChangeStatus, FilterValueType, RemoveTask, RemoveTodoList} from "../App";
-import {FILTERS, SET_ERROR_NAME} from "../common/constants";
+import {FILTERS} from "../common/constants";
 import SuperButton from "../common/super-components/SuperButton/SuperButton";
 import s from './../common/super-components/SuperButton/SuperButton.module.css';
 import '../App.css';

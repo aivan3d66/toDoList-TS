@@ -4,8 +4,6 @@ import TodoList from "./components/ToDoList";
 import {initialStateTasks, TaskType, todoList, TodoListsType, TodoListTasksType} from "./redux/state";
 import {FILTERS} from "./common/constants";
 import {v1} from 'uuid';
-import SuperInputText from "./common/super-components/SuperInputText/SuperInputText";
-import SuperButton from "./common/super-components/SuperButton/SuperButton";
 
 export type FilterValueType = typeof FILTERS.ALL | typeof FILTERS.COMPLETED | typeof FILTERS.ACTIVE;
 export type RemoveTask = (todoListId: string, id: string) => void;
