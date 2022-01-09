@@ -5,16 +5,12 @@ import SuperButton from "../common/super-components/SuperButton/SuperButton";
 import {AddTaskHandler, OnChangeHandler, OnKeyPressHandler} from "./ToDoList";
 
 type AddItemFormPropsType = {
-  addTask: (todoListID: string, title: string) => void,
-  id: string,
-  todoListID: string,
+  addTask: (title: string) => void,
 }
 
 export const AddItemForm: React.FC<AddItemFormPropsType> = (
   {
     addTask,
-    id,
-    todoListID,
   }
 ) => {
   const [title, setTitle] = useState<string>("");
@@ -22,7 +18,7 @@ export const AddItemForm: React.FC<AddItemFormPropsType> = (
 
   const addTaskHandler: AddTaskHandler = () => {
     if (title.trim() !== "") {
-      addTask(todoListID, title);
+      addTask(title);
       setTitle("");
       setError("");
     } else {
@@ -40,7 +36,7 @@ export const AddItemForm: React.FC<AddItemFormPropsType> = (
   };
 
   return (
-    <div className="todoList-editor">
+    <div className="tasks-list__field">
       <SuperInputText
         value={title}
         error={error}
