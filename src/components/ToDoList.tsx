@@ -1,5 +1,4 @@
 import React, {ChangeEvent, KeyboardEvent} from "react";
-import {TodoListItem} from "./TodoListItems/TodoListItem";
 import {TaskType} from "../redux/state";
 import {
   AddTask,
@@ -16,6 +15,7 @@ import s from './../common/super-components/SuperButton/SuperButton.module.css';
 import '../App.css';
 import {AddItemForm} from "./AddItemForm";
 import {EditableSpan} from "./TodoListItems/EditableSpan/EditableSpan";
+import {TodoListItems} from "./TodoListItems/TodoListItems";
 
 export type TodoListProps = {
   todoListID: string,
@@ -67,22 +67,6 @@ const TodoList: React.FC<TodoListProps> = (
     return filter === filterValue ? s.activeClass : "";
   };
 
-  const tasksList = tasks.map((task: TaskType, index: number) => {
-      return (
-        <TodoListItem
-          title={task.title}
-          removeTask={removeTask}
-          isDone={task.isDone}
-          listItemId={task.id}
-          todoListID={todoListID}
-          changeStatus={changeStatus}
-          key={index}
-          changeTaskTitle={changeTaskTitle}
-        />
-      )
-    }
-  );
-
   return (
     <div className="tasks-list">
       <div className="tasks-list__header">
@@ -98,9 +82,14 @@ const TodoList: React.FC<TodoListProps> = (
         addTask={addTaskHandler}
       />
 
-      <ul className="tasks-list__items">
-        {tasksList}
-      </ul>
+      <TodoListItems
+        tasks={tasks}
+        changeStatus={changeStatus}
+        changeTaskTitle={changeTaskTitle}
+        removeTask={removeTask}
+        todoListID={todoListID}
+      />
+
       <div className="tasks-list__buttons">
         <SuperButton
           className={getActiveBtnClassName(FILTERS.ALL)}
