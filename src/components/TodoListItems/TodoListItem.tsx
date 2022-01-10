@@ -29,6 +29,10 @@ export const TodoListItem: React.FC<TodoListItemProps> = (
 
   const onClickHandler: OnClickHandler = () => removeTask(todoListID, listItemId);
   const getIsDoneClassName = isDone ? "is-done" : "";
+  const onChangeTitleHandler = (newValue: string) => {
+    changeTaskTitle(todoListID, listItemId, newValue)
+  }
+
 
   return (
     <li className={getIsDoneClassName}>
