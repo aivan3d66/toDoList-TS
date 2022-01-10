@@ -16,7 +16,8 @@
 
 .errorInput {
   position: relative;
-  padding: 6px;
+  min-width: 50px;
+  padding: 4px 0;
   margin: 0;
   border-radius: 5px;
   border: 1px solid red;
@@ -26,11 +27,9 @@
 .error {
   position: absolute;
   top: 2px;
-  right: 90px;
-  width: 100px;
+  right: 100px;
   padding: 2px;
   margin: 0;
-
   color: red;
   text-align: center;
   font-size: 14px;
