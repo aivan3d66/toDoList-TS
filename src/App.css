@@ -1,7 +1,15 @@
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
 .App {
-  padding: 30px;
   display: flex;
   flex-wrap: wrap;
+  max-width: 1220px;
+  min-width: 720px;
+  margin: 0 auto;
 }
 
 .App ul {
@@ -37,8 +45,13 @@
 }
 
 .tasks-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
   width: 240px;
-  padding: 20px;
+  min-height: 390px;
+  padding: 10px;
+  margin: 0 0 20px 0;
   border: 1px solid #bababa;
 }
 
@@ -50,15 +63,19 @@
 .tasks-list__header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
+  margin: 0 0 10px 0;
+  min-height: 30px;
+  font-weight: bold;
 }
 
 .tasks-list__field {
   position: relative;
   display: flex;
-  flex-wrap: wrap;
+
   justify-content: space-between;
-  margin: 0 0 10px 0;
+  margin: 0 0 6px 0;
+  height: 30px;
 }
 
 .tasks-list__buttons {
@@ -80,10 +97,10 @@
 .tasks-list__items li {
   display: flex;
   justify-content: space-between;
-
-  margin: 4px 0;
-  padding: 8px 4px;
+  margin: 0;
+  padding: 8px 0;
   text-align: left;
+  border-bottom: 1px solid #bababa;
 }
 
 .editableSpan {
