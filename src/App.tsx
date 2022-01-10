@@ -13,6 +13,7 @@ export type AddTask = (todoListId: string, title: string) => void;
 export type ChangeStatus = (todoListId: string, taskId: string, isDone: boolean) => void;
 export type RemoveTodoList = (todoListId: string) => void;
 export type ChangeTaskTitleType = (todoListId: string, taskId: string, newTitle: string) => void;
+export type ChangeTodoListTitleType = (todoListID: string, title: string) => void;
 
 const App = () => {
   const [tasks, setTasks] = useState<TodoListTasksType>(initialStateTasks);
@@ -81,6 +82,7 @@ const App = () => {
               changeStatus={changeStatus}
               removeTodoList={removeTodoList}
               changeTaskTitle={changeTaskTitle}
+              changeTodoListTitle={changeTodoListTitle}
             />
           )
         })
