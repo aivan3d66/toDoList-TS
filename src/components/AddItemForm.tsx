@@ -6,7 +6,7 @@ import {AddTaskHandler, OnChangeHandler, OnKeyPressHandler} from "./ToDoList";
 
 type AddItemFormPropsType = {
   addTask: (title: string) => void,
-}
+};
 
 export const AddItemForm: React.FC<AddItemFormPropsType> = (
   {
@@ -26,7 +26,7 @@ export const AddItemForm: React.FC<AddItemFormPropsType> = (
     }
   };
   const onKeyPressHandler: OnKeyPressHandler = (e) => {
-    if (e.charCode === 13) {
+    if (e.key === "Enter") {
       addTaskHandler();
     }
   };
