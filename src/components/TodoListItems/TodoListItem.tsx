@@ -1,4 +1,4 @@
-import React, {FC} from "react";
+import React from "react";
 import {ChangeStatus, ChangeTaskTitleType, RemoveTask} from "../../App";
 import SuperCheckbox from "../../common/super-components/SuperCheckboxComponent/SuperCheckbox";
 import SuperButton from "../../common/super-components/SuperButton/SuperButton";
@@ -32,7 +32,6 @@ export const TodoListItem: React.FC<TodoListItemProps> = (
   const onChangeTitleHandler = (newValue: string) => {
     changeTaskTitle(todoListID, listItemId, newValue)
   }
-
 
   return (
     <li className={getIsDoneClassName}>
