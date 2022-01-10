@@ -38,31 +38,34 @@ export type OnRemoveListHandler = () => void;
 const TodoList: React.FC<TodoListProps> = (
   {
     todoListID,
+    changeTodoListTitle,
     removeTodoList,
     titleList,
+    changeTaskTitle,
+    filter,
+    changeFilter,
     tasks,
     addTask,
     removeTask,
-    filter,
-    changeFilter,
     changeStatus,
-    changeTaskTitle,
-    changeTodoListTitle
   }
 ) => {
-  const getActiveBtnClassName = (filterValue: FilterValueType) => {
-    return filter === filterValue ? s.activeClass : "";
-  };
+
   const onRemoveListHandler: OnRemoveListHandler = () => removeTodoList(todoListID);
   const onChangeTodoListTitle = (title: string) => {
     changeTodoListTitle(todoListID, title)
-  }
+  };
   const addTaskHandler = (title: string) => {
     addTask(todoListID, title)
   };
+
   const onAllFilterHandler = () => changeFilter(todoListID, FILTERS.ALL);
   const onActiveFilterHandler = () => changeFilter(todoListID, FILTERS.ACTIVE);
   const onCompletedFilterHandler = () => changeFilter(todoListID, FILTERS.COMPLETED);
+
+  const getActiveBtnClassName = (filterValue: FilterValueType) => {
+    return filter === filterValue ? s.activeClass : "";
+  };
 
   const tasksList = tasks.map((task: TaskType, index: number) => {
       return (
