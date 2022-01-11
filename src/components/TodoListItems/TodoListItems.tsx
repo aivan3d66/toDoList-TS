@@ -8,7 +8,7 @@ import {ChangeStatus, ChangeTaskTitleType, RemoveTask} from "../../App";
 type OnClickHandler = () => void;
 type TodoListItemsPropsType = {
   tasks: Array<TaskType>,
-  changeStatus: ChangeStatus,
+  changeTaskStatus: ChangeStatus,
   changeTaskTitle: ChangeTaskTitleType,
   removeTask: RemoveTask,
   todoListID: string,
@@ -17,7 +17,7 @@ type TodoListItemsPropsType = {
 export const TodoListItems: React.FC<TodoListItemsPropsType> = (
   {
     tasks,
-    changeStatus,
+    changeTaskStatus,
     changeTaskTitle,
     removeTask,
     todoListID,
@@ -36,11 +36,12 @@ export const TodoListItems: React.FC<TodoListItemsPropsType> = (
         <li className={getIsDoneClassName} key={index}>
           <SuperCheckbox
             checked={task.isDone}
-            changeStatus={changeStatus}
-            id={task.id}
-            todoListID={todoListID}
+            onChangeChecked={onChangeStatusHandler}
           />
-          <EditableSpan title={task.title} onChange={onChangeTitleHandler}/>
+          <EditableSpan
+            title={task.title}
+            onChange={onChangeTitleHandler}
+          />
           <SuperButton onClick={onClickHandler}>
             -
           </SuperButton>

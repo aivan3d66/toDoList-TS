@@ -24,7 +24,7 @@ export type TodoListProps = {
   removeTask: RemoveTask,
   changeFilter: ChangeFilter,
   addTask: AddTask,
-  changeStatus: ChangeStatus,
+  changeTaskStatus: ChangeStatus,
   filter: FilterValueType,
   removeTodoList: RemoveTodoList,
   changeTaskTitle: ChangeTaskTitleType,
@@ -47,7 +47,7 @@ const TodoList: React.FC<TodoListProps> = (
     tasks,
     addTask,
     removeTask,
-    changeStatus,
+    changeTaskStatus,
   }
 ) => {
 
@@ -84,7 +84,7 @@ const TodoList: React.FC<TodoListProps> = (
 
       <TodoListItems
         tasks={tasks}
-        changeStatus={changeStatus}
+        changeTaskStatus={changeTaskStatus}
         changeTaskTitle={changeTaskTitle}
         removeTask={removeTask}
         todoListID={todoListID}
