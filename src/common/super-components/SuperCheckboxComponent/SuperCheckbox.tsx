@@ -1,14 +1,10 @@
 import React, {ChangeEvent, DetailedHTMLProps, InputHTMLAttributes} from 'react'
 import s from './SuperCheckbox.module.css';
-import {ChangeStatus} from "../../../App";
 
 type DefaultInputPropsType = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
 type SuperCheckboxPropsType = DefaultInputPropsType & {
-  onChangeChecked?: (checked: boolean) => void
+  onChangeChecked?: (isDone: boolean) => void
   spanClassName?: string,
-  changeStatus: ChangeStatus,
-  id: string,
-  todoListID: string,
 }
 
 const SuperCheckbox: React.FC<SuperCheckboxPropsType> = (
@@ -19,15 +15,12 @@ const SuperCheckbox: React.FC<SuperCheckboxPropsType> = (
     className,
     spanClassName,
     children,
-    changeStatus,
-    id,
-    todoListID,
+
     ...restProps
   }
 ) => {
   const onChangeCallback = (e: ChangeEvent<HTMLInputElement>) => {
     onChangeChecked && onChangeChecked(e.currentTarget.checked)
-    changeStatus(todoListID, id, e.currentTarget.checked)
     onChange && onChange(e)
   }
 
