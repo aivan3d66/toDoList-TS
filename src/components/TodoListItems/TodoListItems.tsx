@@ -31,6 +31,9 @@ export const TodoListItems: React.FC<TodoListItemsPropsType> = (
       const onChangeTitleHandler = (newValue: string) => {
         changeTaskTitle(todoListID, task.id, newValue)
       }
+      const onChangeStatusHandler = (isDone: boolean) => {
+        changeTaskStatus(todoListID, task.id, isDone)
+      }
 
       return (
         <li className={getIsDoneClassName} key={index}>
