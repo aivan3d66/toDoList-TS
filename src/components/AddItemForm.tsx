@@ -1,12 +1,14 @@
-import React, {useState} from "react";
+import React, {ChangeEvent, KeyboardEvent, useState} from "react";
 import {SET_ERROR_NAME} from "../common/constants";
 import SuperInputText from "../common/super-components/SuperInputText/SuperInputText";
 import SuperButton from "../common/super-components/SuperButton/SuperButton";
-import {AddTaskHandler, OnChangeHandler, OnKeyPressHandler} from "./ToDoList";
 
 type AddItemFormPropsType = {
   addTask: (title: string) => void,
 };
+export type OnKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => void;
+export type OnChangeHandler = (e: ChangeEvent<HTMLInputElement>) => void;
+export type AddTaskHandler = () => void;
 
 export const AddItemForm: React.FC<AddItemFormPropsType> = (
   {
@@ -16,7 +18,7 @@ export const AddItemForm: React.FC<AddItemFormPropsType> = (
   const [title, setTitle] = useState<string>("");
   const [error, setError] = useState<string>("");
 
-  const addTaskHandler: AddTaskHandler = () => {
+  const addItemHandler: AddTaskHandler = () => {
     if (title.trim() !== "") {
       addTask(title);
       setTitle("");
@@ -27,7 +29,7 @@ export const AddItemForm: React.FC<AddItemFormPropsType> = (
   };
   const onKeyPressHandler: OnKeyPressHandler = (e) => {
     if (e.key === "Enter") {
-      addTaskHandler();
+      addItemHandler();
     }
   };
   const onChangeTitleHandler: OnChangeHandler = (e) => {
@@ -45,7 +47,7 @@ export const AddItemForm: React.FC<AddItemFormPropsType> = (
       />
       <SuperButton
         red={!!error}
-        onClick={addTaskHandler}
+        onClick={addItemHandler}
       >
         +
       </SuperButton>

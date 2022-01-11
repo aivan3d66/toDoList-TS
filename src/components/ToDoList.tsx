@@ -30,9 +30,7 @@ export type TodoListProps = {
   changeTaskTitle: ChangeTaskTitleType,
   changeTodoListTitle: ChangeTodoListTitleType
 };
-export type OnKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => void;
-export type OnChangeHandler = (e: ChangeEvent<HTMLInputElement>) => void;
-export type AddTaskHandler = () => void;
+
 export type OnRemoveListHandler = () => void;
 
 const TodoList: React.FC<TodoListProps> = (
