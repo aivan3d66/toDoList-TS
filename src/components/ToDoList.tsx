@@ -30,7 +30,6 @@ export type TodoListProps = {
   changeTaskTitle: ChangeTaskTitleType,
   changeTodoListTitle: ChangeTodoListTitleType
 };
-
 export type OnRemoveListHandler = () => void;
 
 const TodoList: React.FC<TodoListProps> = (
