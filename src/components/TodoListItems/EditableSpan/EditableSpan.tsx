@@ -34,6 +34,11 @@ export const EditableSpan: React.FC<EditableSpanPropsType> = (
         onBlur={activateViewMode}
         autoFocus
       />
-      : <span onDoubleClick={activateEditMode} className="editableSpan">{title}</span>
+      : <span onDoubleClick={activateEditMode}
+              style={{
+                fontSize: "18px",
+                margin: "2px 0 0 0",
+              }}
+      >{title}</span>
   )
 }
