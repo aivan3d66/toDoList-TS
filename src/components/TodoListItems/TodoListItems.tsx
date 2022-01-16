@@ -1,9 +1,9 @@
-import React from "react";
+import React, {ChangeEvent} from "react";
 import {TaskType} from "../../redux/state";
-import SuperCheckbox from "../../common/super-components/SuperCheckboxComponent/SuperCheckbox";
 import {EditableSpan} from "./EditableSpan/EditableSpan";
-import SuperButton from "../../common/super-components/SuperButton/SuperButton";
 import {ChangeStatus, ChangeTaskTitleType, RemoveTask} from "../../App";
+import {Button, Checkbox} from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 type OnClickHandler = () => void;
 type TodoListItemsPropsType = {
@@ -24,30 +24,35 @@ export const TodoListItems: React.FC<TodoListItemsPropsType> = (
   }
 ) => {
 
-
   const tasksList = tasks.map((task: TaskType, index: number) => {
       const getIsDoneClassName = task.isDone ? "is-done" : "";
       const onClickHandler: OnClickHandler = () => removeTask(todoListID, task.id);
       const onChangeTitleHandler = (newValue: string) => {
         changeTaskTitle(todoListID, task.id, newValue)
       }
-      const onChangeStatusHandler = (isDone: boolean) => {
-        changeTaskStatus(todoListID, task.id, isDone)
+      // const onChangeStatusHandler = (isDone: boolean) => {
+      //   changeTaskStatus(todoListID, task.id, isDone)
+      // }
+      const onChangeStatusHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        changeTaskStatus(todoListID, task.id, (e.currentTarget.checked))
       }
 
       return (
         <li className={getIsDoneClassName} key={index}>
-          <SuperCheckbox
+          <Checkbox
             checked={task.isDone}
-            onChangeChecked={onChangeStatusHandler}
+            onChange={onChangeStatusHandler}
           />
           <EditableSpan
             title={task.title}
             onChange={onChangeTitleHandler}
           />
-          <SuperButton onClick={onClickHandler}>
-            -
-          </SuperButton>
+          <Button
+            onClick={onClickHandler}
+            startIcon={<DeleteIcon/>}
+            variant={'outlined'}
+            color={'error'}
+          />
         </li>
       )
     }
