@@ -10,12 +10,13 @@ import {
   RemoveTodoList
 } from "../App";
 import {FILTERS} from "../common/constants";
-import SuperButton from "../common/super-components/SuperButton/SuperButton";
-import s from './../common/super-components/SuperButton/SuperButton.module.css';
 import '../App.css';
 import {AddItemForm} from "./AddItemForm";
 import {EditableSpan} from "./TodoListItems/EditableSpan/EditableSpan";
 import {TodoListItems} from "./TodoListItems/TodoListItems";
+import {Button} from "@mui/material";
+import DeleteIcon from '@mui/icons-material/Delete';
+
 
 export type TodoListProps = {
   todoListID: string,
@@ -61,19 +62,20 @@ const TodoList: React.FC<TodoListProps> = (
   const onCompletedFilterHandler = () => changeFilter(todoListID, FILTERS.COMPLETED);
 
   const getActiveBtnClassName = (filterValue: FilterValueType) => {
-    return filter === filterValue ? s.activeClass : "";
+    return filter === filterValue ? 'contained' : 'text';
   };
 
   return (
     <div className="tasks-list">
       <div className="tasks-list__header">
         <EditableSpan title={titleList} onChange={onChangeTodoListTitle}/>
-        <SuperButton
+        <Button
           onClick={onRemoveListHandler}
-          red
+          startIcon={<DeleteIcon/>}
+          variant={'outlined'}
+          color={'error'}
         >
-          X
-        </SuperButton>
+        </Button>
       </div>
       <AddItemForm
         addTask={addTaskHandler}
@@ -88,24 +90,24 @@ const TodoList: React.FC<TodoListProps> = (
       />
 
       <div className="tasks-list__buttons">
-        <SuperButton
-          className={getActiveBtnClassName(FILTERS.ALL)}
+        <Button
+          variant={getActiveBtnClassName(FILTERS.ALL)}
           onClick={onAllFilterHandler}
         >
           All
-        </SuperButton>
-        <SuperButton
-          className={getActiveBtnClassName(FILTERS.ACTIVE)}
+        </Button>
+        <Button
+          variant={getActiveBtnClassName(FILTERS.ACTIVE)}
           onClick={onActiveFilterHandler}
         >
           Active
-        </SuperButton>
-        <SuperButton
-          className={getActiveBtnClassName(FILTERS.COMPLETED)}
+        </Button>
+        <Button
+          variant={getActiveBtnClassName(FILTERS.COMPLETED)}
           onClick={onCompletedFilterHandler}
         >
           Completed
-        </SuperButton>
+        </Button>
       </div>
     </div>
   )
