@@ -1,6 +1,6 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from "react";
 import {SET_ERROR_NAME} from "../common/constants";
-import {Button, TextField} from "@mui/material";
+import {Button, TextField, Grid} from "@mui/material";
 import {Add} from "@mui/icons-material";
 
 type AddItemFormPropsType = {
@@ -38,31 +38,35 @@ export const AddItemForm: React.FC<AddItemFormPropsType> = (
   };
 
   return (
-    <div className="tasks-list__field">
-      <div>
-        <TextField
-          value={title}
-          size={'small'}
-          error={!!error}
-          helperText={error}
-          onKeyPress={onKeyPressHandler}
-          onChange={onChangeTitleHandler}
-        />
-        {/*{error && <span className={finalSpanClassName}>{error}</span>}*/}
-      </div>
-
-      {/*<Button*/}
-      {/*  variant={'contained'}*/}
-      {/*  onClick={addItemHandler}*/}
-      {/*>*/}
-      {/*  +*/}
-      {/*</Button>*/}
+    <Grid container style={{
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+      width: "100%",
+    }}>
+      <TextField
+        placeholder={"Just write something ..."}
+        value={title}
+        size={'small'}
+        error={!!error}
+        helperText={error}
+        onKeyPress={onKeyPressHandler}
+        onChange={onChangeTitleHandler}
+        style={{
+          flexGrow: "10",
+          margin: "0 10px 0 0",
+          width: "auto",
+          backgroundColor: "white"}}
+      />
+      {/*{error && <span className={finalSpanClassName}>{error}</span>}*/}
       <Button
         onClick={addItemHandler}
         startIcon={<Add/>}
         variant={'contained'}
-      />
-
-    </div>
+        style={{flexGrow: "1"}}
+      >
+        add
+      </Button>
+    </Grid>
   )
 }
