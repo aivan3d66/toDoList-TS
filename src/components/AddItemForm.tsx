@@ -1,7 +1,7 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from "react";
 import {SET_ERROR_NAME} from "../common/constants";
-import SuperInputText from "../common/super-components/SuperInputText/SuperInputText";
-import SuperButton from "../common/super-components/SuperButton/SuperButton";
+import {Button, TextField} from "@mui/material";
+import {Add} from "@mui/icons-material";
 
 type AddItemFormPropsType = {
   addTask: (title: string) => void,
@@ -39,18 +39,30 @@ export const AddItemForm: React.FC<AddItemFormPropsType> = (
 
   return (
     <div className="tasks-list__field">
-      <SuperInputText
-        value={title}
-        error={error}
-        onKeyPress={onKeyPressHandler}
-        onChange={onChangeTitleHandler}
-      />
-      <SuperButton
-        red={!!error}
+      <div>
+        <TextField
+          value={title}
+          size={'small'}
+          error={!!error}
+          helperText={error}
+          onKeyPress={onKeyPressHandler}
+          onChange={onChangeTitleHandler}
+        />
+        {/*{error && <span className={finalSpanClassName}>{error}</span>}*/}
+      </div>
+
+      {/*<Button*/}
+      {/*  variant={'contained'}*/}
+      {/*  onClick={addItemHandler}*/}
+      {/*>*/}
+      {/*  +*/}
+      {/*</Button>*/}
+      <Button
         onClick={addItemHandler}
-      >
-        +
-      </SuperButton>
+        startIcon={<Add/>}
+        variant={'contained'}
+      />
+
     </div>
   )
 }
