@@ -25,7 +25,6 @@ export const TodoListItems: React.FC<TodoListItemsPropsType> = (
 ) => {
 
   const tasksList = tasks.map((task: TaskType, index: number) => {
-      const getIsDoneClassName = task.isDone ? "is-done" : "";
       const onClickHandler: OnClickHandler = () => removeTask(todoListID, task.id);
       const onChangeTitleHandler = (newValue: string) => {
         changeTaskTitle(todoListID, task.id, newValue)
@@ -38,7 +37,17 @@ export const TodoListItems: React.FC<TodoListItemsPropsType> = (
       }
 
       return (
-        <li className={getIsDoneClassName} key={index}>
+        <li key={index}
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              padding: "4px 0",
+              margin: "6px 0",
+              borderBottom: "1px solid #bababa",
+              opacity: task.isDone ? "0.4" : "",
+            }}
+        >
           <Checkbox
             checked={task.isDone}
             onChange={onChangeStatusHandler}
@@ -59,7 +68,11 @@ export const TodoListItems: React.FC<TodoListItemsPropsType> = (
   );
 
   return (
-    <ul className="tasks-list__items">
+    <ul style={{
+      listStyle: "none",
+      margin: "20px 0 40px 0",
+      padding: "0",
+    }}>
       {tasksList}
     </ul>
   )
