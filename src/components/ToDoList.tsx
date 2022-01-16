@@ -66,8 +66,16 @@ const TodoList: React.FC<TodoListProps> = (
   };
 
   return (
-    <div className="tasks-list">
-      <div className="tasks-list__header">
+    <div style={{
+      display: "flex",
+      flexDirection: "column",
+    }}>
+      <div style={{
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-between",
+        margin: "0 0 20px 0"
+      }}>
         <EditableSpan title={titleList} onChange={onChangeTodoListTitle}/>
         <Button
           onClick={onRemoveListHandler}
@@ -89,7 +97,10 @@ const TodoList: React.FC<TodoListProps> = (
         todoListID={todoListID}
       />
 
-      <div className="tasks-list__buttons">
+      <div style={{
+        display: "flex",
+        justifyContent: "space-between"
+      }}>
         <Button
           variant={getActiveBtnClassName(FILTERS.ALL)}
           onClick={onAllFilterHandler}
