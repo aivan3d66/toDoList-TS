@@ -14,7 +14,7 @@ import '../App.css';
 import {AddItemForm} from "./AddItemForm";
 import {EditableSpan} from "./TodoListItems/EditableSpan/EditableSpan";
 import {TodoListItems} from "./TodoListItems/TodoListItems";
-import {Button} from "@mui/material";
+import {Button, IconButton} from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
 
 
@@ -69,6 +69,8 @@ const TodoList: React.FC<TodoListProps> = (
     <div style={{
       display: "flex",
       flexDirection: "column",
+      width: "320px",
+      minHeight: "400px"
     }}>
       <div style={{
         display: "flex",
@@ -77,13 +79,12 @@ const TodoList: React.FC<TodoListProps> = (
         margin: "0 0 20px 0"
       }}>
         <EditableSpan title={titleList} onChange={onChangeTodoListTitle}/>
-        <Button
+        <IconButton
           onClick={onRemoveListHandler}
-          startIcon={<DeleteIcon/>}
-          variant={'outlined'}
-          color={'error'}
-        >
-        </Button>
+          color={'default'}
+          size={'small'}>
+          <DeleteIcon/>
+        </IconButton>
       </div>
       <AddItemForm
         addTask={addTaskHandler}
@@ -99,7 +100,8 @@ const TodoList: React.FC<TodoListProps> = (
 
       <div style={{
         display: "flex",
-        justifyContent: "space-between"
+        justifyContent: "space-between",
+        margin: "auto 0 0 0"
       }}>
         <Button
           variant={getActiveBtnClassName(FILTERS.ALL)}
