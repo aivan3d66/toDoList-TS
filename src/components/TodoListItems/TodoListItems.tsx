@@ -2,7 +2,7 @@ import React, {ChangeEvent} from "react";
 import {TaskType} from "../../redux/state";
 import {EditableSpan} from "./EditableSpan/EditableSpan";
 import {ChangeStatus, ChangeTaskTitleType, RemoveTask} from "../../App";
-import {Button, Checkbox} from "@mui/material";
+import {Checkbox, IconButton} from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 type OnClickHandler = () => void;
@@ -41,7 +41,7 @@ export const TodoListItems: React.FC<TodoListItemsPropsType> = (
             style={{
               display: "flex",
               justifyContent: "space-between",
-              alignItems: "center",
+              alignItems: "flex-start",
               padding: "4px 0",
               margin: "6px 0",
               borderBottom: "1px solid #bababa",
@@ -49,6 +49,7 @@ export const TodoListItems: React.FC<TodoListItemsPropsType> = (
             }}
         >
           <Checkbox
+            color={"success"}
             checked={task.isDone}
             onChange={onChangeStatusHandler}
           />
@@ -56,12 +57,12 @@ export const TodoListItems: React.FC<TodoListItemsPropsType> = (
             title={task.title}
             onChange={onChangeTitleHandler}
           />
-          <Button
+          <IconButton
             onClick={onClickHandler}
-            startIcon={<DeleteIcon/>}
-            variant={'outlined'}
-            color={'error'}
-          />
+            color={'default'}
+            size={'small'}>
+            <DeleteIcon/>
+          </IconButton>
         </li>
       )
     }
@@ -70,10 +71,11 @@ export const TodoListItems: React.FC<TodoListItemsPropsType> = (
   return (
     <ul style={{
       listStyle: "none",
+      width: "100%",
       margin: "20px 0 40px 0",
       padding: "0",
     }}>
-      {tasksList}
+      {tasks.length === 0 ? <p>No tasks yet ...</p> : tasksList}
     </ul>
   )
 }
