@@ -88,9 +88,9 @@ const App = () => {
           <Grid item style={{
             width: "100%",
             margin: "40px 0",
-            padding: "10px",
+            padding: "20px",
             backgroundColor: "rgba(211, 211, 211, 0.5)",
-            borderRadius: "5px",
+            borderRadius: "5px"
           }}>
             <AddItemForm addTask={addTodoList}/>
           </Grid>
