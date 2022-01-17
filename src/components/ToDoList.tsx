@@ -17,7 +17,6 @@ import {TodoListItems} from "./TodoListItems/TodoListItems";
 import {Button, IconButton} from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
 
-
 export type TodoListProps = {
   todoListID: string,
   titleList: string,
@@ -32,6 +31,12 @@ export type TodoListProps = {
   changeTodoListTitle: ChangeTodoListTitleType
 };
 export type OnRemoveListHandler = () => void;
+
+const todoListBtnWrapperStyles = {
+  display: "flex",
+  justifyContent: "space-between",
+  margin: "auto 0 0 0"
+}
 
 const TodoList: React.FC<TodoListProps> = (
   {
@@ -98,11 +103,7 @@ const TodoList: React.FC<TodoListProps> = (
         todoListID={todoListID}
       />
 
-      <div style={{
-        display: "flex",
-        justifyContent: "space-between",
-        margin: "auto 0 0 0"
-      }}>
+      <div style={todoListBtnWrapperStyles}>
         <Button
           variant={getActiveBtnClassName(FILTERS.ALL)}
           onClick={onAllFilterHandler}

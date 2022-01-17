@@ -6,7 +6,7 @@ import {FILTERS} from "./common/constants";
 import {v1} from 'uuid';
 import {AddItemForm} from "./components/AddItemForm";
 import AppBar from '@mui/material/AppBar';
-import {Toolbar, IconButton, Typography,Container, Grid, Paper} from '@mui/material';
+import {Toolbar, IconButton, Typography, Container, Grid, Paper} from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 
 export type AddTodoList = (title: string) => void;
@@ -22,6 +22,22 @@ export type ChangeStatus = (todoListId: string, taskId: string, isDone: boolean)
 export type ChangeTaskTitleType = (todoListId: string, taskId: string, newTitle: string) => void;
 
 const App = () => {
+  const gridItemAppStyles = {
+    width: "100%",
+    margin: "40px 0",
+    padding: "20px",
+    backgroundColor: "rgba(211, 211, 211, 0.5)",
+    borderRadius: "5px"
+  }
+  const gridContainerAppStyles = {
+    display: "flex",
+    justifyContent: "center",
+  }
+  const paperAppStyles = {
+    minHeight: "200px",
+    padding: "16px",
+  }
+
   const [tasks, setTasks] = useState<TodoListTasksType>(initialStateTasks);
   const [todoLists, setTodoLists] = useState<Array<TodoListsType>>(todoList);
 
@@ -85,22 +101,12 @@ const App = () => {
 
       <Container fixed maxWidth="xl">
         <Grid container style={{maxWidth: "760px", margin: "0 auto"}}>
-          <Grid item style={{
-            width: "100%",
-            margin: "40px 0",
-            padding: "20px",
-            backgroundColor: "rgba(211, 211, 211, 0.5)",
-            borderRadius: "5px"
-          }}>
+          <Grid item style={gridItemAppStyles}>
             <AddItemForm addTask={addTodoList}/>
           </Grid>
         </Grid>
 
-        <Grid container spacing={2} style={{
-          display: "flex",
-          flexWrap: "wrap",
-          justifyContent: "center",
-        }}>
+        <Grid container spacing={2} style={gridContainerAppStyles}>
           {
             todoLists.map(t => {
               let taskForTodoList = tasks[t.id];
@@ -114,10 +120,7 @@ const App = () => {
 
               return (
                 <Grid item key={t.id}>
-                  <Paper style={{
-                    minHeight: "200px",
-                    padding: "16px",
-                  }}>
+                  <Paper style={paperAppStyles}>
                     <TodoList
                       key={t.id}
                       todoListID={t.id}

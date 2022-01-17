@@ -23,30 +23,36 @@ export const TodoListItems: React.FC<TodoListItemsPropsType> = (
     todoListID,
   }
 ) => {
+  const tasksListStyles = {
+    listStyle: "none",
+    width: "100%",
+    margin: "20px 0 40px 0",
+    padding: "0",
+  }
 
   const tasksList = tasks.map((task: TaskType, index: number) => {
       const onClickHandler: OnClickHandler = () => removeTask(todoListID, task.id);
       const onChangeTitleHandler = (newValue: string) => {
         changeTaskTitle(todoListID, task.id, newValue)
       }
-      // const onChangeStatusHandler = (isDone: boolean) => {
-      //   changeTaskStatus(todoListID, task.id, isDone)
-      // }
+
       const onChangeStatusHandler = (e: ChangeEvent<HTMLInputElement>) => {
         changeTaskStatus(todoListID, task.id, (e.currentTarget.checked))
       }
 
+      const taskStyles = {
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "flex-start",
+        padding: "4px 0",
+        margin: "6px 0",
+        borderBottom: "1px solid #bababa",
+        opacity: task.isDone ? "0.4" : "",
+      }
+
       return (
         <li key={index}
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "flex-start",
-              padding: "4px 0",
-              margin: "6px 0",
-              borderBottom: "1px solid #bababa",
-              opacity: task.isDone ? "0.4" : "",
-            }}
+            style={taskStyles}
         >
           <Checkbox
             color={"success"}
@@ -69,12 +75,7 @@ export const TodoListItems: React.FC<TodoListItemsPropsType> = (
   );
 
   return (
-    <ul style={{
-      listStyle: "none",
-      width: "100%",
-      margin: "20px 0 40px 0",
-      padding: "0",
-    }}>
+    <ul style={tasksListStyles}>
       {tasks.length === 0 ? <p>No tasks yet ...</p> : tasksList}
     </ul>
   )

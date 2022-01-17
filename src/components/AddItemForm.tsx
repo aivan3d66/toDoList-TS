@@ -15,6 +15,25 @@ export const AddItemForm: React.FC<AddItemFormPropsType> = (
     addTask,
   }
 ) => {
+  const addItemListContStyles = {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    width: "100%",
+  }
+  const addItemTextFieldStyles = {
+    flexGrow: "10",
+    margin: "0 10px 0 0",
+    height: "40px",
+    backgroundColor: "white"
+  }
+  const editableSpanStyles = {
+    width: "100%",
+    margin: "10px 0 0 0",
+    padding: "0 10px",
+    height: "34px",
+  }
+
   const [title, setTitle] = useState<string>("");
   const [error, setError] = useState<string>("");
 
@@ -38,14 +57,7 @@ export const AddItemForm: React.FC<AddItemFormPropsType> = (
   };
 
   return (
-    <Grid container style={{
-      position: "relative",
-      display: "flex",
-      flexWrap: "wrap",
-      justifyContent: "space-between",
-      alignItems: "center",
-      width: "100%",
-    }}>
+    <Grid container style={addItemListContStyles}>
       <TextField
         placeholder={"Just write something ..."}
         value={title}
@@ -53,12 +65,7 @@ export const AddItemForm: React.FC<AddItemFormPropsType> = (
         error={!!error}
         onKeyPress={onKeyPressHandler}
         onChange={onChangeTitleHandler}
-        style={{
-          flexGrow: "10",
-          margin: "0 10px 0 0",
-          height: "40px",
-          backgroundColor: "white"
-        }}
+        style={addItemTextFieldStyles}
       />
       <Button
         onClick={addItemHandler}
@@ -71,12 +78,7 @@ export const AddItemForm: React.FC<AddItemFormPropsType> = (
       {error && <Alert
         severity="error"
         variant={"filled"}
-        style={{
-          width: "100%",
-          margin: "10px 0 0 0",
-          padding: "0 10px",
-          height: "34px",
-        }}
+        style={editableSpanStyles}
       >{SET_ERROR_NAME}</Alert>}
     </Grid>
   )
