@@ -1,6 +1,6 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from "react";
 import {SET_ERROR_NAME} from "../common/constants";
-import {Button, TextField, Grid} from "@mui/material";
+import {Button, TextField, Grid, Alert} from "@mui/material";
 import {Add} from "@mui/icons-material";
 
 type AddItemFormPropsType = {
@@ -39,7 +39,9 @@ export const AddItemForm: React.FC<AddItemFormPropsType> = (
 
   return (
     <Grid container style={{
+      position: "relative",
       display: "flex",
+      flexWrap: "wrap",
       justifyContent: "space-between",
       alignItems: "center",
       width: "100%",
@@ -49,16 +51,15 @@ export const AddItemForm: React.FC<AddItemFormPropsType> = (
         value={title}
         size={'small'}
         error={!!error}
-        helperText={error}
         onKeyPress={onKeyPressHandler}
         onChange={onChangeTitleHandler}
         style={{
           flexGrow: "10",
           margin: "0 10px 0 0",
-          width: "auto",
-          backgroundColor: "white"}}
+          height: "40px",
+          backgroundColor: "white"
+        }}
       />
-      {/*{error && <span className={finalSpanClassName}>{error}</span>}*/}
       <Button
         onClick={addItemHandler}
         startIcon={<Add/>}
@@ -67,6 +68,16 @@ export const AddItemForm: React.FC<AddItemFormPropsType> = (
       >
         add
       </Button>
+      {error && <Alert
+        severity="error"
+        variant={"filled"}
+        style={{
+          width: "100%",
+          margin: "10px 0 0 0",
+          padding: "0 10px",
+          height: "34px",
+        }}
+      >{SET_ERROR_NAME}</Alert>}
     </Grid>
   )
 }
