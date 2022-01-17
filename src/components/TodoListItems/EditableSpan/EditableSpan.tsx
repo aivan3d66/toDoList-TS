@@ -27,18 +27,21 @@ export const EditableSpan: React.FC<EditableSpanPropsType> = (
     setNewTitle(e.currentTarget.value)
   }
   return (
-    editMode
-      ? <SuperInputText
-        onChange={onChangeTitleHandler}
-        value={newTitle}
-        onBlur={activateViewMode}
-        autoFocus
-      />
-      : <span onDoubleClick={activateEditMode}
-              style={{
-                fontSize: "18px",
-                margin: "2px 0 0 0",
-              }}
-      >{title}</span>
+    <div style={{
+      flexGrow: 10,
+      margin: "8px 0",
+    }}>
+      {
+        editMode
+          ? <SuperInputText
+            onChange={onChangeTitleHandler}
+            value={newTitle}
+            onBlur={activateViewMode}
+            autoFocus
+          />
+          : <span onDoubleClick={activateEditMode}>{title}</span>
+      }
+    </div>
+
   )
 }
