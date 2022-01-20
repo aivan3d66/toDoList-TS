@@ -1,6 +1,6 @@
 type StateType = {
-  age: string,
-  childrenCount: string,
+  age: number,
+  childrenCount: number,
   name: string,
 };
 type ActionType = {
