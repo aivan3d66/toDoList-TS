@@ -39,7 +39,8 @@ const App = () => {
     padding: "16px",
   }
 
-  const [tasks, setTasks] = useState<TodoListTasksType>(initialStateTasks);
+  // const [tasks, setTasks] = useState<TodoListTasksType>(initialStateTasks);
+  const [tasks, tasksDispatch] = useReducer<Reducer<any, any>>(taskReducer, initialStateTasks);
   const [todoLists, setTodoLists] = useState<Array<TodoListsType>>(todoList);
 
   const addTodoList: AddTodoList = (title) => {
