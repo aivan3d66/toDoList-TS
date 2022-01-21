@@ -1,8 +1,8 @@
 import {
-  AddTodoListAC,
-  ChangeTodoListFilterAC,
-  ChangeTodoListTitleAC,
-  RemoveTodoListAC,
+  addTodoListAC,
+  changeTodoListFilterAC,
+  changeTodoListTitleAC,
+  removeTodoListAC,
   todoListsReducer
 } from "./todolist-reducer";
 import {v1} from "uuid";
@@ -25,7 +25,7 @@ test('current todolist should be removed', () => {
       filter: FILTERS.ALL,
     },
   ]
-  const endState = todoListsReducer(startState, RemoveTodoListAC(todoListId1))
+  const endState = todoListsReducer(startState, removeTodoListAC(todoListId1))
 
   expect(endState.length).toBe(1);
   expect(endState[0].id).toBe(todoListId2)
@@ -49,7 +49,7 @@ test('current todolist should be added', () => {
     },
   ]
 
-  const endState = todoListsReducer(startState, AddTodoListAC(newTodoListTitle))
+  const endState = todoListsReducer(startState, addTodoListAC(newTodoListTitle, todoListId2))
 
   expect(endState.length).toBe(3);
   expect(endState[2].title).toBe(newTodoListTitle)
@@ -74,7 +74,7 @@ test('current todolist should change his name', () => {
     },
   ]
 
-  const action = ChangeTodoListTitleAC(todoListId2, newTodoListTitle)
+  const action = changeTodoListTitleAC(todoListId2, newTodoListTitle)
 
   const endState = todoListsReducer(startState, action)
 
@@ -100,7 +100,7 @@ test('current filter should be changed', () => {
     },
   ]
 
-  const action = ChangeTodoListFilterAC(todoListId2, newFilter)
+  const action = changeTodoListFilterAC(todoListId2, newFilter)
 
   const endState = todoListsReducer(startState, action)
 
