@@ -50,7 +50,7 @@ const App = () => {
       title: title
     }
     setTodoLists([todoList, ...todoLists]);
-    setTasks({
+    tasksDispatch({
       ...tasks,
       [todoList.id]: []
     })
@@ -58,7 +58,7 @@ const App = () => {
   const removeTodoList: RemoveTodoList = (todoListId) => {
     setTodoLists(todoLists.filter(t => t.id !== todoListId));
     delete tasks[todoListId];
-    setTasks({...tasks});
+    tasksDispatch({...tasks});
   };
   const changeTodoListTitle: ChangeTodoListTitleType = (todoListID, newTitle) => {
     setTodoLists([...todoLists.filter(tl => tl.id === todoListID ? tl.title = newTitle : tl)]);
@@ -69,17 +69,20 @@ const App = () => {
   };
 
   const addTask: AddTask = (todoListId, title) => {
-    let newTask = {id: v1(), title: title, isDone: false};
-    setTasks({...tasks, [todoListId]: [newTask, ...tasks[todoListId]]})
+    // let newTask = {id: v1(), title: title, isDone: false};
+    tasksDispatch(addTaskAC(todoListId, title))
   };
   const removeTask: RemoveTask = (todoListId, id) => {
-    setTasks({...tasks, [todoListId]: tasks[todoListId].filter(f => f.id !== id)})
+    // tasksDispatch({...tasks, [todoListId]: tasks[todoListId].filter(f => f.id !== id)})
+    tasksDispatch(removeTaskAC(todoListId, id))
   };
   const changeTaskStatus: ChangeStatus = (todoListId, taskId, isDone) => {
-    setTasks({...tasks, [todoListId]: tasks[todoListId].map(t => t.id === taskId ? {...t, isDone} : t)})
+    // tasksDispatch({...tasks, [todoListId]: tasks[todoListId].map(t => t.id === taskId ? {...t, isDone} : t)})
+    tasksDispatch(changeStatusTaskAC(todoListId, taskId, isDone))
   };
   const changeTaskTitle: ChangeTaskTitleType = (todoListId, taskId, newTitle) => {
-    setTasks({...tasks, [todoListId]: tasks[todoListId].map(t => t.id === taskId ? {...t, title: newTitle} : t)})
+    // tasksDispatch({...tasks, [todoListId]: tasks[todoListId].map(t => t.id === taskId ? {...t, title: newTitle} : t)})
+    tasksDispatch(changeTaskTitleAC(todoListId, taskId, newTitle))
   };
 
   return (
