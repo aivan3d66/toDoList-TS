@@ -4,10 +4,10 @@ import {
   changeTodoListTitleAC,
   removeTodoListAC,
   todoListsReducer
-} from "./todolist-reducer";
+} from "../todolist-reducer";
 import {v1} from "uuid";
-import {FILTERS} from "../common/constants";
-import {TodoListsType} from "../redux/state";
+import {FILTERS} from "../../common/constants";
+import {TodoListsType} from "../../redux/state";
 
 test('current todolist should be removed', () => {
   const todoListId1 = v1();
