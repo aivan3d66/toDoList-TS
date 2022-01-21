@@ -3,25 +3,15 @@ import {v1} from "uuid";
 import {FILTERS} from "../common/constants";
 import {FilterValueType} from "../App";
 
-export type RemoveTodoListActionType = {
-  type: 'REMOVE-TODOLIST',
-  id: string,
-}
-export type AddTodoListActionType = {
-  type: 'ADD-TODOLIST',
-  title: string,
-}
-export type ChangeTodoListTitleActionType = {
-  type: 'CHANGE-TODOLIST-TITLE',
-  id: string,
-  title: string
-}
-export type ChangeTodoListFilterActionType = {
-  type: 'CHANGE-TODOLIST-FILTER',
-  id: string,
-  filter: FilterValueType,
-}
-type ActionType = RemoveTodoListActionType | AddTodoListActionType | ChangeTodoListTitleActionType | ChangeTodoListFilterActionType
+export type RemoveTodoListActionType = ReturnType<typeof RemoveTodoListAC>
+export type AddTodoListActionType = ReturnType<typeof AddTodoListAC>
+export type ChangeTodoListTitleActionType = ReturnType<typeof ChangeTodoListTitleAC>
+export type ChangeTodoListFilterActionType = ReturnType<typeof ChangeTodoListFilterAC>
+export type ActionType =
+  RemoveTodoListActionType
+  | AddTodoListActionType
+  | ChangeTodoListTitleActionType
+  | ChangeTodoListFilterActionType
 
 export const todoListsReducer = (state: Array<TodoListsType>, action: ActionType): Array<TodoListsType> => {
   switch (action.type) {
