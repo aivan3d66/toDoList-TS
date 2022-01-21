@@ -59,3 +59,7 @@ export const changeTaskTitleAC = (todoListId: string, taskId: string, newTitle: 
   taskId: taskId,
   newTitle: newTitle,
 } as const)
+export const addCleanTaskListAC = (todoListId: string,) => ({
+  type: 'ADD-CLEAR-TASKS-LIST',
+  todoListId: todoListId,
+} as const)
