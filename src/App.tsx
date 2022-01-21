@@ -55,36 +55,46 @@ const App = () => {
   }
 
   // const [tasks, setTasks] = useState<TodoListTasksType>(initialStateTasks);
-  const [tasks, tasksDispatch] = useReducer<Reducer<any, any>>(taskReducer, initialStateTasks);
-  const [todoLists, setTodoLists] = useState<Array<TodoListsType>>(todoList);
+  // const [todoLists, setTodoLists] = useState<Array<TodoListsType>>(todoList);
+
+  const [tasks, tasksDispatch] = useReducer<Reducer<TodoListTasksType, GeneraTasksActionType>>(taskReducer, initialStateTasks);
+  const [todoLists, todoListDispatch] = useReducer<Reducer<Array<TodoListsType>, ActionType>>(todoListsReducer, todoList);
 
   const addTodoList: AddTodoList = (title) => {
-    let todoList: TodoListsType = {
-      id: v1(),
-      filter: FILTERS.ALL,
-      title: title
-    }
-    setTodoLists([todoList, ...todoLists]);
-    tasksDispatch({
-      ...tasks,
-      [todoList.id]: []
-    })
+    // let todoList: TodoListsType = {
+    //   id: v1(),
+    //   filter: FILTERS.ALL,
+    //   title: title
+    // }
+    // todoListDispatch([todoList, ...todoLists]);
+    // tasksDispatch({
+    //   ...tasks,
+    //   [todoList.id]: []
+    // })
+    let newListId = v1();
+    todoListDispatch(addTodoListAC(title, newListId))
+    tasksDispatch(addCleanTaskListAC(newListId))
   };
   const removeTodoList: RemoveTodoList = (todoListId) => {
-    setTodoLists(todoLists.filter(t => t.id !== todoListId));
+    // todoListDispatch(todoLists.filter(t => t.id !== todoListId));
+    // delete tasks[todoListId];
+    // tasksDispatch({...tasks});
+    todoListDispatch(removeTodoListAC(todoListId));
     delete tasks[todoListId];
-    tasksDispatch({...tasks});
   };
   const changeTodoListTitle: ChangeTodoListTitleType = (todoListID, newTitle) => {
-    setTodoLists([...todoLists.filter(tl => tl.id === todoListID ? tl.title = newTitle : tl)]);
+    // todoListDispatch([...todoLists.filter(tl => tl.id === todoListID ? tl.title = newTitle : tl)]);
+    todoListDispatch(changeTodoListTitleAC(todoListID, newTitle))
   };
 
   const changeFilter: ChangeFilter = (todoListId, value,) => {
-    setTodoLists(todoLists.map(m => m.id === todoListId ? {...m, filter: value} : m));
+    // todoListDispatch(todoLists.map(m => m.id === todoListId ? {...m, filter: value} : m));
+    todoListDispatch(changeTodoListFilterAC(todoListId, value))
   };
 
   const addTask: AddTask = (todoListId, title) => {
     // let newTask = {id: v1(), title: title, isDone: false};
+    // tasksDispatch(addTaskAC(todoListId, title))
     tasksDispatch(addTaskAC(todoListId, title))
   };
   const removeTask: RemoveTask = (todoListId, id) => {
