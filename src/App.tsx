@@ -1,13 +1,14 @@
-import React, {useState} from 'react';
+import React, {Reducer, useReducer, useState} from 'react';
 import './App.css';
 import TodoList from "./components/ToDoList";
-import {initialStateTasks, TaskType, todoList, TodoListsType, TodoListTasksType} from "./redux/state";
+import {initialStateTasks, TaskType, todoList, TodoListsType} from "./redux/state";
 import {FILTERS} from "./common/constants";
 import {v1} from 'uuid';
 import {AddItemForm} from "./components/AddItemForm";
 import AppBar from '@mui/material/AppBar';
 import {Toolbar, IconButton, Typography, Container, Grid, Paper} from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
+import {addTaskAC, changeStatusTaskAC, changeTaskTitleAC, removeTaskAC, taskReducer} from "./state/task-reducer";
 
 export type AddTodoList = (title: string) => void;
 export type RemoveTodoList = (todoListId: string) => void;
