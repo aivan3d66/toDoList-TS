@@ -74,11 +74,7 @@ test('current todolist should change his name', () => {
     },
   ]
 
-  const action = {
-    type: 'CHANGE-TODOLIST-TITLE',
-    id: todoListId2,
-    title: newTodoListTitle
-  } as const
+  const action = ChangeTodoListTitleAC(todoListId2, newTodoListTitle)
 
   const endState = todoListsReducer(startState, action)
 
