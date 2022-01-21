@@ -1,17 +1,24 @@
 import {v1} from "uuid";
+import {TodoListTasksType} from "../redux/state";
 
 export type RemoveTaskActionType = ReturnType<typeof removeTaskAC>
 export type AddTaskActionType = ReturnType<typeof addTaskAC>
 export type ChangeTaskStatusActionType = ReturnType<typeof changeStatusTaskAC>
 export type ChangeTaskTitleActionType = ReturnType<typeof changeTaskTitleAC>
+export type AddClearTasksListActionType = ReturnType<typeof addCleanTaskListAC>
 
-export type GeneraActionType = RemoveTaskActionType | AddTaskActionType | ChangeTaskStatusActionType | ChangeTaskTitleActionType
+export type GeneraTasksActionType =
+  RemoveTaskActionType
+  | AddTaskActionType
+  | ChangeTaskStatusActionType
+  | ChangeTaskTitleActionType
+  | AddClearTasksListActionType
 
-export const taskReducer = (state: any, action: GeneraActionType) => {
+export const taskReducer = (state: TodoListTasksType, action: GeneraTasksActionType) => {
   switch (action.type) {
     case 'REMOVE-TASK':
       return {
-        ...state, [action.todoListId]: state[action.todoListId].filter((f: any) => f.id !== action.id)
+        ...state, [action.todoListId]: state[action.todoListId].filter((f) => f.id !== action.id)
       }
 
     case 'ADD-TASK':
@@ -23,13 +30,24 @@ export const taskReducer = (state: any, action: GeneraActionType) => {
     case 'CHANGE-STATUS-TASK':
       return {
         ...state,
-        [action.todoListId]: state[action.todoListId].map((t: any) => t.id === action.taskId ? {...t, isDone: action.isDone} : t)
+        [action.todoListId]: state[action.todoListId].map((t) => t.id === action.taskId ? {
+          ...t,
+          isDone: action.isDone
+        } : t)
       }
 
     case 'CHANGE-TASK_TITLE':
       return {
         ...state,
-        [action.todoListId]: state[action.todoListId].map((t: any) => t.id === action.taskId ? {...t, title: action.newTitle} : t)
+        [action.todoListId]: state[action.todoListId].map((t) => t.id === action.taskId ? {
+          ...t,
+          title: action.newTitle
+        } : t)
+      }
+
+      case 'ADD-CLEAR-TASKS-LIST':
+      return {
+        ...state, [action.todoListId]: []
       }
 
     default:
