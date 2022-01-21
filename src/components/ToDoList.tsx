@@ -81,7 +81,10 @@ const TodoList: React.FC<TodoListProps> = (
         display: "flex",
         flexDirection: "row",
         justifyContent: "space-between",
-        margin: "0 0 20px 0"
+        height: "40px",
+        margin: "0 0 20px 0",
+        fontSize: "20px",
+        fontWeight: "bold"
       }}>
         <EditableSpan title={titleList} onChange={onChangeTodoListTitle}/>
         <IconButton
