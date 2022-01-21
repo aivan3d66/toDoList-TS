@@ -3,7 +3,7 @@ import {v1} from "uuid";
 import {FILTERS} from "../common/constants";
 import {TodoListsType} from "../redux/state";
 
-test('correct todolist should be removed', () => {
+test('current todolist should be removed', () => {
   const todoListId1 = v1();
   const todoListId2 = v1();
 
@@ -28,7 +28,7 @@ test('correct todolist should be removed', () => {
   expect(endState[0].id).toBe(todoListId2)
 })
 
-test('correct todolist should be added', () => {
+test('current todolist should be added', () => {
   const todoListId1 = v1();
   const todoListId2 = v1();
   const newTodoListTitle = "New TodoList"
@@ -56,7 +56,7 @@ test('correct todolist should be added', () => {
   expect(endState[2].filter).toBe(FILTERS.ALL)
 })
 
-test('correct todolist should change his name', () => {
+test('current todolist should change his name', () => {
   const todoListId1 = v1();
   const todoListId2 = v1();
   const newTodoListTitle = "New TodoList"
@@ -78,7 +78,7 @@ test('correct todolist should change his name', () => {
     type: 'CHANGE-TODOLIST-TITLE',
     id: todoListId2,
     title: newTodoListTitle
-  }
+  } as const
 
   const endState = todoListsReducer(startState, action)
 
@@ -86,7 +86,7 @@ test('correct todolist should change his name', () => {
   expect(endState[1].title).toBe(newTodoListTitle)
 })
 
-test('correct filter should be changed', () => {
+test('current filter should be changed', () => {
   const todoListId1 = v1();
   const todoListId2 = v1();
   const newFilter = FILTERS.COMPLETED
@@ -108,7 +108,7 @@ test('correct filter should be changed', () => {
     type: 'CHANGE-TODOLIST-FILTER',
     id: todoListId2,
     filter: newFilter
-  }
+  } as const
 
   const endState = todoListsReducer(startState, action)
 
