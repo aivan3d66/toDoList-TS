@@ -25,10 +25,7 @@ test('current todolist should be removed', () => {
       filter: FILTERS.ALL,
     },
   ]
-  const endState = todoListsReducer(startState, {
-    type: 'REMOVE-TODOLIST',
-    id: todoListId1
-  })
+  const endState = todoListsReducer(startState, RemoveTodoListAC(todoListId1))
 
   expect(endState.length).toBe(1);
   expect(endState[0].id).toBe(todoListId2)
