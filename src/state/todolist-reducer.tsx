@@ -1,12 +1,11 @@
 import {TodoListsType} from "../redux/state";
-import {v1} from "uuid";
 import {FILTERS} from "../common/constants";
 import {FilterValueType} from "../App";
 
-export type RemoveTodoListActionType = ReturnType<typeof RemoveTodoListAC>
-export type AddTodoListActionType = ReturnType<typeof AddTodoListAC>
-export type ChangeTodoListTitleActionType = ReturnType<typeof ChangeTodoListTitleAC>
-export type ChangeTodoListFilterActionType = ReturnType<typeof ChangeTodoListFilterAC>
+export type RemoveTodoListActionType = ReturnType<typeof removeTodoListAC>
+export type AddTodoListActionType = ReturnType<typeof addTodoListAC>
+export type ChangeTodoListTitleActionType = ReturnType<typeof changeTodoListTitleAC>
+export type ChangeTodoListFilterActionType = ReturnType<typeof changeTodoListFilterAC>
 export type ActionType =
   RemoveTodoListActionType
   | AddTodoListActionType
@@ -36,20 +35,21 @@ export const todoListsReducer = (state: Array<TodoListsType>, action: ActionType
   }
 }
 
-export const RemoveTodoListAC = (todoListId: string) => ({
+export const removeTodoListAC = (todoListId: string) => ({
   type: 'REMOVE-TODOLIST',
   todoListId: todoListId
 } as const)
-export const AddTodoListAC = (title: string) => ({
+export const addTodoListAC = (title: string, id: string) => ({
   type: 'ADD-TODOLIST',
+  id: id,
   title: title
 } as const)
-export const ChangeTodoListTitleAC = (id: string, title: string) => ({
+export const changeTodoListTitleAC = (id: string, title: string) => ({
   type: 'CHANGE-TODOLIST-TITLE',
   id: id,
   title: title
 } as const)
-export const ChangeTodoListFilterAC = (id: string, filter: FilterValueType) => ({
+export const changeTodoListFilterAC = (id: string, filter: FilterValueType) => ({
   type: 'CHANGE-TODOLIST-FILTER',
   id: id,
   filter: filter
