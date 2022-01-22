@@ -47,10 +47,12 @@ test('current task should be added', () => {
     ]
   }
 
-  const endState = taskReducer(startState, addTaskAC(todoListId2, newTitle))
+  const action = addTaskAC(todoListId2, newTitle)
+
+  const endState = taskReducer(startState, action)
 
   expect(endState[todoListId2].length).toBe(4)
-  // expect(endState[todoListId2][4].title).toBe(newTitle)
+  expect(endState[todoListId2][0].title).toBe(newTitle)
 })
 
 test('current task should change his name', () => {
