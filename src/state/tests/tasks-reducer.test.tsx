@@ -1,11 +1,6 @@
-import {
-  changeTodoListFilterAC,
-  todoListsReducer
-} from "../todolist-reducer";
 import {v1} from "uuid";
-import {FILTERS} from "../../common/constants";
-import {TodoListsType, TodoListTasksType} from "../../redux/state";
-import {addTaskAC, changeTaskTitleAC, removeTaskAC, taskReducer} from "../task-reducer";
+import {TodoListTasksType} from "../../redux/state";
+import {addTaskAC, changeStatusTaskAC, changeTaskTitleAC, removeTaskAC, taskReducer} from "../task-reducer";
 
 test('current task should be removed', () => {
   const todoListId1 = v1();
@@ -61,7 +56,7 @@ test('current task should be added', () => {
 test('current task should change his name', () => {
   const todoListId1 = v1();
   const todoListId2 = v1();
-  const todoListId3 = v1();
+  const taskId = v1();
   const newTitle = "SASS or LESS"
 
   const startState: TodoListTasksType = {
@@ -75,37 +70,41 @@ test('current task should change his name', () => {
     [todoListId2]: [
       {id: v1(), title: "Coffee", isDone: true},
       {id: v1(), title: "New brains", isDone: false},
-      {id: todoListId3, title: "React book", isDone: false},
+      {id: taskId, title: "React book", isDone: false},
     ]
   }
 
-  const endState = taskReducer(startState, changeTaskTitleAC(todoListId2, todoListId3, newTitle))
+  const action = changeTaskTitleAC(todoListId2, taskId, newTitle)
 
-  expect(endState[todoListId2][3].title).toBe(newTitle)
+  const endState = taskReducer(startState, action)
+
+  expect(endState[todoListId2][2].title).toBe(newTitle)
 })
 
-// test('current task checkbox should be changed', () => {
-//   const todoListId1 = v1();
-//   const todoListId2 = v1();
-//   const newFilter = FILTERS.COMPLETED
-//
-//   const startState: Array<TodoListsType> = [
-//     {
-//       id: todoListId1,
-//       title: "What to learn",
-//       filter: FILTERS.ALL,
-//     },
-//     {
-//       id: todoListId2,
-//       title: "What to buy",
-//       filter: FILTERS.ALL,
-//     },
-//   ]
-//
-//   const action = changeTodoListFilterAC(todoListId2, newFilter)
-//
-//   const endState = todoListsReducer(startState, action)
-//
-//   expect(endState[0].filter).toBe(FILTERS.ALL)
-//   expect(endState[1].filter).toBe(newFilter)
-// })
+test('current task checkbox should be changed', () => {
+  const todoListId1 = v1();
+  const todoListId2 = v1();
+  const taskId1 = v1();
+  const newIsDone = false
+
+  const startState: TodoListTasksType = {
+    [todoListId1]: [
+      {id: taskId1, title: "HTML", isDone: true},
+      {id: v1(), title: "CSS", isDone: true},
+      {id: v1(), title: "JavaScript", isDone: false},
+      {id: v1(), title: "TypeScript", isDone: false},
+      {id: v1(), title: "React", isDone: false},
+    ],
+    [todoListId2]: [
+      {id: v1(), title: "Coffee", isDone: true},
+      {id: v1(), title: "New brains", isDone: false},
+      {id: v1(), title: "React book", isDone: false},
+    ]
+  }
+
+  const action = changeStatusTaskAC(todoListId1, taskId1, newIsDone)
+
+  const endState = taskReducer(startState, action)
+
+  expect(endState[todoListId1][0].isDone).toBe(newIsDone)
+})
