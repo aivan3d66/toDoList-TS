@@ -54,59 +54,36 @@ const App = () => {
     padding: "16px",
   }
 
-  // const [tasks, setTasks] = useState<TodoListTasksType>(initialStateTasks);
-  // const [todoLists, setTodoLists] = useState<Array<TodoListsType>>(todoList);
-
   const [tasks, tasksDispatch] = useReducer<Reducer<TodoListTasksType, GeneraTasksActionType>>(taskReducer, initialStateTasks);
   const [todoLists, todoListDispatch] = useReducer<Reducer<Array<TodoListsType>, ActionType>>(todoListsReducer, todoList);
 
   const addTodoList: AddTodoList = (title) => {
-    // let todoList: TodoListsType = {
-    //   id: v1(),
-    //   filter: FILTERS.ALL,
-    //   title: title
-    // }
-    // todoListDispatch([todoList, ...todoLists]);
-    // tasksDispatch({
-    //   ...tasks,
-    //   [todoList.id]: []
-    // })
     let newListId = v1();
     todoListDispatch(addTodoListAC(title, newListId))
     tasksDispatch(addCleanTaskListAC(newListId))
   };
   const removeTodoList: RemoveTodoList = (todoListId) => {
-    // todoListDispatch(todoLists.filter(t => t.id !== todoListId));
-    // delete tasks[todoListId];
-    // tasksDispatch({...tasks});
     todoListDispatch(removeTodoListAC(todoListId));
     delete tasks[todoListId];
   };
   const changeTodoListTitle: ChangeTodoListTitleType = (todoListID, newTitle) => {
-    // todoListDispatch([...todoLists.filter(tl => tl.id === todoListID ? tl.title = newTitle : tl)]);
     todoListDispatch(changeTodoListTitleAC(todoListID, newTitle))
   };
 
   const changeFilter: ChangeFilter = (todoListId, value,) => {
-    // todoListDispatch(todoLists.map(m => m.id === todoListId ? {...m, filter: value} : m));
     todoListDispatch(changeTodoListFilterAC(todoListId, value))
   };
 
   const addTask: AddTask = (todoListId, title) => {
-    // let newTask = {id: v1(), title: title, isDone: false};
-    // tasksDispatch(addTaskAC(todoListId, title))
     tasksDispatch(addTaskAC(todoListId, title))
   };
   const removeTask: RemoveTask = (todoListId, id) => {
-    // tasksDispatch({...tasks, [todoListId]: tasks[todoListId].filter(f => f.id !== id)})
     tasksDispatch(removeTaskAC(todoListId, id))
   };
   const changeTaskStatus: ChangeStatus = (todoListId, taskId, isDone) => {
-    // tasksDispatch({...tasks, [todoListId]: tasks[todoListId].map(t => t.id === taskId ? {...t, isDone} : t)})
     tasksDispatch(changeStatusTaskAC(todoListId, taskId, isDone))
   };
   const changeTaskTitle: ChangeTaskTitleType = (todoListId, taskId, newTitle) => {
-    // tasksDispatch({...tasks, [todoListId]: tasks[todoListId].map(t => t.id === taskId ? {...t, title: newTitle} : t)})
     tasksDispatch(changeTaskTitleAC(todoListId, taskId, newTitle))
   };
 
