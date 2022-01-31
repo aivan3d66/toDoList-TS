@@ -1,6 +1,7 @@
 import {TodoListsType, TodoListTasksType} from "../../redux/state";
 import {addTodoListAC, todoListsReducer} from "../todolist-reducer";
 import {taskReducer} from "../task-reducer";
+import { v1 } from "uuid";
 
 test('new array should be added when new todolist is added', () => {
   const startState: TodoListTasksType = {
@@ -16,7 +17,7 @@ test('new array should be added when new todolist is added', () => {
     ]
   };
 
-  const action = addTodoListAC("new todolist");
+  const action = addTodoListAC("new todolist", "todolistId3");
 
   const endState = taskReducer(startState, action)
 
@@ -34,7 +35,7 @@ test('ids should be equals', () => {
   const startTasksState: TodoListTasksType = {};
   const startTodolistsState: Array<TodoListsType> = [];
 
-  const action = addTodoListAC("new todolist");
+  const action = addTodoListAC("new todolist", v1());
   const endTasksState = taskReducer(startTasksState, action)
   const endTodolistsState = todoListsReducer(startTodolistsState, action)
 
