@@ -1,12 +1,8 @@
 import React from "react";
 import {TaskType} from "../redux/state";
 import {
-  AddTask,
-  ChangeFilter,
-  ChangeStatus,
-  ChangeTaskTitleType, ChangeTodoListTitleType,
+  ChangeFilter, ChangeTodoListTitleType,
   FilterValueType,
-  RemoveTask,
   RemoveTodoList
 } from "../App";
 import {FILTERS} from "../common/constants";
@@ -16,21 +12,18 @@ import {EditableSpan} from "./TodoListItems/EditableSpan/EditableSpan";
 import {TodoListItems} from "./TodoListItems/TodoListItems";
 import {Button, IconButton} from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
+import {useDispatch, useSelector} from "react-redux";
+import {AppRootState} from "../state/redux-store";
+import {addTaskAC} from "../state/task-reducer";
 
 export type TodoListProps = {
   todoListID: string,
   titleList: string,
-  tasks: Array<TaskType>,
-  removeTask: RemoveTask,
   changeFilter: ChangeFilter,
-  addTask: AddTask,
-  changeTaskStatus: ChangeStatus,
   filter: FilterValueType,
   removeTodoList: RemoveTodoList,
-  changeTaskTitle: ChangeTaskTitleType,
   changeTodoListTitle: ChangeTodoListTitleType
 };
-export type OnRemoveListHandler = () => void;
 
 const todoListBtnWrapperStyles = {
   display: "flex",
@@ -44,23 +37,26 @@ const TodoList: React.FC<TodoListProps> = (
     changeTodoListTitle,
     removeTodoList,
     titleList,
-    changeTaskTitle,
     filter,
     changeFilter,
-    tasks,
-    addTask,
-    removeTask,
-    changeTaskStatus,
   }
 ) => {
+  const dispatch = useDispatch();
+  const tasks = useSelector<AppRootState, Array<TaskType>>(state => state.tasks[todoListID])
 
-  const onRemoveListHandler: OnRemoveListHandler = () => removeTodoList(todoListID);
   const onChangeTodoListTitle = (title: string) => {
     changeTodoListTitle(todoListID, title)
   };
-  const addTaskHandler = (title: string) => {
-    addTask(todoListID, title)
-  };
+  const onRemoveListHandler = () => removeTodoList(todoListID);
+
+  let taskForTodoList = tasks;
+
+  if (filter === FILTERS.ACTIVE) {
+    taskForTodoList = tasks.filter((t: TaskType) => !t.isDone)
+  }
+  if (filter === FILTERS.COMPLETED) {
+    taskForTodoList = tasks.filter((t: TaskType) => t.isDone)
+  }
 
   const onAllFilterHandler = () => changeFilter(todoListID, FILTERS.ALL);
   const onActiveFilterHandler = () => changeFilter(todoListID, FILTERS.ACTIVE);
@@ -95,14 +91,11 @@ const TodoList: React.FC<TodoListProps> = (
         </IconButton>
       </div>
       <AddItemForm
-        addTask={addTaskHandler}
+        addTask={(title) => dispatch(addTaskAC(todoListID, title))}
       />
 
       <TodoListItems
-        tasks={tasks}
-        changeTaskStatus={changeTaskStatus}
-        changeTaskTitle={changeTaskTitle}
-        removeTask={removeTask}
+        tasks={taskForTodoList}
         todoListID={todoListID}
       />
 
