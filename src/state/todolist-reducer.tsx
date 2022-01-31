@@ -1,7 +1,6 @@
 import {TodoListsType} from "../redux/state";
 import {FILTERS} from "../common/constants";
 import {FilterValueType} from "../App";
-import {v1} from 'uuid';
 
 const REMOVE_TODOLIST = 'REMOVE_TODOLIST';
 const ADD_TODOLIST = 'ADD_TODOLIST';
@@ -20,24 +19,24 @@ export type ActionType =
 
 export const todoListsReducer = (state: Array<TodoListsType>, action: ActionType): Array<TodoListsType> => {
   switch (action.type) {
-    case 'REMOVE-TODOLIST': {
+    case REMOVE_TODOLIST: {
       return [...state.filter(t => t.id !== action.todoListId)];
     }
 
-    case 'ADD-TODOLIST': {
+    case ADD_TODOLIST: {
       let todoList: TodoListsType = {
-        id: action.id,
+        id: action.todoListId,
         title: action.title,
         filter: FILTERS.ALL,
       }
       return [...state, todoList]
     }
 
-    case 'CHANGE-TODOLIST-TITLE': {
+    case CHANGE_TODOLIST_TITLE: {
       return [...state.filter(tl => tl.id === action.id ? tl.title = action.title : tl)]
     }
 
-    case 'CHANGE-TODOLIST-FILTER': {
+    case CHANGE_TODOLIST_FILTER: {
       return [...state.map(m => m.id === action.id ? {...m, filter: action.filter} : m)]
     }
 
@@ -47,21 +46,21 @@ export const todoListsReducer = (state: Array<TodoListsType>, action: ActionType
 }
 
 export const removeTodoListAC = (todoListId: string) => ({
-  type: 'REMOVE-TODOLIST',
+  type: REMOVE_TODOLIST,
   todoListId: todoListId
 } as const)
-export const addTodoListAC = (title: string, id: string) => ({
-  type: 'ADD-TODOLIST',
-  id: id,
+export const addTodoListAC = (title: string, todoListId: string) => ({
+  type: ADD_TODOLIST,
+  todoListId: todoListId,
   title: title
 } as const)
 export const changeTodoListTitleAC = (id: string, title: string) => ({
-  type: 'CHANGE-TODOLIST-TITLE',
+  type: CHANGE_TODOLIST_TITLE,
   id: id,
   title: title
 } as const)
 export const changeTodoListFilterAC = (id: string, filter: FilterValueType) => ({
-  type: 'CHANGE-TODOLIST-FILTER',
+  type: CHANGE_TODOLIST_FILTER,
   id: id,
   filter: filter
 } as const)
