@@ -1,7 +1,7 @@
 import React, {Reducer, useReducer} from 'react';
 import './App.css';
 import TodoList from "./components/ToDoList";
-import {initialStateTasks, TaskType, todoList, TodoListsType, TodoListTasksType} from "./redux/state";
+import {TaskType, TodoListsType, TodoListTasksType} from "./redux/state";
 import {FILTERS} from "./common/constants";
 import {AddItemForm} from "./components/AddItemForm";
 import AppBar from '@mui/material/AppBar';
@@ -11,7 +11,7 @@ import {
   addTaskAC,
   changeStatusTaskAC,
   changeTaskTitleAC,
-  GeneraTasksActionType,
+  GeneraTasksActionType, initialTasksState,
   removeTaskAC,
   taskReducer
 } from "./state/task-reducer";
@@ -20,7 +20,7 @@ import {
   ActionType,
   removeTodoListAC,
   addTodoListAC,
-  changeTodoListFilterAC, changeTodoListTitleAC
+  changeTodoListFilterAC, changeTodoListTitleAC, initialTodoList
 } from "./state/todolist-reducer";
 import {v1} from 'uuid';
 
@@ -53,8 +53,8 @@ const App = () => {
     padding: "16px",
   }
 
-  const [tasks, tasksDispatch] = useReducer<Reducer<TodoListTasksType, GeneraTasksActionType>>(taskReducer, initialStateTasks);
-  const [todoLists, todoListDispatch] = useReducer<Reducer<Array<TodoListsType>, ActionType>>(todoListsReducer, todoList);
+  const [tasks, tasksDispatch] = useReducer<Reducer<TodoListTasksType, GeneraTasksActionType>>(taskReducer, initialTasksState);
+  const [todoLists, todoListDispatch] = useReducer<Reducer<Array<TodoListsType>, ActionType>>(todoListsReducer, initialTodoList);
 
   const addTodoList: AddTodoList = (title) => {
     const newListId = v1();
