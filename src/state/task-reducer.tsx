@@ -13,29 +13,29 @@ export type RemoveTaskActionType = ReturnType<typeof removeTaskAC>
 export type AddTaskActionType = ReturnType<typeof addTaskAC>
 export type ChangeTaskStatusActionType = ReturnType<typeof changeStatusTaskAC>
 export type ChangeTaskTitleActionType = ReturnType<typeof changeTaskTitleAC>
-export type AddClearTasksListActionType = ReturnType<typeof addCleanTaskListAC>
 
 export type GeneraTasksActionType =
   RemoveTaskActionType
   | AddTaskActionType
   | ChangeTaskStatusActionType
   | ChangeTaskTitleActionType
-  | AddClearTasksListActionType
+  | AddTodoListActionType
+  | RemoveTodoListActionType
 
 export const taskReducer = (state: TodoListTasksType, action: GeneraTasksActionType) => {
   switch (action.type) {
-    case 'REMOVE-TASK':
+    case REMOVE_TASK:
       return {
         ...state, [action.todoListId]: state[action.todoListId].filter((f) => f.id !== action.id)
       }
 
-    case 'ADD-TASK':
+    case ADD_TASK:
       return {
         ...state,
         [action.todoListId]: [{id: v1(), title: action.title, isDone: false}, ...state[action.todoListId]]
       }
 
-    case 'CHANGE-STATUS-TASK':
+    case CHANGE_TASK_STATUS:
       return {
         ...state,
         [action.todoListId]: state[action.todoListId].map((t) => t.id === action.taskId ? {
@@ -44,7 +44,7 @@ export const taskReducer = (state: TodoListTasksType, action: GeneraTasksActionT
         } : t)
       }
 
-    case 'CHANGE-TASK_TITLE':
+    case CHANGE_TASK_TITLE:
       return {
         ...state,
         [action.todoListId]: state[action.todoListId].map((t) => t.id === action.taskId ? {
@@ -53,10 +53,16 @@ export const taskReducer = (state: TodoListTasksType, action: GeneraTasksActionT
         } : t)
       }
 
-      case 'ADD-CLEAR-TASKS-LIST':
+    case ADD_TODOLIST:
       return {
         ...state, [action.todoListId]: []
       }
+
+    case REMOVE_TODOLIST: {
+      const stateCopy = {...state}
+      delete stateCopy[action.todoListId]
+      return stateCopy
+    }
 
     default:
       return state
@@ -64,28 +70,24 @@ export const taskReducer = (state: TodoListTasksType, action: GeneraTasksActionT
 }
 
 export const removeTaskAC = (todoListId: string, id: string) => ({
-  type: 'REMOVE-TASK',
+  type: REMOVE_TASK,
   todoListId: todoListId,
   id: id,
 } as const)
 export const addTaskAC = (todoListId: string, title: string) => ({
-  type: 'ADD-TASK',
+  type: ADD_TASK,
   todoListId: todoListId,
   title: title,
 } as const)
 export const changeStatusTaskAC = (todoListId: string, taskId: string, isDone: boolean) => ({
-  type: 'CHANGE-STATUS-TASK',
+  type: CHANGE_TASK_STATUS,
   todoListId: todoListId,
   taskId: taskId,
   isDone: isDone,
 } as const)
 export const changeTaskTitleAC = (todoListId: string, taskId: string, newTitle: string) => ({
-  type: 'CHANGE-TASK_TITLE',
+  type: CHANGE_TASK_TITLE,
   todoListId: todoListId,
   taskId: taskId,
   newTitle: newTitle,
-} as const)
-export const addCleanTaskListAC = (todoListId: string,) => ({
-  type: 'ADD-CLEAR-TASKS-LIST',
-  todoListId: todoListId,
 } as const)
