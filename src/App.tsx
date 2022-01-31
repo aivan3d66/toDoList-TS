@@ -8,7 +8,6 @@ import AppBar from '@mui/material/AppBar';
 import {Toolbar, IconButton, Typography, Container, Grid, Paper} from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import {
-  addCleanTaskListAC,
   addTaskAC,
   changeStatusTaskAC,
   changeTaskTitleAC,
@@ -23,7 +22,7 @@ import {
   addTodoListAC,
   changeTodoListFilterAC, changeTodoListTitleAC
 } from "./state/todolist-reducer";
-import { v1 } from 'uuid';
+import {v1} from 'uuid';
 
 export type AddTodoList = (title: string) => void;
 export type RemoveTodoList = (todoListId: string) => void;
@@ -58,33 +57,33 @@ const App = () => {
   const [todoLists, todoListDispatch] = useReducer<Reducer<Array<TodoListsType>, ActionType>>(todoListsReducer, todoList);
 
   const addTodoList: AddTodoList = (title) => {
-    let newListId = v1();
-    todoListDispatch(addTodoListAC(title, newListId))
-    tasksDispatch(addCleanTaskListAC(newListId))
+    const newListId = v1();
+    todoListDispatch(addTodoListAC(title, newListId));
+    tasksDispatch(addTodoListAC(title, newListId));
   };
   const removeTodoList: RemoveTodoList = (todoListId) => {
     todoListDispatch(removeTodoListAC(todoListId));
-    delete tasks[todoListId];
+    tasksDispatch(removeTodoListAC(todoListId));
   };
   const changeTodoListTitle: ChangeTodoListTitleType = (todoListID, newTitle) => {
-    todoListDispatch(changeTodoListTitleAC(todoListID, newTitle))
+    todoListDispatch(changeTodoListTitleAC(todoListID, newTitle));
   };
 
   const changeFilter: ChangeFilter = (todoListId, value,) => {
-    todoListDispatch(changeTodoListFilterAC(todoListId, value))
+    todoListDispatch(changeTodoListFilterAC(todoListId, value));
   };
 
   const addTask: AddTask = (todoListId, title) => {
-    tasksDispatch(addTaskAC(todoListId, title))
+    tasksDispatch(addTaskAC(todoListId, title));
   };
   const removeTask: RemoveTask = (todoListId, id) => {
-    tasksDispatch(removeTaskAC(todoListId, id))
+    tasksDispatch(removeTaskAC(todoListId, id));
   };
   const changeTaskStatus: ChangeStatus = (todoListId, taskId, isDone) => {
-    tasksDispatch(changeStatusTaskAC(todoListId, taskId, isDone))
+    tasksDispatch(changeStatusTaskAC(todoListId, taskId, isDone));
   };
   const changeTaskTitle: ChangeTaskTitleType = (todoListId, taskId, newTitle) => {
-    tasksDispatch(changeTaskTitleAC(todoListId, taskId, newTitle))
+    tasksDispatch(changeTaskTitleAC(todoListId, taskId, newTitle));
   };
 
   return (
