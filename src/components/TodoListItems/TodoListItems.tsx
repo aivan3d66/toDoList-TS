@@ -1,25 +1,19 @@
 import React, {ChangeEvent} from "react";
 import {TaskType} from "../../redux/state";
 import {EditableSpan} from "./EditableSpan/EditableSpan";
-import {ChangeStatus, ChangeTaskTitleType, RemoveTask} from "../../App";
 import {Checkbox, IconButton} from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
+import {useDispatch} from "react-redux";
+import {changeStatusTaskAC, changeTaskTitleAC, removeTaskAC} from "../../state/task-reducer";
 
-type OnClickHandler = () => void;
 type TodoListItemsPropsType = {
   tasks: Array<TaskType>,
-  changeTaskStatus: ChangeStatus,
-  changeTaskTitle: ChangeTaskTitleType,
-  removeTask: RemoveTask,
   todoListID: string,
 }
 
 export const TodoListItems: React.FC<TodoListItemsPropsType> = (
   {
     tasks,
-    changeTaskStatus,
-    changeTaskTitle,
-    removeTask,
     todoListID,
   }
 ) => {
@@ -29,15 +23,18 @@ export const TodoListItems: React.FC<TodoListItemsPropsType> = (
     margin: "20px 0 40px 0",
     padding: "0",
   }
+  const dispatch = useDispatch();
 
   const tasksList = tasks.map((task: TaskType, index: number) => {
-      const onClickHandler: OnClickHandler = () => removeTask(todoListID, task.id);
+      const onClickHandler = () => dispatch(removeTaskAC(todoListID, task.id));
+
       const onChangeTitleHandler = (newValue: string) => {
-        changeTaskTitle(todoListID, task.id, newValue)
+        dispatch(changeTaskTitleAC(todoListID, task.id, newValue))
       }
 
       const onChangeStatusHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        changeTaskStatus(todoListID, task.id, (e.currentTarget.checked))
+        let newIsDoneValue = e.currentTarget.checked;
+        dispatch(changeStatusTaskAC(todoListID, task.id, newIsDoneValue));
       }
 
       const taskStyles = {
