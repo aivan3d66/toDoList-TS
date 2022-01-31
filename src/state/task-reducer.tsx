@@ -1,5 +1,13 @@
 import {v1} from "uuid";
 import {TodoListTasksType} from "../redux/state";
+import {AddTodoListActionType, RemoveTodoListActionType} from "./todolist-reducer";
+
+const REMOVE_TASK = 'REMOVE_TASK';
+const ADD_TASK = 'ADD_TASK';
+const CHANGE_TASK_STATUS = 'CHANGE_TASK_STATUS';
+const CHANGE_TASK_TITLE = 'CHANGE_TASK_TITLE';
+const ADD_TODOLIST = 'ADD_TODOLIST';
+const REMOVE_TODOLIST = 'REMOVE_TODOLIST';
 
 export type RemoveTaskActionType = ReturnType<typeof removeTaskAC>
 export type AddTaskActionType = ReturnType<typeof addTaskAC>
