@@ -8,7 +8,7 @@ import {todoListsReducer} from "./todolist-reducer";
 // export type BaseThunksType<A extends Action, R = Promise<void>> = ThunkAction<R, AppStateType, unknown, A>
 // export type AppStateType = ReturnType<RootReducersType>
 
-// type AppRootState = ReturnType<typeof rootReducer>
+export type AppRootState = ReturnType<typeof rootReducer>
 
 const rootReducer = combineReducers({
   tasks: taskReducer,
