@@ -114,37 +114,44 @@ const App = () => {
 
         <Grid container spacing={2} style={gridContainerAppStyles}>
           {
-            todoLists.map(t => {
-              let taskForTodoList = tasks[t.id];
+            todoLists.length === 0
+              ? <h3 style={{
+                fontWeight: "normal",
+                fontSize: "24px",
+                textTransform: "uppercase",
+                color: "#bababa"
+              }}>Please, add new tasks list ...</h3>
+              : todoLists.map(t => {
+                let taskForTodoList = tasks[t.id];
 
-              if (t.filter === FILTERS.ACTIVE) {
-                taskForTodoList = tasks[t.id].filter((t: TaskType) => !t.isDone)
-              }
-              if (t.filter === FILTERS.COMPLETED) {
-                taskForTodoList = tasks[t.id].filter((t: TaskType) => t.isDone)
-              }
+                if (t.filter === FILTERS.ACTIVE) {
+                  taskForTodoList = tasks[t.id].filter((t: TaskType) => !t.isDone)
+                }
+                if (t.filter === FILTERS.COMPLETED) {
+                  taskForTodoList = tasks[t.id].filter((t: TaskType) => t.isDone)
+                }
 
-              return (
-                <Grid item key={t.id}>
-                  <Paper style={paperAppStyles}>
-                    <TodoList
-                      key={t.id}
-                      todoListID={t.id}
-                      titleList={t.title}
-                      filter={t.filter}
-                      tasks={taskForTodoList}
-                      removeTask={removeTask}
-                      addTask={addTask}
-                      changeFilter={changeFilter}
-                      changeTaskStatus={changeTaskStatus}
-                      removeTodoList={removeTodoList}
-                      changeTaskTitle={changeTaskTitle}
-                      changeTodoListTitle={changeTodoListTitle}
-                    />
-                  </Paper>
-                </Grid>
-              )
-            })
+                return (
+                  <Grid item key={t.id}>
+                    <Paper style={paperAppStyles}>
+                      <TodoList
+                        key={t.id}
+                        todoListID={t.id}
+                        titleList={t.title}
+                        filter={t.filter}
+                        tasks={taskForTodoList}
+                        removeTask={removeTask}
+                        addTask={addTask}
+                        changeFilter={changeFilter}
+                        changeTaskStatus={changeTaskStatus}
+                        removeTodoList={removeTodoList}
+                        changeTaskTitle={changeTaskTitle}
+                        changeTodoListTitle={changeTodoListTitle}
+                      />
+                    </Paper>
+                  </Grid>
+                )
+              })
           }
         </Grid>
       </Container>
