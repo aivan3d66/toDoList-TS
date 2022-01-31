@@ -1,5 +1,6 @@
 import {v1} from "uuid";
 import {TodoListTasksType} from "../redux/state";
+import {todoListId1, todoListId2} from "./todolist-reducer";
 import {AddTodoListActionType, RemoveTodoListActionType} from "./todolist-reducer";
 
 const REMOVE_TASK = 'REMOVE_TASK';
@@ -22,7 +23,22 @@ export type GeneraTasksActionType =
   | AddTodoListActionType
   | RemoveTodoListActionType
 
-export const taskReducer = (state: TodoListTasksType, action: GeneraTasksActionType) => {
+export const initialTasksState: TodoListTasksType = {
+  [todoListId1]: [
+    {id: v1(), title: "HTML", isDone: true},
+    {id: v1(), title: "CSS", isDone: true},
+    {id: v1(), title: "JavaScript", isDone: false},
+    {id: v1(), title: "TypeScript", isDone: false},
+    {id: v1(), title: "React", isDone: false},
+  ],
+  [todoListId2]: [
+    {id: v1(), title: "Coffee", isDone: true},
+    {id: v1(), title: "New brains", isDone: false},
+    {id: v1(), title: "React book", isDone: false},
+  ]
+}
+
+export const taskReducer = (state = initialTasksState, action: GeneraTasksActionType) => {
   switch (action.type) {
     case REMOVE_TASK:
       return {
