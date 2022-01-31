@@ -1,18 +1,12 @@
 import React from 'react';
 import './App.css';
 import TodoList from "./components/ToDoList";
-import {TaskType, TodoListsType, TodoListTasksType} from "./redux/state";
+import {TodoListsType} from "./redux/state";
 import {FILTERS} from "./common/constants";
 import {AddItemForm} from "./components/AddItemForm";
 import AppBar from '@mui/material/AppBar';
 import {Toolbar, IconButton, Typography, Container, Grid, Paper} from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import {
-  addTaskAC,
-  changeStatusTaskAC,
-  changeTaskTitleAC,
-  removeTaskAC,
-} from "./state/task-reducer";
 import {
   removeTodoListAC,
   addTodoListAC,
@@ -29,10 +23,6 @@ export type ChangeTodoListTitleType = (todoListID: string, title: string) => voi
 export type FilterValueType = typeof FILTERS.ALL | typeof FILTERS.COMPLETED | typeof FILTERS.ACTIVE;
 export type ChangeFilter = (todoListId: string, value: FilterValueType) => void;
 
-export type AddTask = (todoListId: string, title: string) => void;
-export type RemoveTask = (todoListId: string, id: string) => void;
-export type ChangeStatus = (todoListId: string, taskId: string, isDone: boolean) => void;
-export type ChangeTaskTitleType = (todoListId: string, taskId: string, newTitle: string) => void;
 
 const App = () => {
   const gridItemAppStyles = {
@@ -53,7 +43,6 @@ const App = () => {
 
   const dispatch = useDispatch();
   const todoLists = useSelector<AppRootState, Array<TodoListsType>>(state => state.todoLists)
-  const tasks = useSelector<AppRootState, TodoListTasksType>(state => state.tasks)
 
   const addTodoList: AddTodoList = (title) => {
     const newListId = v1();
@@ -70,19 +59,6 @@ const App = () => {
 
   const changeFilter: ChangeFilter = (todoListId, value,) => {
     dispatch(changeTodoListFilterAC(todoListId, value));
-  };
-
-  const addTask: AddTask = (todoListId, title) => {
-    dispatch(addTaskAC(todoListId, title));
-  };
-  const removeTask: RemoveTask = (todoListId, id) => {
-    dispatch(removeTaskAC(todoListId, id));
-  };
-  const changeTaskStatus: ChangeStatus = (todoListId, taskId, isDone) => {
-    dispatch(changeStatusTaskAC(todoListId, taskId, isDone));
-  };
-  const changeTaskTitle: ChangeTaskTitleType = (todoListId, taskId, newTitle) => {
-    dispatch(changeTaskTitleAC(todoListId, taskId, newTitle));
   };
 
   return (
@@ -121,15 +97,6 @@ const App = () => {
                 color: "#bababa"
               }}>Please, add new tasks list ...</h3>
               : todoLists.map(t => {
-                let taskForTodoList = tasks[t.id];
-
-                if (t.filter === FILTERS.ACTIVE) {
-                  taskForTodoList = tasks[t.id].filter((t: TaskType) => !t.isDone)
-                }
-                if (t.filter === FILTERS.COMPLETED) {
-                  taskForTodoList = tasks[t.id].filter((t: TaskType) => t.isDone)
-                }
-
                 return (
                   <Grid item key={t.id}>
                     <Paper style={paperAppStyles}>
@@ -138,13 +105,8 @@ const App = () => {
                         todoListID={t.id}
                         titleList={t.title}
                         filter={t.filter}
-                        tasks={taskForTodoList}
-                        removeTask={removeTask}
-                        addTask={addTask}
                         changeFilter={changeFilter}
-                        changeTaskStatus={changeTaskStatus}
                         removeTodoList={removeTodoList}
-                        changeTaskTitle={changeTaskTitle}
                         changeTodoListTitle={changeTodoListTitle}
                       />
                     </Paper>
