@@ -58,12 +58,14 @@ const App = () => {
 
   const addTodoList: AddTodoList = (title) => {
     const newListId = v1();
-    todoListDispatch(addTodoListAC(title, newListId));
-    tasksDispatch(addTodoListAC(title, newListId));
+    const action = addTodoListAC(title, newListId)
+    todoListDispatch(action);
+    tasksDispatch(action);
   };
   const removeTodoList: RemoveTodoList = (todoListId) => {
-    todoListDispatch(removeTodoListAC(todoListId));
-    tasksDispatch(removeTodoListAC(todoListId));
+    const action = removeTodoListAC(todoListId)
+    todoListDispatch(action);
+    tasksDispatch(action);
   };
   const changeTodoListTitle: ChangeTodoListTitleType = (todoListID, newTitle) => {
     todoListDispatch(changeTodoListTitleAC(todoListID, newTitle));
