@@ -1,6 +1,12 @@
 import {TodoListsType} from "../redux/state";
 import {FILTERS} from "../common/constants";
 import {FilterValueType} from "../App";
+import {v1} from 'uuid';
+
+const REMOVE_TODOLIST = 'REMOVE_TODOLIST';
+const ADD_TODOLIST = 'ADD_TODOLIST';
+const CHANGE_TODOLIST_TITLE = 'CHANGE_TODOLIST_TITLE';
+const CHANGE_TODOLIST_FILTER = 'CHANGE_TODOLIST_FILTER';
 
 export type RemoveTodoListActionType = ReturnType<typeof removeTodoListAC>
 export type AddTodoListActionType = ReturnType<typeof addTodoListAC>
