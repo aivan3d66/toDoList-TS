@@ -62,9 +62,9 @@ const TodoList = React.memo((props: TodoListProps) => {
       taskForTodoList = tasks.filter((t: TaskType) => t.isDone)
     }
 
-    const onAllFilterHandler = () => changeFilter(todoListID, FILTERS.ALL);
-    const onActiveFilterHandler = () => changeFilter(todoListID, FILTERS.ACTIVE);
-    const onCompletedFilterHandler = () => changeFilter(todoListID, FILTERS.COMPLETED);
+    const onAllFilterHandler = useCallback(() => changeFilter(todoListID, FILTERS.ALL),[todoListID, FILTERS.ALL]);
+    const onActiveFilterHandler = useCallback(() => changeFilter(todoListID, FILTERS.ACTIVE),[todoListID, FILTERS.ACTIVE]);
+    const onCompletedFilterHandler = useCallback(() => changeFilter(todoListID, FILTERS.COMPLETED),[todoListID, FILTERS.COMPLETED]);
 
     const getActiveBtnClassName = (filterValue: FilterValueType) => {
       return filter === filterValue ? 'contained' : 'outlined';
