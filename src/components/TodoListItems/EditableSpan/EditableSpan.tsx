@@ -3,15 +3,15 @@ import SuperInputText from "../../../common/super-components/SuperInputText/Supe
 
 type EditableSpanPropsType = {
   title: string,
-  onChange: any
+  onChange: (title: string) => void
 }
 
-export const EditableSpan: React.FC<EditableSpanPropsType> = (
-  {
+export const EditableSpan = React.memo((props: EditableSpanPropsType) => {
+  const {
     title,
     onChange
-  }
-) => {
+  } = props;
+
   const [editMode, setEditMode] = useState<boolean>(false);
   const [newTitle, setNewTitle] = useState<string>("");
 
@@ -44,4 +44,4 @@ export const EditableSpan: React.FC<EditableSpanPropsType> = (
     </div>
 
   )
-}
+});
