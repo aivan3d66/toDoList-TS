@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useCallback} from "react";
 import {TaskType} from "../redux/state";
 import {
   ChangeFilter, ChangeTodoListTitleType,
@@ -44,10 +44,14 @@ const TodoList = React.memo((props: TodoListProps) => {
     const dispatch = useDispatch();
     const tasks = useSelector<AppRootState, Array<TaskType>>(state => state.tasks[todoListID])
 
-    const onChangeTodoListTitle = (title: string) => {
+    const onChangeTodoListTitle = useCallback((title: string) => {
       changeTodoListTitle(todoListID, title)
-    };
+    }, []);
     const onRemoveListHandler = () => removeTodoList(todoListID);
+
+    const addTaskHandler = useCallback((title: string) => {
+      dispatch(addTaskAC(todoListID, title));
+    }, [dispatch]);
 
     let taskForTodoList = tasks;
 
@@ -63,7 +67,7 @@ const TodoList = React.memo((props: TodoListProps) => {
     const onCompletedFilterHandler = () => changeFilter(todoListID, FILTERS.COMPLETED);
 
     const getActiveBtnClassName = (filterValue: FilterValueType) => {
-      return filter === filterValue ? 'contained' : 'text';
+      return filter === filterValue ? 'contained' : 'outlined';
     };
 
     return (
@@ -91,7 +95,7 @@ const TodoList = React.memo((props: TodoListProps) => {
           </IconButton>
         </div>
         <AddItemForm
-          addTask={(title) => dispatch(addTaskAC(todoListID, title))}
+          addTask={addTaskHandler}
         />
 
         <TodoListItems
