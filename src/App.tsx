@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import './App.css';
 import TodoList from "./components/ToDoList";
 import {TodoListsType} from "./redux/state";
@@ -43,11 +43,11 @@ const App = () => {
   const dispatch = useDispatch();
   const todoLists = useSelector<AppRootState, Array<TodoListsType>>(state => state.todoLists)
 
-  const addTodoList: AddTodoList = (title) => {
+  const addTodoList = useCallback((title: string) => {
     const newListId = v1();
     const action = addTodoListAC(title, newListId)
     dispatch(action);
-  };
+  }, []);
   const removeTodoList: RemoveTodoList = (todoListId) => {
     const action = removeTodoListAC(todoListId)
     dispatch(action);
