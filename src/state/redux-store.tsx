@@ -1,4 +1,5 @@
 import {createStore, combineReducers} from "redux";
+import { loadState } from "../utils/localStorage";
 import {taskReducer} from "./task-reducer";
 import {todoListsReducer} from "./todolist-reducer";
 
@@ -15,9 +16,10 @@ const rootReducer = combineReducers({
   todoLists: todoListsReducer,
 })
 
-const store = createStore(rootReducer);
+const store = createStore(rootReducer, loadState());
 
-// @ts-ignore
-window.store = store;
+store.subscribe(() => {
+  localStorage.setItem('todoList-state', JSON.stringify(store.getState()))
+})
 
 export default store;
