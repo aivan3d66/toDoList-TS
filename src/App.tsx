@@ -47,18 +47,18 @@ const App = () => {
     const newListId = v1();
     const action = addTodoListAC(title, newListId)
     dispatch(action);
-  }, []);
+  }, [dispatch]);
   const removeTodoList = useCallback((todoListId: string) => {
     const action = removeTodoListAC(todoListId)
     dispatch(action);
-  }, []);
+  }, [dispatch]);
   const changeTodoListTitle = useCallback((todoListID: string, newTitle: string) => {
     dispatch(changeTodoListTitleAC(todoListID, newTitle));
-  }, []);
+  }, [dispatch]);
 
   const changeFilter = useCallback((todoListId: string, value: FilterValueType,) => {
     dispatch(changeTodoListFilterAC(todoListId, value));
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className="App">
