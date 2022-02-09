@@ -11,27 +11,25 @@ type TodoListItemsPropsType = {
   todoListID: string,
 }
 
-export const TodoListItems: React.FC<TodoListItemsPropsType> = (
-  {
-    tasks,
-    todoListID,
-  }
-) => {
+export const TodoListItems = React.memo((props: TodoListItemsPropsType) => {
   const tasksListStyles = {
     listStyle: "none",
     width: "100%",
     margin: "20px 0 40px 0",
     padding: "0",
   }
+  const {
+    tasks,
+    todoListID,
+  } = props;
+
   const dispatch = useDispatch();
 
   const tasksList = tasks.map((task: TaskType, index: number) => {
       const onClickHandler = () => dispatch(removeTaskAC(todoListID, task.id));
-
       const onChangeTitleHandler = (newValue: string) => {
         dispatch(changeTaskTitleAC(todoListID, task.id, newValue))
       }
-
       const onChangeStatusHandler = (e: ChangeEvent<HTMLInputElement>) => {
         let newIsDoneValue = e.currentTarget.checked;
         dispatch(changeStatusTaskAC(todoListID, task.id, newIsDoneValue));
@@ -76,4 +74,4 @@ export const TodoListItems: React.FC<TodoListItemsPropsType> = (
       {tasks.length === 0 ? <p>No tasks yet ...</p> : tasksList}
     </ul>
   )
-}
+});
