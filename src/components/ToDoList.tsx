@@ -74,7 +74,7 @@ const TodoList = React.memo((props: TodoListProps) => {
       <div style={{
         display: "flex",
         flexDirection: "column",
-        width: "320px",
+        width: "100%",
         minHeight: "400px"
       }}>
         <div style={{
@@ -107,18 +107,21 @@ const TodoList = React.memo((props: TodoListProps) => {
           <Button
             variant={getActiveBtnClassName(FILTERS.ALL)}
             onClick={onAllFilterHandler}
+            size={'small'}
           >
             All
           </Button>
           <Button
             variant={getActiveBtnClassName(FILTERS.ACTIVE)}
             onClick={onActiveFilterHandler}
+            size={'small'}
           >
             Active
           </Button>
           <Button
             variant={getActiveBtnClassName(FILTERS.COMPLETED)}
             onClick={onCompletedFilterHandler}
+            size={'small'}
           >
             Completed
           </Button>

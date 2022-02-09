@@ -38,17 +38,16 @@ export const TodoListItems = React.memo((props: TodoListItemsPropsType) => {
       const taskStyles = {
         display: "flex",
         justifyContent: "space-between",
-        alignItems: "flex-start",
+        alignItems: "center",
         padding: "4px 0",
-        margin: "6px 0",
+        margin: "0",
+        fontSize: "14px",
         borderBottom: "1px solid #bababa",
         opacity: task.isDone ? "0.4" : "",
       }
 
       return (
-        <li key={index}
-            style={taskStyles}
-        >
+        <li key={index} style={taskStyles}>
           <Checkbox
             color={"success"}
             checked={task.isDone}

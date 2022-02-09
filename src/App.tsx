@@ -27,7 +27,7 @@ const App = () => {
   const gridItemAppStyles = {
     width: "100%",
     margin: "40px 0",
-    padding: "20px",
+    padding: "16px",
     backgroundColor: "rgba(211, 211, 211, 0.5)",
     borderRadius: "5px"
   }
@@ -36,6 +36,7 @@ const App = () => {
     justifyContent: "center",
   }
   const paperAppStyles = {
+    width: "300px",
     minHeight: "200px",
     padding: "16px",
   }

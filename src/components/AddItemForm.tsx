@@ -18,9 +18,9 @@ export const AddItemForm = React.memo((props: AddItemFormPropsType) => {
     width: "100%",
   }
   const addItemTextFieldStyles = {
-    flexGrow: "10",
+    flexGrow: 1,
+    width: "100px",
     margin: "0 10px 0 0",
-    height: "40px",
     backgroundColor: "white"
   }
   const editableSpanStyles = {
@@ -55,7 +55,7 @@ export const AddItemForm = React.memo((props: AddItemFormPropsType) => {
   return (
     <Grid container style={addItemListContStyles}>
       <TextField
-        placeholder={"Just write something ..."}
+        placeholder={"Write the text ..."}
         value={title}
         size={'small'}
         error={!!error}
@@ -67,7 +67,6 @@ export const AddItemForm = React.memo((props: AddItemFormPropsType) => {
         onClick={addItemHandler}
         startIcon={<Add/>}
         variant={'contained'}
-        style={{flexGrow: "1"}}
       >
         add
       </Button>
