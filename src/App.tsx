@@ -23,7 +23,6 @@ export type ChangeTodoListTitleType = (todoListID: string, title: string) => voi
 export type FilterValueType = typeof FILTERS.ALL | typeof FILTERS.COMPLETED | typeof FILTERS.ACTIVE;
 export type ChangeFilter = (todoListId: string, value: FilterValueType) => void;
 
-
 const App = () => {
   const gridItemAppStyles = {
     width: "100%",
