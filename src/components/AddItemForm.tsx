@@ -10,11 +10,7 @@ export type OnKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => void;
 export type OnChangeHandler = (e: ChangeEvent<HTMLInputElement>) => void;
 export type AddTaskHandler = () => void;
 
-export const AddItemForm: React.FC<AddItemFormPropsType> = (
-  {
-    addTask,
-  }
-) => {
+export const AddItemForm = React.memo((props: AddItemFormPropsType) => {
   const addItemListContStyles = {
     display: "flex",
     justifyContent: "space-between",
@@ -39,7 +35,7 @@ export const AddItemForm: React.FC<AddItemFormPropsType> = (
 
   const addItemHandler: AddTaskHandler = () => {
     if (title.trim() !== "") {
-      addTask(title);
+      props.addTask(title);
       setTitle("");
       setError("");
     } else {
@@ -82,4 +78,4 @@ export const AddItemForm: React.FC<AddItemFormPropsType> = (
       >{SET_ERROR_NAME}</Alert>}
     </Grid>
   )
-}
+})
