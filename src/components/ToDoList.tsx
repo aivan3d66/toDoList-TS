@@ -31,96 +31,97 @@ const todoListBtnWrapperStyles = {
   margin: "auto 0 0 0"
 }
 
-const TodoList: React.FC<TodoListProps> = (
-  {
-    todoListID,
-    changeTodoListTitle,
-    removeTodoList,
-    titleList,
-    filter,
-    changeFilter,
-  }
-) => {
-  const dispatch = useDispatch();
-  const tasks = useSelector<AppRootState, Array<TaskType>>(state => state.tasks[todoListID])
+const TodoList = React.memo((props: TodoListProps) => {
+    const {
+      todoListID,
+      titleList,
+      filter,
+      changeTodoListTitle,
+      removeTodoList,
+      changeFilter,
+    } = props;
 
-  const onChangeTodoListTitle = (title: string) => {
-    changeTodoListTitle(todoListID, title)
-  };
-  const onRemoveListHandler = () => removeTodoList(todoListID);
+    const dispatch = useDispatch();
+    const tasks = useSelector<AppRootState, Array<TaskType>>(state => state.tasks[todoListID])
 
-  let taskForTodoList = tasks;
+    const onChangeTodoListTitle = (title: string) => {
+      changeTodoListTitle(todoListID, title)
+    };
+    const onRemoveListHandler = () => removeTodoList(todoListID);
 
-  if (filter === FILTERS.ACTIVE) {
-    taskForTodoList = tasks.filter((t: TaskType) => !t.isDone)
-  }
-  if (filter === FILTERS.COMPLETED) {
-    taskForTodoList = tasks.filter((t: TaskType) => t.isDone)
-  }
+    let taskForTodoList = tasks;
 
-  const onAllFilterHandler = () => changeFilter(todoListID, FILTERS.ALL);
-  const onActiveFilterHandler = () => changeFilter(todoListID, FILTERS.ACTIVE);
-  const onCompletedFilterHandler = () => changeFilter(todoListID, FILTERS.COMPLETED);
+    if (filter === FILTERS.ACTIVE) {
+      taskForTodoList = tasks.filter((t: TaskType) => !t.isDone)
+    }
+    if (filter === FILTERS.COMPLETED) {
+      taskForTodoList = tasks.filter((t: TaskType) => t.isDone)
+    }
 
-  const getActiveBtnClassName = (filterValue: FilterValueType) => {
-    return filter === filterValue ? 'contained' : 'text';
-  };
+    const onAllFilterHandler = () => changeFilter(todoListID, FILTERS.ALL);
+    const onActiveFilterHandler = () => changeFilter(todoListID, FILTERS.ACTIVE);
+    const onCompletedFilterHandler = () => changeFilter(todoListID, FILTERS.COMPLETED);
 
-  return (
-    <div style={{
-      display: "flex",
-      flexDirection: "column",
-      width: "320px",
-      minHeight: "400px"
-    }}>
+    const getActiveBtnClassName = (filterValue: FilterValueType) => {
+      return filter === filterValue ? 'contained' : 'text';
+    };
+
+    return (
       <div style={{
         display: "flex",
-        flexDirection: "row",
-        justifyContent: "space-between",
-        height: "40px",
-        margin: "0 0 20px 0",
-        fontSize: "20px",
-        fontWeight: "bold"
+        flexDirection: "column",
+        width: "320px",
+        minHeight: "400px"
       }}>
-        <EditableSpan title={titleList} onChange={onChangeTodoListTitle}/>
-        <IconButton
-          onClick={onRemoveListHandler}
-          color={'default'}
-          size={'small'}>
-          <DeleteIcon/>
-        </IconButton>
-      </div>
-      <AddItemForm
-        addTask={(title) => dispatch(addTaskAC(todoListID, title))}
-      />
+        <div style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-between",
+          height: "40px",
+          margin: "0 0 20px 0",
+          fontSize: "20px",
+          fontWeight: "bold"
+        }}>
+          <EditableSpan title={titleList} onChange={onChangeTodoListTitle}/>
+          <IconButton
+            onClick={onRemoveListHandler}
+            color={'default'}
+            size={'small'}>
+            <DeleteIcon/>
+          </IconButton>
+        </div>
+        <AddItemForm
+          addTask={(title) => dispatch(addTaskAC(todoListID, title))}
+        />
 
-      <TodoListItems
-        tasks={taskForTodoList}
-        todoListID={todoListID}
-      />
+        <TodoListItems
+          tasks={taskForTodoList}
+          todoListID={todoListID}
+        />
 
-      <div style={todoListBtnWrapperStyles}>
-        <Button
-          variant={getActiveBtnClassName(FILTERS.ALL)}
-          onClick={onAllFilterHandler}
-        >
-          All
-        </Button>
-        <Button
-          variant={getActiveBtnClassName(FILTERS.ACTIVE)}
-          onClick={onActiveFilterHandler}
-        >
-          Active
-        </Button>
-        <Button
-          variant={getActiveBtnClassName(FILTERS.COMPLETED)}
-          onClick={onCompletedFilterHandler}
-        >
-          Completed
-        </Button>
+        <div style={todoListBtnWrapperStyles}>
+          <Button
+            variant={getActiveBtnClassName(FILTERS.ALL)}
+            onClick={onAllFilterHandler}
+          >
+            All
+          </Button>
+          <Button
+            variant={getActiveBtnClassName(FILTERS.ACTIVE)}
+            onClick={onActiveFilterHandler}
+          >
+            Active
+          </Button>
+          <Button
+            variant={getActiveBtnClassName(FILTERS.COMPLETED)}
+            onClick={onCompletedFilterHandler}
+          >
+            Completed
+          </Button>
+        </div>
       </div>
-    </div>
-  )
-}
+    )
+  }
+)
 
 export default TodoList;
