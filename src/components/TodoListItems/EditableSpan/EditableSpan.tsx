@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useState} from "react";
+import React, {ChangeEvent, useCallback, useState} from "react";
 import SuperInputText from "../../../common/super-components/SuperInputText/SuperInputText";
 
 type EditableSpanPropsType = {
@@ -17,17 +17,18 @@ export const EditableSpan = React.memo((props: EditableSpanPropsType) => {
   const [editMode, setEditMode] = useState<boolean>(false);
   const [newTitle, setNewTitle] = useState<string>("");
 
-  const activateEditMode = () => {
+  const activateEditMode = useCallback(() => {
     setEditMode(true);
     setNewTitle(title)
-  }
+  }, []);
   const activateViewMode = () => {
     setEditMode(false);
     onChange(newTitle)
   }
-  const onChangeTitleHandler = (e: ChangeEvent<HTMLInputElement>) => {
+  const onChangeTitleHandler = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     setNewTitle(e.currentTarget.value)
-  }
+  }, [])
+
   return (
     <div style={{
       flexGrow: 10,
