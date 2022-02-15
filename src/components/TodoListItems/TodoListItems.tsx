@@ -1,10 +1,6 @@
-import React, {ChangeEvent} from "react";
+import React from "react";
 import {TaskType} from "../../redux/state";
-import {EditableSpan} from "./EditableSpan/EditableSpan";
-import {Checkbox, IconButton} from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
-import {useDispatch} from "react-redux";
-import {changeStatusTaskAC, changeTaskTitleAC, removeTaskAC} from "../../state/task-reducer";
+import {Task} from "./Task";
 
 type TodoListItemsPropsType = {
   tasks: Array<TaskType>,
@@ -23,47 +19,15 @@ export const TodoListItems = React.memo((props: TodoListItemsPropsType) => {
     todoListID,
   } = props;
 
-  const dispatch = useDispatch();
-
-  const tasksList = tasks.map((task: TaskType, index: number) => {
-      const onClickHandler = () => dispatch(removeTaskAC(todoListID, task.id));
-      const onChangeTitleHandler = (newValue: string) => {
-        dispatch(changeTaskTitleAC(todoListID, task.id, newValue))
-      }
-      const onChangeStatusHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        let newIsDoneValue = e.currentTarget.checked;
-        dispatch(changeStatusTaskAC(todoListID, task.id, newIsDoneValue));
-      }
-
-      const taskStyles = {
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-        padding: "4px 0",
-        margin: "0",
-        fontSize: "14px",
-        borderBottom: "1px solid #bababa",
-        opacity: task.isDone ? "0.4" : "",
-      }
-
+  const tasksList = tasks.map((task: TaskType, index) => {
       return (
-        <li key={index} style={taskStyles}>
-          <Checkbox
-            color={"success"}
-            checked={task.isDone}
-            onChange={onChangeStatusHandler}
-          />
-          <EditableSpan
-            title={task.title}
-            onChange={onChangeTitleHandler}
-          />
-          <IconButton
-            onClick={onClickHandler}
-            color={'default'}
-            size={'small'}>
-            <DeleteIcon/>
-          </IconButton>
-        </li>
+        <Task
+          title={task.title}
+          isDone={task.isDone}
+          id={task.id}
+          todoListID={todoListID}
+          key={index}
+        />
       )
     }
   );
