@@ -43,13 +43,18 @@ export const AddItemForm = React.memo((props: AddItemFormPropsType) => {
     }
   };
   const onKeyPressHandler: OnKeyPressHandler = (e) => {
+    if (error !== '') {
+      setError('')
+    }
     if (e.key === "Enter") {
       addItemHandler();
     }
   };
   const onChangeTitleHandler: OnChangeHandler = (e) => {
     setTitle(e.currentTarget.value);
-    setError("");
+    if (error !== '') {
+      setError('');
+    }
   };
 
   return (
