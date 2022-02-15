@@ -12,6 +12,8 @@ export const EditableSpan = React.memo((props: EditableSpanPropsType) => {
     onChange
   } = props;
 
+  console.log("EditableSpan called");
+
   const [editMode, setEditMode] = useState<boolean>(false);
   const [newTitle, setNewTitle] = useState<string>("");
 
