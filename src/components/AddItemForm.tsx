@@ -11,6 +11,8 @@ export type OnChangeHandler = (e: ChangeEvent<HTMLInputElement>) => void;
 export type AddTaskHandler = () => void;
 
 export const AddItemForm = React.memo((props: AddItemFormPropsType) => {
+  console.log('AddItemForm called');
+
   const addItemListContStyles = {
     display: "flex",
     justifyContent: "space-between",

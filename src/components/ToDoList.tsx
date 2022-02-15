@@ -32,7 +32,9 @@ const todoListBtnWrapperStyles = {
 }
 
 const TodoList = React.memo((props: TodoListProps) => {
-    const {
+  console.log('TodoList called');
+
+  const {
       todoListID,
       titleList,
       filter,
