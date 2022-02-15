@@ -48,12 +48,14 @@ const TodoList = React.memo((props: TodoListProps) => {
 
     const onChangeTodoListTitle = useCallback((title: string) => {
       changeTodoListTitle(todoListID, title)
-    }, []);
-    const onRemoveListHandler = () => removeTodoList(todoListID);
+    }, [changeTodoListTitle, todoListID]);
+    const onRemoveListHandler = useCallback(() => {
+      removeTodoList(todoListID);
+    }, [removeTodoList, todoListID]);
 
     const addTaskHandler = useCallback((title: string) => {
       dispatch(addTaskAC(todoListID, title));
-    }, [dispatch]);
+    }, [todoListID]);
 
     let taskForTodoList = tasks;
 
@@ -64,9 +66,9 @@ const TodoList = React.memo((props: TodoListProps) => {
       taskForTodoList = tasks.filter((t: TaskType) => t.isDone)
     }
 
-    const onAllFilterHandler = useCallback(() => changeFilter(todoListID, FILTERS.ALL),[todoListID, FILTERS.ALL]);
-    const onActiveFilterHandler = useCallback(() => changeFilter(todoListID, FILTERS.ACTIVE),[todoListID, FILTERS.ACTIVE]);
-    const onCompletedFilterHandler = useCallback(() => changeFilter(todoListID, FILTERS.COMPLETED),[todoListID, FILTERS.COMPLETED]);
+    const onAllFilterHandler = useCallback(() => changeFilter(todoListID, FILTERS.ALL),[todoListID, FILTERS.ALL, changeFilter]);
+    const onActiveFilterHandler = useCallback(() => changeFilter(todoListID, FILTERS.ACTIVE),[todoListID, FILTERS.ACTIVE, changeFilter]);
+    const onCompletedFilterHandler = useCallback(() => changeFilter(todoListID, FILTERS.COMPLETED),[todoListID, FILTERS.COMPLETED, changeFilter]);
 
     const getActiveBtnClassName = (filterValue: FilterValueType) => {
       return filter === filterValue ? 'contained' : 'outlined';
