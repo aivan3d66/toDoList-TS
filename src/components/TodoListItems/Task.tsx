@@ -11,7 +11,7 @@ type TaskPropsType = TaskType & {
   todoListID: string
 }
 
-export const Task = (props: TaskPropsType) => {
+export const Task = React.memo((props: TaskPropsType) => {
   const {
     title,
     isDone,
@@ -61,4 +61,4 @@ export const Task = (props: TaskPropsType) => {
       </IconButton>
     </li>
   )
-}
+})
