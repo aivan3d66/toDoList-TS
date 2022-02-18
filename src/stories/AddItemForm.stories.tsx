@@ -7,10 +7,10 @@ export default {
   component: AddItemForm
 }
 
-action("Btn 'add' was pressed inside the form");
+const callback = action("Btn 'add' was pressed inside the form");
 
 export const AddItemFormExample = (props: any) => {
   return (
-    <AddItemForm addTask={(title: string) => alert(title)}/>
+    <AddItemForm addTask={callback}/>
   )
 }
