@@ -5,7 +5,7 @@ import store from "../state/redux-store"
 export const ReduxStoreProviderDecorator = (story: any) => {
   return (
     <Provider store={store}>
-      story();
+      {story()}
     </Provider>
   )
 }
