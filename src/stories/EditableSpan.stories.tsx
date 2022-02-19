@@ -7,10 +7,10 @@ export default {
   component: EditableSpan
 }
 
-const callback = action("Editable Span was changed");
+const callback = action("Editable Span value was changed");
 
 export const EditableSpanExample = (props: any) => {
   return (
-    <EditableSpan title={'Span title'} onChange={callback}/>
+    <EditableSpan title={'Span title value'} onChange={callback}/>
   )
 }
