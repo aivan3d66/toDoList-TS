@@ -1,9 +1,10 @@
 import React from "react";
 import {action} from "@storybook/addon-actions";
 import {Task} from "../components/TodoListItems/Task";
-import { v1 } from "uuid";
-import { Provider } from "react-redux";
-import store from "../state/redux-store";
+import {v1} from "uuid";
+import {Checkbox, IconButton} from "@mui/material";
+import {EditableSpan} from "../components/TodoListItems/EditableSpan/EditableSpan";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 export default {
   title: 'Task Component',
