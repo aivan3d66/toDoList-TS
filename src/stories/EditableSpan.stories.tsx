@@ -11,6 +11,9 @@ const callback = action("Editable Span value was changed");
 
 export const EditableSpanExample = (props: any) => {
   return (
-    <EditableSpan title={'Span title value'} onChange={callback}/>
+    <>
+      <span style={{fontWeight: "bold", fontSize: "20px"}}>Double click on this text &#8595;</span>
+      <EditableSpan title={'Span title value'} onChange={callback}/>
+    </>
   )
 }
