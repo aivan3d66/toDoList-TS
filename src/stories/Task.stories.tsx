@@ -10,7 +10,19 @@ export default {
   component: Task
 }
 
-const callback = action("Btn 'add' was pressed inside the form");
+const taskStyles = {
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+  padding: "4px 0",
+  margin: "0",
+  fontSize: "14px",
+  borderBottom: "1px solid #bababa",
+}
+
+const onCheckboxChangeCallback = action("Checkbox was changed");
+const onSpanChangeCallback = action("Span was changed");
+const onBtnClickCallback = action("Delete btn was clicked");
 
 export const TaskExample = (props: any) => {
   return (
