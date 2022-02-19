@@ -26,19 +26,41 @@ const onBtnClickCallback = action("Delete btn was clicked");
 
 export const TaskExample = (props: any) => {
   return (
-    <Provider store={store}>
-      <Task
-        title={'React'}
-        id={v1()}
-        isDone={false}
-        todoListID={v1()}
-      />
-      <Task
-        title={'TS'}
-        id={v1()}
-        isDone={true}
-        todoListID={v1()}
-      />
-    </Provider>
+    <>
+      <li key={v1()} style={taskStyles}>
+        <Checkbox
+          color={"success"}
+          checked={true}
+          onChange={onCheckboxChangeCallback}
+        />
+        <EditableSpan
+          title={'React'}
+          onChange={onSpanChangeCallback}
+        />
+        <IconButton
+          onClick={onBtnClickCallback}
+          color={'default'}
+          size={'small'}>
+          <DeleteIcon/>
+        </IconButton>
+      </li>
+      <li key={v1()} style={taskStyles}>
+        <Checkbox
+          color={"success"}
+          checked={false}
+          onChange={onCheckboxChangeCallback}
+        />
+        <EditableSpan
+          title={'TypeScript'}
+          onChange={onSpanChangeCallback}
+        />
+        <IconButton
+          onClick={onBtnClickCallback}
+          color={'default'}
+          size={'small'}>
+          <DeleteIcon/>
+        </IconButton>
+      </li>
+    </>
   )
 }
