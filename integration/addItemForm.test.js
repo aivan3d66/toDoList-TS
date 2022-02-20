@@ -5,6 +5,6 @@ describe("addItemForm", () => {
     );
     const image = await page.screenshot();
 
-    expect(image).toMatchInlineSnapshot();
+    expect(image).toMatchImageSnapshot();
   });
 });
