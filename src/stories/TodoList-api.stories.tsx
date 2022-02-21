@@ -28,4 +28,30 @@ export const CreateTodoLists = () => {
       {JSON.stringify(state)}
     </div>
   )
+};
+
+export const DeleteTodoLists = () => {
+  const [state, setState] = useState(null);
+  useEffect(() => {
+
+  }, [])
+
+  return (
+    <div>
+      {JSON.stringify(state)}
+    </div>
+  )
+};
+
+export const UpdateTodoLists = () => {
+  const [state, setState] = useState(null);
+  useEffect(() => {
+
+  }, [])
+
+  return (
+    <div>
+      {JSON.stringify(state)}
+    </div>
+  )
 }
