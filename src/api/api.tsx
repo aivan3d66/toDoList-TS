@@ -9,3 +9,5 @@ export type ApiResponseType<D = {}, RC = ResultCode> = {
   messages: Array<string>,
   resultCode: RC
 }
+
+const BASE_URL: string = `https://social-network.samuraijs.com/api/1.1`;
