@@ -1,7 +1,8 @@
-import {createStore, combineReducers} from "redux";
-import { loadState } from "../utils/localStorage";
+import {createStore, combineReducers, applyMiddleware, Action} from "redux";
+import {loadState} from "../utils/localStorage";
 import {taskReducer} from "./task-reducer";
 import {todoListsReducer} from "./todolist-reducer";
+import thunkMiddleware, {ThunkAction} from "redux-thunk";
 
 // type RootReducersType = typeof rootReducer;
 // type PropertiesType<T> = T extends {[key: string]: infer U} ? U : never;
@@ -16,7 +17,7 @@ const rootReducer = combineReducers({
   todoLists: todoListsReducer,
 })
 
-const store = createStore(rootReducer, loadState());
+const store = createStore(rootReducer, loadState(), applyMiddleware(thunkMiddleware));
 
 store.subscribe(() => {
   localStorage.setItem('todoList-state', JSON.stringify(store.getState()))
