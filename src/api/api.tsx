@@ -23,3 +23,6 @@ export const instance = axios.create({
 export const getAllTodoLists = () => {
   return instance.get(`/todo-lists`).then(res => res.data);
 }
+export const setTodoLists = (title: string) => {
+  return instance.post(`/todo-lists/${title}`);
+}
