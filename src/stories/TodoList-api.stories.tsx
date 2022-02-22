@@ -49,7 +49,10 @@ export const CreateTodoLists = () => {
 export const DeleteTodoLists = () => {
   const [state, setState] = useState(null);
   useEffect(() => {
-
+    axios.delete("https://social-network.samuraijs.com/api/1.1/todo-lists/123", settings)
+      .then((res) => {
+        setState(res.data);
+      })
   }, [])
 
   return (
