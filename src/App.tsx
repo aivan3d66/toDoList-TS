@@ -49,6 +49,13 @@ export const App = () => {
     const action = addTodoListAC(title, newListId)
     dispatch(action);
   }, [dispatch]);
+
+  // const todoLists = useSelector<AppRootState, Array<TodoListType>>(state => state.todoLists.todoLists)
+  //
+  // const addTodoList = useCallback((title: string) => {
+  //   dispatch(setTodoListsThunk(title));
+  // }, [dispatch]);
+
   const removeTodoList = useCallback((todoListId: string) => {
     const action = removeTodoListAC(todoListId)
     dispatch(action);
