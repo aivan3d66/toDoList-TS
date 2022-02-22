@@ -44,6 +44,25 @@ export const todoListsAPI = {
   }
 }
 
+type TasksResponseType = {
+  description: string,
+  title: string,
+  completed: boolean,
+  status: number,
+  priority: number,
+  startDate: string,
+  deadline: string,
+  id: string,
+  todolistId: string,
+  order: number,
+  addedDate: string,
+}
+type GetTasksResponse = {
+  error: string | null,
+  totalCount: number,
+  items: Array<TasksResponseType>
+}
+
 export const tasksAPI = {
   getAllTasks(todoListId: string) {
     return instance.get(`/todo-lists/${todoListId}/tasks`)
