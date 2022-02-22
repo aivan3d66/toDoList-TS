@@ -30,7 +30,7 @@ export const todoListsAPI = {
   deleteTodoList(todoListId: string) {
     return instance.delete(`/todo-lists/${todoListId}`)
   },
-  updateTodoList(todoListId: string) {
-    return instance.put(`/todo-lists/${todoListId}`)
+  updateTodoList(todoListId: string, title: string) {
+    return instance.put(`/todo-lists/${todoListId}`, {title: title})
   }
 }
