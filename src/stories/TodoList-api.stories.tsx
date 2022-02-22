@@ -7,7 +7,7 @@ export default {
 }
 
 export const GetTodoLists = () => {
-  const [state, setState] = useState(null);
+  const [state, setState] = useState({});
   useEffect(() => {
     todoListsAPI.getAllTodoLists().then(res => setState(res.data));
   }, [])
@@ -20,7 +20,7 @@ export const GetTodoLists = () => {
 };
 
 export const CreateTodoLists = () => {
-  const [state, setState] = useState(null);
+  const [state, setState] = useState({});
   const title = "Some list";
   useEffect(() => {
     todoListsAPI.setTodoLists(title).then(res => setState(res.data));
@@ -34,7 +34,7 @@ export const CreateTodoLists = () => {
 };
 
 export const DeleteTodoLists = () => {
-  const [state, setState] = useState(null);
+  const [state, setState] = useState({});
   const todolistId = v1();
   useEffect(() => {
     todoListsAPI.deleteTodoList(todolistId).then(res => setState(res.data));
@@ -48,7 +48,7 @@ export const DeleteTodoLists = () => {
 };
 
 export const UpdateTodoLists = () => {
-  const [state, setState] = useState(null);
+  const [state, setState] = useState({});
   const todolistId = v1();
   const title = "Some new title";
   useEffect(() => {
