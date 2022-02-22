@@ -15,13 +15,8 @@ export type TodoListType = {
   addedDate: string,
   order: number,
 }
-
-type CreateTodoListResponseType = {
-  data: {
-    item: TodoListType
-  },
-  messages: Array<string>,
-  resultCode: ResultCode
+export type SetResponseItemType = {
+  item: TodoListType
 }
 
 const BASE_URL: string = `https://social-network.samuraijs.com/api/1.1`;
@@ -39,7 +34,7 @@ export const todoListsAPI = {
     return instance.get<Array<TodoListType>>(`/todo-lists`);
   },
   setTodoLists(title: string) {
-    return instance.post<CreateTodoListResponseType>(`/todo-lists/${title}`);
+    return instance.post<ApiResponseType<TodoListType>>(`/todo-lists/${title}`);
   },
   deleteTodoList(todoListId: string) {
     return instance.delete<ApiResponseType>(`/todo-lists/${todoListId}`)
