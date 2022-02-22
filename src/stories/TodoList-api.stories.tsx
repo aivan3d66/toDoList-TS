@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {v1} from "uuid";
-import {todoListsAPI} from "../api/api";
+import {todoListsAPI} from "../api/todoList-api";
 
 export default {
   title: "Project/API's/TodoList API",

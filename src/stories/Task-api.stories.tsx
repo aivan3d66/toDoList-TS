@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
-import {tasksAPI} from "../api/api";
 import {v1} from "uuid";
+import {tasksAPI} from "../api/tasks-api";
 
 export default {
   title: "Project/API's/Task API",
@@ -59,18 +59,3 @@ export const DeleteTask = () => {
     </div>
   )
 };
-//
-// export const UpdateTodoLists = () => {
-//   const [state, setState] = useState({});
-//   const todolistId = v1();
-//   const title = "Some new title";
-//   useEffect(() => {
-//     todoListsAPI.updateTodoList(todolistId, title).then(res => setState(res.data));
-//   }, [])
-//
-//   return (
-//     <div>
-//       {JSON.stringify(state)}
-//     </div>
-//   )
-// };
