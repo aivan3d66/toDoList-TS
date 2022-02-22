@@ -59,12 +59,7 @@ export const UpdateTodoLists = () => {
   const [state, setState] = useState(null);
   const todolistId = v1();
   useEffect(() => {
-    axios.put(`https://social-network.samuraijs.com/api/1.1/todo-lists/${todolistId}`, {
-      title: "Yo"
-    }, settings)
-      .then((res) => {
-        setState(res.data);
-      })
+    todoListsAPI.updateTodoList(todolistId).then(res => setState(res.data));
   }, [])
 
   return (
