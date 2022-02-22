@@ -17,7 +17,7 @@ const settings = {
 export const GetTodoLists = () => {
   const [state, setState] = useState(null);
   useEffect(() => {
-    todoListsAPI.getAllTodoLists().then(res => res.data);
+    todoListsAPI.getAllTodoLists().then(res => setState(res.data));
   }, [])
 
   return (
@@ -29,13 +29,9 @@ export const GetTodoLists = () => {
 
 export const CreateTodoLists = () => {
   const [state, setState] = useState(null);
+  const title = "Some list";
   useEffect(() => {
-    axios.post("https://social-network.samuraijs.com/api/1.1/todo-lists", {
-      title: "Some list"
-    }, settings)
-      .then((res) => {
-        setState(res.data);
-      })
+    todoListsAPI.setTodoLists(title).then(res => setState(res.data));
   }, [])
 
   return (
