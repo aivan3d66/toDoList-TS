@@ -62,6 +62,14 @@ type GetTasksResponse = {
   totalCount: number,
   items: Array<TasksResponseType>
 }
+export type UpdateTaskType = {
+  description: string,
+  title: string,
+  status: number,
+  priority: number,
+  startDate: string,
+  deadline: string,
+}
 
 export const tasksAPI = {
   getAllTasks(todoListId: string) {
