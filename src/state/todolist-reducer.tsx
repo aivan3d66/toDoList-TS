@@ -29,16 +29,16 @@ export const todoListId1 = v1();
 export const todoListId2 = v1();
 
 export const initialTodoList: Array<TodoListsType> = [
-  // {
-  //   id: todoListId1,
-  //   title: "What to learn",
-  //   filter: FILTERS.ALL,
-  // },
-  // {
-  //   id: todoListId2,
-  //   title: "What to buy",
-  //   filter: FILTERS.ALL,
-  // },
+  {
+    id: todoListId1,
+    title: "What to learn",
+    filter: FILTERS.ALL,
+  },
+  {
+    id: todoListId2,
+    title: "What to buy",
+    filter: FILTERS.ALL,
+  },
 ]
 
 export const todoListsReducer = (state = initialTodoList, action: ActionType): Array<TodoListsType> => {
@@ -67,8 +67,6 @@ export const todoListsReducer = (state = initialTodoList, action: ActionType): A
     case GET_ALL_TODOS: {
       return [...state, action.payload]
     }
-
-
 
     default:
       return state
