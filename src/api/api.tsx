@@ -16,6 +16,14 @@ export type TodoListType = {
   order: number,
 }
 
+type CreateTodoListResponseType = {
+  data: {
+    item: TodoListType
+  },
+  messages: Array<string>,
+  resultCode: ResultCode
+}
+
 const BASE_URL: string = `https://social-network.samuraijs.com/api/1.1`;
 
 export const instance = axios.create({
