@@ -39,7 +39,7 @@ export const todoListsAPI = {
     return instance.get<Array<TodoListType>>(`/todo-lists`);
   },
   setTodoLists(title: string) {
-    return instance.post(`/todo-lists/${title}`);
+    return instance.post<CreateTodoListResponseType>(`/todo-lists/${title}`);
   },
   deleteTodoList(todoListId: string) {
     return instance.delete(`/todo-lists/${todoListId}`)
