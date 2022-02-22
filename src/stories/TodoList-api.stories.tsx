@@ -15,11 +15,10 @@ const settings = {
 export const GetTodoLists = () => {
   const [state, setState] = useState(null);
   useEffect(() => {
-    let response = axios.get("https://social-network.samuraijs.com/api/1.1/todo-lists", settings);
-
-    response.then((res) => {
-      setState(res.data);
-    })
+    axios.get("https://social-network.samuraijs.com/api/1.1/todo-lists", settings)
+      .then((res) => {
+        setState(res.data);
+      })
   }, [])
 
   return (
@@ -32,7 +31,12 @@ export const GetTodoLists = () => {
 export const CreateTodoLists = () => {
   const [state, setState] = useState(null);
   useEffect(() => {
-
+    axios.post("https://social-network.samuraijs.com/api/1.1/todo-lists", {
+      title: "Some list"
+    }, settings)
+      .then((res) => {
+        setState(res.data);
+      })
   }, [])
 
   return (
