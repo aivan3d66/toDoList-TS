@@ -65,6 +65,6 @@ type GetTasksResponse = {
 
 export const tasksAPI = {
   getAllTasks(todoListId: string) {
-    return instance.get(`/todo-lists/${todoListId}/tasks`)
+    return instance.get<GetTasksResponse>(`/todo-lists/${todoListId}/tasks`)
   }
 }
