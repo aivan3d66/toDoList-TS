@@ -23,6 +23,11 @@ type CreateTodoListResponseType = {
   messages: Array<string>,
   resultCode: ResultCode
 }
+type DeleteTodoListResponseType = {
+  data: {},
+  messages: Array<string>,
+  resultCode: ResultCode
+}
 
 const BASE_URL: string = `https://social-network.samuraijs.com/api/1.1`;
 
