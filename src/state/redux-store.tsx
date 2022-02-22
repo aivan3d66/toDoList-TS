@@ -17,10 +17,11 @@ const rootReducer = combineReducers({
   todoLists: todoListsReducer,
 })
 
-const store = createStore(rootReducer, loadState(), applyMiddleware(thunkMiddleware));
+const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
 
-store.subscribe(() => {
-  localStorage.setItem('todoList-state', JSON.stringify(store.getState()))
-})
+// , loadState()
+// store.subscribe(() => {
+//   localStorage.setItem('todoList-state', JSON.stringify(store.getState()))
+// })
 
 export default store;
