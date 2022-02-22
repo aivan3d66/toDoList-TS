@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
+import {v1} from "uuid";
 
 export default {
   title: "Project/API's",
@@ -48,8 +49,9 @@ export const CreateTodoLists = () => {
 
 export const DeleteTodoLists = () => {
   const [state, setState] = useState(null);
+  const todolistId = v1();
   useEffect(() => {
-    axios.delete("https://social-network.samuraijs.com/api/1.1/todo-lists/123", settings)
+    axios.delete(`https://social-network.samuraijs.com/api/1.1/todo-lists/${todolistId}`, settings)
       .then((res) => {
         setState(res.data);
       })
@@ -64,8 +66,9 @@ export const DeleteTodoLists = () => {
 
 export const UpdateTodoLists = () => {
   const [state, setState] = useState(null);
+  const todolistId = v1();
   useEffect(() => {
-    axios.put("https://social-network.samuraijs.com/api/1.1/todo-lists", {
+    axios.put(`https://social-network.samuraijs.com/api/1.1/todo-lists/${todolistId}`, {
       title: "Yo"
     }, settings)
       .then((res) => {
