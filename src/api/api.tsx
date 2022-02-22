@@ -43,3 +43,9 @@ export const todoListsAPI = {
     return instance.put<ApiResponseType>(`/todo-lists/${todoListId}`, {title: title})
   }
 }
+
+export const tasksAPI = {
+  getAllTasks(todoListId: string) {
+    return instance.get(`/todo-lists/${todoListId}/tasks`)
+  }
+}
