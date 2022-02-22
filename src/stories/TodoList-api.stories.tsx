@@ -1,17 +1,9 @@
 import React, {useEffect, useState} from "react";
-import axios from "axios";
 import {v1} from "uuid";
 import {todoListsAPI} from "../api/api";
 
 export default {
-  title: "Project/API's",
-}
-
-const settings = {
-  withCredentials: true,
-  headers: {
-    'API-KEY': '326f0c95-3947-488e-9603-2e37b5da986c',
-  }
+  title: "Project/API's/TodoList API",
 }
 
 export const GetTodoLists = () => {
@@ -68,4 +60,4 @@ export const UpdateTodoLists = () => {
       {JSON.stringify(state)}
     </div>
   )
-}
+};
