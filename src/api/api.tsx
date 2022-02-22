@@ -66,5 +66,8 @@ type GetTasksResponse = {
 export const tasksAPI = {
   getAllTasks(todoListId: string) {
     return instance.get<GetTasksResponse>(`/todo-lists/${todoListId}/tasks`)
+  },
+  deleteTask(todoListId: string, taskId: string) {
+    return instance.delete(`/todo-lists/${todoListId}/tasks/${taskId}`)
   }
 }
