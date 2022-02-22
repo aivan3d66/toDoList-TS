@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {tasksAPI, todoListsAPI} from "../api/api";
+import {tasksAPI} from "../api/api";
 import {v1} from "uuid";
 
 export default {
@@ -10,7 +10,8 @@ export const GetTasks = () => {
   const [state, setState] = useState({});
   const todoLisId = v1();
   useEffect(() => {
-    tasksAPI.getAllTasks(todoLisId).then(res => setState(res.data));
+    tasksAPI.getAllTasks(todoLisId)
+      .then(res => setState(res.data.items));
   }, [])
 
   return (
@@ -20,33 +21,44 @@ export const GetTasks = () => {
   )
 };
 
-// export const CreateTodoLists = () => {
-//   const [state, setState] = useState({});
-//   const title = "Some list";
-//   useEffect(() => {
-//     todoListsAPI.setTodoLists(title).then(res => setState(res.data));
-//   }, [])
-//
-//   return (
-//     <div>
-//       {JSON.stringify(state)}
-//     </div>
-//   )
-// };
-//
-// export const DeleteTodoLists = () => {
-//   const [state, setState] = useState({});
-//   const todolistId = v1();
-//   useEffect(() => {
-//     todoListsAPI.deleteTodoList(todolistId).then(res => setState(res.data));
-//   }, [])
-//
-//   return (
-//     <div>
-//       {JSON.stringify(state)}
-//     </div>
-//   )
-// };
+export const DeleteTask = () => {
+  const [state, setState] = useState({});
+  const [taskId, setTaskId] = useState("");
+  const [todolistId, setTodoListId] = useState("");
+
+  const deleteTask = () => {
+    const todolistId = v1();
+    const taskId = v1();
+
+    tasksAPI.deleteTask(todolistId, taskId)
+      .then(res => setState(res.data));
+  }
+
+  return (
+    <div>
+      {JSON.stringify(state)}
+      <div>
+        <input
+          placeholder={"todolistId"}
+          value={todolistId}
+          onChange={(e) => {
+            setTodoListId(e.currentTarget.value)
+          }}
+        />
+        <input
+          placeholder={"taskId"}
+          value={taskId}
+          onChange={(e) => {
+            setTaskId(e.currentTarget.value)
+          }}
+        />
+        <button onClick={deleteTask}>
+          delete task
+        </button>
+      </div>
+    </div>
+  )
+};
 //
 // export const UpdateTodoLists = () => {
 //   const [state, setState] = useState({});
