@@ -9,6 +9,12 @@ export type ApiResponseType<D = {}, RC = ResultCode> = {
   messages: Array<string>,
   resultCode: RC
 }
+export type TodoListType = {
+  id: string,
+  title: string,
+  addedDate: string,
+  order: number,
+}
 
 const BASE_URL: string = `https://social-network.samuraijs.com/api/1.1`;
 
