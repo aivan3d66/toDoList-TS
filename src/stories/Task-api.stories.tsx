@@ -36,3 +36,59 @@ export const AddNewTask = () => {
     </div>
   )
 };
+
+export const DeleteTask = () => {
+  const [state, setState] = useState({});
+  const todoLisId = "aff84ef6-7e3f-4767-a90f-4361d4946ed8";
+  const taskId = "0c8eba17-fe8a-4618-8ea3-1d1ca7254ff8";
+  useEffect(() => {
+    tasksAPI.deleteTask(todoLisId, taskId)
+      .then(res => setState(res.data));
+  }, [])
+
+  return (
+    <div>
+      {JSON.stringify(state)}
+    </div>
+  )
+};
+
+
+// export const DeleteTask = () => {
+//   const [state, setState] = useState({});
+//   const [taskId, setTaskId] = useState("");
+//   const [todolistId, setTodoListId] = useState("");
+//
+//   const deleteTask = () => {
+//     const todolistId = v1();
+//     const taskId = v1();
+//
+//     tasksAPI.deleteTask(todolistId, taskId)
+//       .then(res => setState(res.data));
+//   }
+//
+//   return (
+//     <div>
+//       {JSON.stringify(state)}
+//       <div>
+//         <input
+//           placeholder={"todolistId"}
+//           value={todolistId}
+//           onChange={(e) => {
+//             setTodoListId(e.currentTarget.value)
+//           }}
+//         />
+//         <input
+//           placeholder={"taskId"}
+//           value={taskId}
+//           onChange={(e) => {
+//             setTaskId(e.currentTarget.value)
+//           }}
+//         />
+//         <button onClick={deleteTask}>
+//           delete task
+//         </button>
+//       </div>
+//     </div>
+//   )
+// };
