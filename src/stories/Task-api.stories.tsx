@@ -8,7 +8,7 @@ export default {
 
 export const GetTasks = () => {
   const [state, setState] = useState({});
-  const todoLisId = v1();
+  const todoLisId = "aff84ef6-7e3f-4767-a90f-4361d4946ed8";
   useEffect(() => {
     tasksAPI.getAllTasks(todoLisId)
       .then(res => setState(res.data.items));
