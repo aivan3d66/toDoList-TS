@@ -15,10 +15,7 @@ export default {
 
 const Template: ComponentStory<typeof AddItemForm> = (args) => <AddItemForm {...args}/>
 
-const callback = action("Btn 'add' was pressed inside the form");
-
-export const AddItemFormExample = (props: any) => {
-  return (
-    <AddItemForm addTask={callback}/>
-  )
+export const AddItemFormExample = Template.bind({});
+AddItemFormExample.args = {
+  addTask: action("Btn 'add' was pressed inside the form")
 }
