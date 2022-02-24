@@ -27,6 +27,3 @@ TaskExampleNotDone.args = {
   id: v1(),
   todoListID: v1(),
 }
-const onCheckboxChangeCallback = action("Checkbox was changed");
-const onSpanChangeCallback = action("Span was changed");
-const onBtnClickCallback = action("Delete btn was clicked");
