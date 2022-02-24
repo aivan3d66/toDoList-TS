@@ -3,7 +3,7 @@ import {AddItemForm} from "../components/AddItemForm";
 import {action} from "@storybook/addon-actions";
 
 export default {
-  title: 'Project/AddItemForm Component',
+  title: 'Project/Components/AddItemForm Component',
   component: AddItemForm
 }
 

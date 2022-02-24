@@ -7,7 +7,7 @@ import {EditableSpan} from "../components/TodoListItems/EditableSpan/EditableSpa
 import DeleteIcon from "@mui/icons-material/Delete";
 
 export default {
-  title: 'Project/Task Component',
+  title: 'Project/Components/Task Component',
   component: Task
 }
 

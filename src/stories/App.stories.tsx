@@ -3,7 +3,7 @@ import App from "../App";
 import {ReduxStoreProviderDecorator} from "./RedusStoreProviderDecorator";
 
 export default {
-  title: 'Project/App Component',
+  title: 'Project/Components/App Component',
   component: App,
   decorators: [ReduxStoreProviderDecorator]
 }
