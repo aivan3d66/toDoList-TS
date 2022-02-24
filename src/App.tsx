@@ -23,7 +23,9 @@ export type ChangeTodoListTitleType = (todoListID: string, title: string) => voi
 export type FilterValueType = typeof FILTERS.ALL | typeof FILTERS.COMPLETED | typeof FILTERS.ACTIVE;
 export type ChangeFilter = (todoListId: string, value: FilterValueType) => void;
 
-export const App = () => {
+type AppPropsTpe = {};
+
+export const App: React.FC<AppPropsTpe> = () => {
   const gridItemAppStyles = {
     width: "100%",
     margin: "40px 0",
