@@ -63,76 +63,40 @@ export const CreateTask = () => {
     </div>
 
   )
-}
-
-export const AddNewTask = () => {
-  const [state, setState] = useState({});
-  const todoLisId = "c3bd9c93-aa32-4705-807c-b761e8c93480";
-  const taskTitle = "Water";
-  useEffect(() => {
-    tasksAPI.addTask(todoLisId, taskTitle)
-      .then(res => setState(res.data.items));
-  }, [])
-
-  return (
-    <div>
-      {JSON.stringify(state)}
-    </div>
-  )
 };
 
 export const DeleteTask = () => {
   const [state, setState] = useState({});
-  const todoLisId = "c3bd9c93-aa32-4705-807c-b761e8c93480";
-  const taskId = "7e011ac7-75fe-41f3-9069-611200675eae";
-  useEffect(() => {
-    tasksAPI.deleteTask(todoLisId, taskId)
+  const [taskId, setTaskId] = useState("");
+  const [todolistId, setTodoListId] = useState("");
+
+  const deleteTask = () => {
+    tasksAPI.deleteTask(todolistId, taskId)
       .then(res => setState(res.data));
-  }, [])
+  }
 
   return (
     <div>
       {JSON.stringify(state)}
+      <div>
+        <input
+          placeholder={"todolistId"}
+          value={todolistId}
+          onChange={(e) => {
+            setTodoListId(e.currentTarget.value)
+          }}
+        />
+        <input
+          placeholder={"taskId"}
+          value={taskId}
+          onChange={(e) => {
+            setTaskId(e.currentTarget.value)
+          }}
+        />
+        <button onClick={deleteTask}>
+          delete task
+        </button>
+      </div>
     </div>
   )
 };
-
-
-// export const DeleteTask = () => {
-//   const [state, setState] = useState({});
-//   const [taskId, setTaskId] = useState("");
-//   const [todolistId, setTodoListId] = useState("");
-//
-//   const deleteTask = () => {
-//     const todolistId = v1();
-//     const taskId = v1();
-//
-//     tasksAPI.deleteTask(todolistId, taskId)
-//       .then(res => setState(res.data));
-//   }
-//
-//   return (
-//     <div>
-//       {JSON.stringify(state)}
-//       <div>
-//         <input
-//           placeholder={"todolistId"}
-//           value={todolistId}
-//           onChange={(e) => {
-//             setTodoListId(e.currentTarget.value)
-//           }}
-//         />
-//         <input
-//           placeholder={"taskId"}
-//           value={taskId}
-//           onChange={(e) => {
-//             setTaskId(e.currentTarget.value)
-//           }}
-//         />
-//         <button onClick={deleteTask}>
-//           delete task
-//         </button>
-//       </div>
-//     </div>
-//   )
-// };
