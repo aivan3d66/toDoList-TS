@@ -8,7 +8,7 @@ export default {
 
 export const GetTasks = () => {
   const [state, setState] = useState({});
-  const todoLisId = "aff84ef6-7e3f-4767-a90f-4361d4946ed8";
+  const todoLisId = "c3bd9c93-aa32-4705-807c-b761e8c93480";
   useEffect(() => {
     tasksAPI.getAllTasks(todoLisId)
       .then(res => setState(res.data.items));
@@ -23,8 +23,8 @@ export const GetTasks = () => {
 
 export const AddNewTask = () => {
   const [state, setState] = useState({});
-  const todoLisId = "aff84ef6-7e3f-4767-a90f-4361d4946ed8";
-  const taskTitle = "This is ask title";
+  const todoLisId = "c3bd9c93-aa32-4705-807c-b761e8c93480";
+  const taskTitle = "Water";
   useEffect(() => {
     tasksAPI.addTask(todoLisId, taskTitle)
       .then(res => setState(res.data.items));
@@ -39,8 +39,8 @@ export const AddNewTask = () => {
 
 export const DeleteTask = () => {
   const [state, setState] = useState({});
-  const todoLisId = "aff84ef6-7e3f-4767-a90f-4361d4946ed8";
-  const taskId = "0c8eba17-fe8a-4618-8ea3-1d1ca7254ff8";
+  const todoLisId = "c3bd9c93-aa32-4705-807c-b761e8c93480";
+  const taskId = "7e011ac7-75fe-41f3-9069-611200675eae";
   useEffect(() => {
     tasksAPI.deleteTask(todoLisId, taskId)
       .then(res => setState(res.data));
