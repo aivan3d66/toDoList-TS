@@ -114,7 +114,14 @@ export const UpdateTask = () => {
   const [taskId, setTaskId] = useState<string>('');
 
   const createTask = () => {
-    todoListsAPI.updateTodoList(todoListId, title).then(res => setState(res.data));
+    tasksAPI.updateTask(todoListId, taskId, {
+      deadline: '',
+      description: description,
+      priority: priority,
+      startDate: '',
+      status: status,
+      title: title
+    }).then(res => setState(res.data));
   }
 
   return (
