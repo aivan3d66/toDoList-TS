@@ -21,6 +21,39 @@ export const GetTasks = () => {
   )
 };
 
+export const CreateTask = () => {
+  const [state, setState] = useState<any>(null);
+  const [taskTitle, setTaskTitle] = useState<string>('');
+  const [todoListId, setTodoListId] = useState<string>('');
+
+  const createTask = () => {
+    tasksAPI.addTask(todoListId, taskTitle)
+      .then(res => setState(res.data));
+  }
+
+  return (
+    <div>
+      {JSON.stringify(state)}
+      <div>
+        <input
+          placeholder={"todoListId"}
+          value={todoListId}
+          onChange={(e) => setTodoListId(e.currentTarget.value)}
+        />
+        <input
+          placeholder={"taskId"}
+          value={taskTitle}
+          onChange={(e) => setTaskTitle(e.currentTarget.value)}
+        />
+        <button onClick={createTask}>
+          Crate task
+        </button>
+      </div>
+    </div>
+
+  )
+}
+
 export const AddNewTask = () => {
   const [state, setState] = useState({});
   const todoLisId = "c3bd9c93-aa32-4705-807c-b761e8c93480";
