@@ -1,5 +1,4 @@
-import React, {useEffect, useState} from "react";
-import {v1} from "uuid";
+import React, {useState} from "react";
 import {tasksAPI} from "../api/tasks-api";
 
 export default {
@@ -53,12 +52,12 @@ export const CreateTask = () => {
           onChange={(e) => setTodoListId(e.currentTarget.value)}
         />
         <input
-          placeholder={"taskId"}
+          placeholder={"taskTitle"}
           value={taskTitle}
           onChange={(e) => setTaskTitle(e.currentTarget.value)}
         />
         <button onClick={createTask}>
-          Crate task
+          Create task
         </button>
       </div>
     </div>
