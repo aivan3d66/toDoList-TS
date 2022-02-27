@@ -157,7 +157,14 @@ export const UpdateTask = () => {
             setStatus(+e.currentTarget.value)
           }}
         />
-
+        <input
+          placeholder={"priority"}
+          value={priority}
+          type={'number'}
+          onChange={(e) => {
+            setPriority(+e.currentTarget.value)
+          }}
+        />
         <button onClick={createTask}>
           Create task
         </button>
