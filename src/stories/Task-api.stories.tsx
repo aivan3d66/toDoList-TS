@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import {tasksAPI} from "../api/tasks-api";
+import {todoListsAPI} from "../api/todoList-api";
 
 export default {
   title: "Project/API's/Task API",
@@ -94,6 +95,71 @@ export const DeleteTask = () => {
         />
         <button onClick={deleteTask}>
           delete task
+        </button>
+      </div>
+    </div>
+  )
+};
+
+export const UpdateTask = () => {
+  const [state, setState] = useState<any>(null);
+  const [title, setTitle] = useState<string>('');
+  const [description, setDescription] = useState<string>('');
+  const [status, setStatus] = useState<number>(0);
+  const [priority, setPriority] = useState<number>(0);
+  const [startDate, setStartDate] = useState<string>('');
+  const [deadline, setDeadline] = useState<string>('');
+
+  const [todoListId, setTodoListId] = useState<string>('');
+  const [taskId, setTaskId] = useState<string>('');
+
+  const createTask = () => {
+    todoListsAPI.updateTodoList(todoListId, title).then(res => setState(res.data));
+  }
+
+  return (
+    <div>
+      {JSON.stringify(state)}
+      <div>
+        <input
+          placeholder={"taskId"}
+          value={taskId}
+          onChange={(e) => {
+            setTaskId(e.currentTarget.value)
+          }}
+        />
+        <input
+          placeholder={"todolistId"}
+          value={todoListId}
+          onChange={(e) => {
+            setTodoListId(e.currentTarget.value)
+          }}
+        />
+        <input
+          placeholder={"task title"}
+          value={title}
+          onChange={(e) => {
+            setTitle(e.currentTarget.value)
+          }}
+        />
+        <input
+          placeholder={"task description"}
+          value={description}
+          onChange={(e) => {
+            setDescription(e.currentTarget.value)
+          }}
+        />
+        <input
+          placeholder={"status"}
+          value={status}
+          type={'number'}
+          onChange={(e) => {
+            setStatus(+e.currentTarget.value)
+          }}
+        />
+
+        <button onClick={createTask}>
+          Create task
         </button>
       </div>
     </div>
