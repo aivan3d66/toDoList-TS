@@ -1,6 +1,6 @@
 import {v1} from "uuid";
 import {TaskPriorities, TasksResponseType, TaskStatuses} from "../api/tasks-api";
-import {todoListId1, todoListId2} from "./todolist-reducer";
+import {GET_ALL_TODOS, GetAllTodoListActionType, todoListId1, todoListId2} from "./todolist-reducer";
 import {AddTodoListActionType, RemoveTodoListActionType} from "./todolist-reducer";
 
 const REMOVE_TASK = 'REMOVE_TASK';
@@ -22,6 +22,7 @@ export type GeneraTasksActionType =
   | ChangeTaskTitleActionType
   | AddTodoListActionType
   | RemoveTodoListActionType
+  | GetAllTodoListActionType
 
 export type TodoListTasksType = {
   [key: string]: Array<TasksResponseType>,
@@ -129,6 +130,16 @@ export const taskReducer = (state = initialTasksState, action: GeneraTasksAction
       return {
         ...state, [action.todoListId]: []
       }
+
+    case GET_ALL_TODOS: {
+      const copyState = {...state};
+
+      action.todoLists.forEach(tl => {
+        copyState[tl.id] = [];
+      })
+
+      return copyState
+    }
 
     case REMOVE_TODOLIST: {
       const stateCopy = {...state}
