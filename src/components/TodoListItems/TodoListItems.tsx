@@ -1,9 +1,9 @@
 import React from "react";
-import {TaskType} from "../../redux/state";
 import {Task} from "./Task";
+import {TasksResponseType, TaskStatuses} from "../../api/tasks-api";
 
 type TodoListItemsPropsType = {
-  tasks: Array<TaskType>,
+  tasks: Array<TasksResponseType>,
   todoListID: string,
 }
 
@@ -19,14 +19,22 @@ export const TodoListItems = React.memo((props: TodoListItemsPropsType) => {
     todoListID,
   } = props;
 
-  const tasksList = tasks.map((task: TaskType, index) => {
+  const tasksList = tasks.map((task, index) => {
       return (
         <Task
           title={task.title}
-          isDone={task.isDone}
+          isDone={task.status === TaskStatuses.Completed}
           id={task.id}
           todoListID={todoListID}
           key={index}
+          todolistId={todoListID}
+          status={task.status}
+          startDate={task.startDate}
+          description={task.description}
+          order={task.order}
+          priority={task.priority}
+          addedDate={task.addedDate}
+          deadline={task.deadline}
         />
       )
     }
