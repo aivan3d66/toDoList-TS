@@ -13,7 +13,6 @@ import {
 import {v1} from 'uuid';
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootState} from './state/redux-store';
-import {TaskType} from "./redux/state";
 import {FILTERS} from "./common/constants";
 
 export type AddTodoList = (title: string) => void;
@@ -21,9 +20,7 @@ export type RemoveTodoList = (todoListId: string) => void;
 export type ChangeTodoListTitleType = (todoListID: string, title: string) => void;
 
 export type ChangeFilter = (todoListId: string, value: FilterValueType) => void;
-export type TodoListTasksType = {
-  [key: string]: Array<TaskType>,
-}
+
 type AppPropsTpe = {};
 
 export const App: React.FC<AppPropsTpe> = () => {
@@ -53,8 +50,6 @@ export const App: React.FC<AppPropsTpe> = () => {
     dispatch(action);
   }, [dispatch]);
 
-  // const todoLists = useSelector<AppRootState, Array<TodoListType>>(state => state.todoLists.todoLists)
-  //
   // const addTodoList = useCallback((title: string) => {
   //   dispatch(setTodoListsThunk(title));
   // }, [dispatch]);
