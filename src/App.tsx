@@ -8,12 +8,11 @@ import MenuIcon from '@mui/icons-material/Menu';
 import {
   removeTodoListAC,
   addTodoListAC,
-  changeTodoListFilterAC, changeTodoListTitleAC, FilterValueType, TodoListType
+  changeTodoListFilterAC, changeTodoListTitleAC, FilterValueType, TodoListType, TodoListDomainType
 } from "./state/todolist-reducer";
 import {v1} from 'uuid';
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootState} from './state/redux-store';
-import {FILTERS} from "./common/constants";
 
 export type AddTodoList = (title: string) => void;
 export type RemoveTodoList = (todoListId: string) => void;
@@ -42,7 +41,7 @@ export const App: React.FC<AppPropsTpe> = () => {
   }
 
   const dispatch = useDispatch();
-  const todoLists = useSelector<AppRootState, Array<TodoListType>>(state => state.todoLists)
+  const todoLists = useSelector<AppRootState, Array<TodoListDomainType>>(state => state.todoLists)
 
   const addTodoList = useCallback((title: string) => {
     const newListId = v1();
@@ -108,6 +107,7 @@ export const App: React.FC<AppPropsTpe> = () => {
                       <TodoList
                         key={t.id}
                         todoListID={t.id}
+                        filter={t.filter}
                         titleList={t.title}
                         changeFilter={changeFilter}
                         removeTodoList={removeTodoList}

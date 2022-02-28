@@ -16,8 +16,8 @@ import {TasksResponseType, TaskStatuses} from "../api/tasks-api";
 export type TodoListProps = {
   todoListID: string,
   titleList: string,
-  changeFilter: ChangeFilter,
   filter: FilterValueType,
+  changeFilter: ChangeFilter,
   removeTodoList: RemoveTodoList,
   changeTodoListTitle: ChangeTodoListTitleType
 };
