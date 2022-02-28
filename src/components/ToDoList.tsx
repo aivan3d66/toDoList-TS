@@ -2,7 +2,6 @@ import React, {useCallback} from "react";
 import {TaskType} from "../redux/state";
 import {
   ChangeFilter, ChangeTodoListTitleType,
-  FilterValueType,
   RemoveTodoList
 } from "../App";
 import {FILTERS} from "../common/constants";
@@ -15,6 +14,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootState} from "../state/redux-store";
 import {addTaskAC} from "../state/task-reducer";
+import {FilterValueType} from "../state/todolist-reducer";
 
 export type TodoListProps = {
   todoListID: string,
@@ -32,9 +32,9 @@ const todoListBtnWrapperStyles = {
 }
 
 const TodoList = React.memo((props: TodoListProps) => {
-  console.log('TodoList called');
+    console.log('TodoList called');
 
-  const {
+    const {
       todoListID,
       titleList,
       filter,
@@ -66,9 +66,9 @@ const TodoList = React.memo((props: TodoListProps) => {
       taskForTodoList = tasks.filter((t: TaskType) => t.isDone)
     }
 
-    const onAllFilterHandler = useCallback(() => changeFilter(todoListID, FILTERS.ALL),[todoListID, FILTERS.ALL, changeFilter]);
-    const onActiveFilterHandler = useCallback(() => changeFilter(todoListID, FILTERS.ACTIVE),[todoListID, FILTERS.ACTIVE, changeFilter]);
-    const onCompletedFilterHandler = useCallback(() => changeFilter(todoListID, FILTERS.COMPLETED),[todoListID, FILTERS.COMPLETED, changeFilter]);
+    const onAllFilterHandler = useCallback(() => changeFilter(todoListID, FILTERS.ALL), [todoListID, FILTERS.ALL, changeFilter]);
+    const onActiveFilterHandler = useCallback(() => changeFilter(todoListID, FILTERS.ACTIVE), [todoListID, FILTERS.ACTIVE, changeFilter]);
+    const onCompletedFilterHandler = useCallback(() => changeFilter(todoListID, FILTERS.COMPLETED), [todoListID, FILTERS.COMPLETED, changeFilter]);
 
     const getActiveBtnClassName = (filterValue: FilterValueType) => {
       return filter === filterValue ? 'contained' : 'outlined';
