@@ -1,4 +1,3 @@
-import {TodoListsType} from "../redux/state";
 import {FILTERS} from "../common/constants";
 import {v1} from "uuid";
 import {todoListsAPI} from "../api/todoList-api";
@@ -32,25 +31,26 @@ export type TodoListType = {
   order: number,
 }
 export type FilterValueType = typeof FILTERS.ALL | typeof FILTERS.COMPLETED | typeof FILTERS.ACTIVE;
-export type TodoListDomainType = TodoListsType & {
+export type TodoListDomainType = TodoListType & {
   filter: FilterValueType
 }
 
 export const initialTodoList: Array<TodoListDomainType> = [];
 
-export const todoListsReducer = (state = initialTodoList, action: ActionType): Array<TodoListsType> => {
+export const todoListsReducer = (state = initialTodoList, action: ActionType): Array<TodoListDomainType> => {
   switch (action.type) {
     case REMOVE_TODOLIST: {
       return [...state.filter(t => t.id !== action.todoListId)];
     }
 
     case ADD_TODOLIST: {
-      let todoList: TodoListsType = {
+      return [{
         id: action.todoListId,
         title: action.title,
         filter: FILTERS.ALL,
-      }
-      return [...state, todoList]
+        addedDate: '',
+        order: 0,
+      }, ...state];
     }
 
     case CHANGE_TODOLIST_TITLE: {
