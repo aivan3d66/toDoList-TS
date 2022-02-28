@@ -1,8 +1,5 @@
 import React, {useCallback} from "react";
-import {
-  ChangeFilter, ChangeTodoListTitleType,
-  RemoveTodoList
-} from "../App";
+import {ChangeFilter, ChangeTodoListTitleType, RemoveTodoList} from "../App";
 import {FILTERS} from "../common/constants";
 import '../App.css';
 import {AddItemForm} from "./AddItemForm";
@@ -14,7 +11,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {AppRootState} from "../state/redux-store";
 import {addTaskAC} from "../state/task-reducer";
 import {FilterValueType} from "../state/todolist-reducer";
-import {TasksResponseType} from "../api/tasks-api";
+import {TasksResponseType, TaskStatuses} from "../api/tasks-api";
 
 export type TodoListProps = {
   todoListID: string,
@@ -60,10 +57,10 @@ const TodoList = React.memo((props: TodoListProps) => {
     let taskForTodoList = tasks;
 
     if (filter === FILTERS.ACTIVE) {
-      taskForTodoList = tasks.filter((t) => !t.status)
+      taskForTodoList = tasks.filter(t => t.status === TaskStatuses.New)
     }
     if (filter === FILTERS.COMPLETED) {
-      taskForTodoList = tasks.filter((t) => t.status)
+      taskForTodoList = tasks.filter(t => t.status === TaskStatuses.Completed)
     }
 
     const onAllFilterHandler = useCallback(() => changeFilter(todoListID, FILTERS.ALL), [todoListID, FILTERS.ALL, changeFilter]);
