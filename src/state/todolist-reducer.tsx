@@ -2,6 +2,8 @@ import {FILTERS} from "../common/constants";
 import {v1} from "uuid";
 import {todoListsAPI} from "../api/todoList-api";
 import {ResultCode} from "../api/api";
+import {ThunkAction} from "redux-thunk";
+import {AppStateType} from "./redux-store";
 
 const REMOVE_TODOLIST = 'REMOVE_TODOLIST';
 const ADD_TODOLIST = 'ADD_TODOLIST';
@@ -35,22 +37,9 @@ export type TodoListDomainType = TodoListType & {
   filter: FilterValueType
 }
 
-export const initialTodoList: Array<TodoListDomainType> = [
-  {
-    id: todoListId1,
-    title: "What to learn",
-    filter: FILTERS.ALL,
-    addedDate: '',
-    order: 0,
-  },
-  {
-    id: todoListId2,
-    title: "What to buy",
-    filter: FILTERS.ALL,
-    addedDate: '',
-    order: 0,
-  }
-];
+type ThunkType = ThunkAction<void, AppStateType, unknown, ActionType>;
+
+export const initialTodoList: Array<TodoListDomainType> = [];
 
 export const todoListsReducer = (state = initialTodoList, action: ActionType): Array<TodoListDomainType> => {
   switch (action.type) {
@@ -77,7 +66,12 @@ export const todoListsReducer = (state = initialTodoList, action: ActionType): A
     }
 
     case GET_ALL_TODOS: {
-      return [...state, action.payload]
+      return action.todoLists.map(tl => {
+        return {
+          ...tl,
+          filter: FILTERS.ALL,
+        }
+      })
     }
 
     default:
@@ -85,9 +79,9 @@ export const todoListsReducer = (state = initialTodoList, action: ActionType): A
   }
 }
 
-export const getAllTodoListAC = (payload: any) => ({
+export const getAllTodoListAC = (todoLists: Array<TodoListType>) => ({
   type: GET_ALL_TODOS,
-  payload: payload
+  todoLists
 } as const)
 
 export const removeTodoListAC = (todoListId: string) => ({
@@ -111,15 +105,15 @@ export const changeTodoListFilterAC = (id: string, filter: FilterValueType) => (
 } as const)
 
 
-export const getTodoListsThunk = (): any => async (dispatch: any) => {
+export const getTodoListsThunk = (): ThunkType => async (dispatch) => {
   const response = await todoListsAPI.getAllTodoLists();
-  if (response.status === ResultCode.Success) {
+  if (response.status === 1) {
     dispatch(getAllTodoListAC(response.data));
   }
 }
-export const setTodoListsThunk = (title: string): any => async (dispatch: any) => {
+export const setTodoListsThunk = (title: string): ThunkType => async (dispatch) => {
   const response = await todoListsAPI.setTodoLists(title);
   if (response.status === ResultCode.Success) {
-    dispatch(getAllTodoListAC(response.data));
+    // dispatch(getAllTodoListAC(response.data));
   }
 }
