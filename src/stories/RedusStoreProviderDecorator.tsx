@@ -59,7 +59,7 @@ const initialGlobalState: AppRootState = {
       {
         id: "3",
         title: "JavaScript",
-        status: TaskStatuses.Completed,
+        status: TaskStatuses.New,
         todolistId: todoListId1,
         startDate: '',
         deadline: '',
@@ -73,7 +73,7 @@ const initialGlobalState: AppRootState = {
       {
         id: "1",
         title: "Coffee",
-        status: TaskStatuses.Completed,
+        status: TaskStatuses.New,
         todolistId: todoListId1,
         startDate: '',
         deadline: '',
@@ -97,7 +97,7 @@ const initialGlobalState: AppRootState = {
       {
         id: "3",
         title: "React book",
-        status: TaskStatuses.Completed,
+        status: TaskStatuses.New,
         todolistId: todoListId1,
         startDate: '',
         deadline: '',
