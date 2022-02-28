@@ -35,7 +35,22 @@ export type TodoListDomainType = TodoListType & {
   filter: FilterValueType
 }
 
-export const initialTodoList: Array<TodoListDomainType> = [];
+export const initialTodoList: Array<TodoListDomainType> = [
+  {
+    id: todoListId1,
+    title: "What to learn",
+    filter: FILTERS.ALL,
+    addedDate: '',
+    order: 0,
+  },
+  {
+    id: todoListId2,
+    title: "What to buy",
+    filter: FILTERS.ALL,
+    addedDate: '',
+    order: 0,
+  }
+];
 
 export const todoListsReducer = (state = initialTodoList, action: ActionType): Array<TodoListDomainType> => {
   switch (action.type) {
