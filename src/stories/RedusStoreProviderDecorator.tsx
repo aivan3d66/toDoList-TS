@@ -13,10 +13,22 @@ const rootReducer = combineReducers({
   todoLists: todoListsReducer,
 })
 
-const initialGlobalState = {
+const initialGlobalState: AppRootState = {
   todoLists: [
-    {id: todoListId1, title: "What to learn", filter: FILTERS.ALL,},
-    {id: todoListId2, title: "What to buy", filter: FILTERS.ALL,},
+    {
+      id: todoListId1,
+      title: "What to learn",
+      filter: FILTERS.ALL,
+      addedDate: '',
+      order: 0,
+    },
+    {
+      id: todoListId2,
+      title: "What to buy",
+      filter: FILTERS.ALL,
+      addedDate: '',
+      order: 0,
+    }
   ],
   tasks: {
     [todoListId1]: [
@@ -98,7 +110,7 @@ const initialGlobalState = {
   }
 }
 
-const storyBookStore = createStore(rootReducer, initialGlobalState as AppRootState);
+const storyBookStore = createStore(rootReducer, initialGlobalState);
 
 export const ReduxStoreProviderDecorator = (story: any) => {
   return (
