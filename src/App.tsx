@@ -7,16 +7,13 @@ import {Toolbar, IconButton, Typography, Container, Grid, Paper} from '@mui/mate
 import MenuIcon from '@mui/icons-material/Menu';
 import {
   removeTodoListAC,
-  addTodoListAC,
   changeTodoListFilterAC,
   changeTodoListTitleAC,
   FilterValueType,
-  TodoListType,
   TodoListDomainType,
-  getAllTodoListAC,
-  getTodoListsThunk
+  getTodoListsThunk,
+  setTodoListsThunk
 } from "./state/todolist-reducer";
-import {v1} from 'uuid';
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootState} from './state/redux-store';
 
@@ -46,22 +43,16 @@ export const App: React.FC<AppPropsTpe> = () => {
     padding: "16px",
   }
 
+  const dispatch = useDispatch();
+  const todoLists = useSelector<AppRootState, Array<TodoListDomainType>>(state => state.todoLists)
+
   useEffect(() => {
     dispatch(getTodoListsThunk())
   }, [])
 
-  const dispatch = useDispatch();
-  const todoLists = useSelector<AppRootState, Array<TodoListDomainType>>(state => state.todoLists)
-
   const addTodoList = useCallback((title: string) => {
-    const newListId = v1();
-    const action = addTodoListAC(title, newListId)
-    dispatch(action);
+    dispatch(setTodoListsThunk(title));
   }, [dispatch]);
-
-  // const addTodoList = useCallback((title: string) => {
-  //   dispatch(setTodoListsThunk(title));
-  // }, [dispatch]);
 
   const removeTodoList = useCallback((todoListId: string) => {
     const action = removeTodoListAC(todoListId)
