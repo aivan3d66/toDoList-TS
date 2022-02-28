@@ -1,7 +1,9 @@
 import {v1} from "uuid";
-import {TaskPriorities, TasksResponseType, TaskStatuses} from "../api/tasks-api";
+import {TaskPriorities, tasksAPI, TasksResponseType, TaskStatuses} from "../api/tasks-api";
 import {GET_ALL_TODOS, GetAllTodoListActionType, todoListId1, todoListId2} from "./todolist-reducer";
 import {AddTodoListActionType, RemoveTodoListActionType} from "./todolist-reducer";
+import {ThunkAction} from "redux-thunk";
+import {AppStateType} from "./redux-store";
 
 const REMOVE_TASK = 'REMOVE_TASK';
 const ADD_TASK = 'ADD_TASK';
@@ -9,11 +11,13 @@ const CHANGE_TASK_STATUS = 'CHANGE_TASK_STATUS';
 const CHANGE_TASK_TITLE = 'CHANGE_TASK_TITLE';
 const ADD_TODOLIST = 'ADD_TODOLIST';
 const REMOVE_TODOLIST = 'REMOVE_TODOLIST';
+const GET_ALL_TASKS = 'GET_ALL_TASKS';
 
 export type RemoveTaskActionType = ReturnType<typeof removeTaskAC>
 export type AddTaskActionType = ReturnType<typeof addTaskAC>
 export type ChangeTaskStatusActionType = ReturnType<typeof changeStatusTaskAC>
 export type ChangeTaskTitleActionType = ReturnType<typeof changeTaskTitleAC>
+export type GetAllTodoListTasksActionType = ReturnType<typeof getAllTodoListTasksAC>
 
 export type GeneraTasksActionType =
   RemoveTaskActionType
@@ -23,65 +27,14 @@ export type GeneraTasksActionType =
   | AddTodoListActionType
   | RemoveTodoListActionType
   | GetAllTodoListActionType
+  | GetAllTodoListTasksActionType
 
 export type TodoListTasksType = {
   [key: string]: Array<TasksResponseType>,
 }
+type ThunkType = ThunkAction<void, AppStateType, unknown, GeneraTasksActionType>;
 
-export const initialTasksState: TodoListTasksType = {
-  [todoListId1]: [
-    {
-      id: v1(),
-      title: "HTML",
-      status: TaskStatuses.Completed,
-      todolistId: todoListId1,
-      startDate: '',
-      deadline: '',
-      addedDate: '',
-      priority: TaskPriorities.Low,
-      order: 0,
-      description: '',
-    },
-    {
-      id: v1(),
-      title: "CSS",
-      status: TaskStatuses.New,
-      todolistId: todoListId1,
-      startDate: '',
-      deadline: '',
-      addedDate: '',
-      priority: TaskPriorities.Low,
-      order: 0,
-      description: '',
-    },
-  ],
-  [todoListId2]: [
-    {
-      id: v1(),
-      title: "Coffee",
-      status: TaskStatuses.New,
-      todolistId: todoListId2,
-      startDate: '',
-      deadline: '',
-      addedDate: '',
-      priority: TaskPriorities.Low,
-      order: 0,
-      description: '',
-    },
-    {
-      id: v1(),
-      title: "Cookies",
-      status: TaskStatuses.Completed,
-      todolistId: todoListId2,
-      startDate: '',
-      deadline: '',
-      addedDate: '',
-      priority: TaskPriorities.Low,
-      order: 0,
-      description: '',
-    },
-  ]
-}
+export const initialTasksState: TodoListTasksType = {}
 
 export const taskReducer = (state = initialTasksState, action: GeneraTasksActionType): TodoListTasksType => {
   switch (action.type) {
@@ -90,6 +43,13 @@ export const taskReducer = (state = initialTasksState, action: GeneraTasksAction
         ...state,
         [action.todoListId]: state[action.todoListId].filter((f) => f.id !== action.id)
       }
+
+    case GET_ALL_TASKS: {
+      return {
+        ...state,
+        [action.todoListId]: [...action.tasksList]
+      }
+    }
 
     case ADD_TASK:
       return {
