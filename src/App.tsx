@@ -45,7 +45,7 @@ export const App: React.FC<AppPropsTpe> = () => {
   }
 
   const dispatch = useDispatch();
-  const todoLists = useSelector<AppRootState, Array<TodoListsType>>(state => state.todoLists)
+  const todoLists = useSelector<AppRootState, Array<TodoListType>>(state => state.todoLists)
 
   const addTodoList = useCallback((title: string) => {
     const newListId = v1();
@@ -114,7 +114,8 @@ export const App: React.FC<AppPropsTpe> = () => {
                         key={t.id}
                         todoListID={t.id}
                         titleList={t.title}
-                        filter={t.filter}
+                        // filter={t.filter}
+                        filter={FILTERS.ALL}
                         changeFilter={changeFilter}
                         removeTodoList={removeTodoList}
                         changeTodoListTitle={changeTodoListTitle}
