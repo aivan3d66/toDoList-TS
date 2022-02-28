@@ -2,7 +2,6 @@ import React, {useCallback} from 'react';
 import './App.css';
 import TodoList from "./components/ToDoList";
 import {TodoListsType} from "./redux/state";
-import {FILTERS} from "./common/constants";
 import {AddItemForm} from "./components/AddItemForm";
 import AppBar from '@mui/material/AppBar';
 import {Toolbar, IconButton, Typography, Container, Grid, Paper} from '@mui/material';
@@ -10,7 +9,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import {
   removeTodoListAC,
   addTodoListAC,
-  changeTodoListFilterAC, changeTodoListTitleAC
+  changeTodoListFilterAC, changeTodoListTitleAC, FilterValueType
 } from "./state/todolist-reducer";
 import {v1} from 'uuid';
 import {useDispatch, useSelector} from "react-redux";
@@ -20,7 +19,6 @@ export type AddTodoList = (title: string) => void;
 export type RemoveTodoList = (todoListId: string) => void;
 export type ChangeTodoListTitleType = (todoListID: string, title: string) => void;
 
-export type FilterValueType = typeof FILTERS.ALL | typeof FILTERS.COMPLETED | typeof FILTERS.ACTIVE;
 export type ChangeFilter = (todoListId: string, value: FilterValueType) => void;
 
 type AppPropsTpe = {};
