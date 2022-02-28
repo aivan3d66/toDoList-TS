@@ -1,5 +1,5 @@
 import {v1} from "uuid";
-import {TasksResponseType} from "../api/tasks-api";
+import {TaskPriorities, TasksResponseType, TaskStatuses} from "../api/tasks-api";
 import {todoListId1, todoListId2} from "./todolist-reducer";
 import {AddTodoListActionType, RemoveTodoListActionType} from "./todolist-reducer";
 
@@ -29,16 +29,52 @@ export type TodoListTasksType = {
 
 export const initialTasksState: TodoListTasksType = {
   [todoListId1]: [
-    {id: v1(), title: "HTML", isDone: true},
-    {id: v1(), title: "CSS", isDone: true},
-    {id: v1(), title: "JavaScript", isDone: false},
-    {id: v1(), title: "TypeScript", isDone: false},
-    {id: v1(), title: "React", isDone: false},
+    {id: v1(),
+      title: "HTML",
+      status: TaskStatuses.Completed,
+      todolistId: todoListId1,
+      startDate: '',
+      deadline: '',
+      addedDate: '',
+      priority: TaskPriorities.Low,
+      order: 0,
+      description: '',
+    },
+    {id: v1(),
+      title: "CSS",
+      status: TaskStatuses.New,
+      todolistId: todoListId1,
+      startDate: '',
+      deadline: '',
+      addedDate: '',
+      priority: TaskPriorities.Low,
+      order: 0,
+      description: '',
+    },
   ],
   [todoListId2]: [
-    {id: v1(), title: "Coffee", isDone: true},
-    {id: v1(), title: "New brains", isDone: false},
-    {id: v1(), title: "React book", isDone: false},
+    {id: v1(),
+      title: "Coffee",
+      status: TaskStatuses.New,
+      todolistId: todoListId2,
+      startDate: '',
+      deadline: '',
+      addedDate: '',
+      priority: TaskPriorities.Low,
+      order: 0,
+      description: '',
+    },
+    {id: v1(),
+      title: "Cookies",
+      status: TaskStatuses.Completed,
+      todolistId: todoListId2,
+      startDate: '',
+      deadline: '',
+      addedDate: '',
+      priority: TaskPriorities.Low,
+      order: 0,
+      description: '',
+    },
   ]
 }
 
