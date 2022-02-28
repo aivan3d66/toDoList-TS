@@ -1,6 +1,12 @@
 import {ApiResponseType, instance} from "./api";
 
-type TasksResponseType = {
+type GetTasksResponse = {
+  error: string | null,
+  totalCount: number,
+  items: Array<TasksResponseType>
+}
+
+export type TasksResponseType = {
   description: string,
   title: string,
   completed: boolean,
@@ -12,11 +18,6 @@ type TasksResponseType = {
   todolistId: string,
   order: number,
   addedDate: string,
-}
-type GetTasksResponse = {
-  error: string | null,
-  totalCount: number,
-  items: Array<TasksResponseType>
 }
 export type UpdateTaskType = {
   description: string,
