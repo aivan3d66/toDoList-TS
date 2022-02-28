@@ -112,7 +112,7 @@ export const taskReducer = (state = initialTasksState, action: GeneraTasksAction
         ...state,
         [action.todoListId]: state[action.todoListId].map((t) => t.id === action.taskId ? {
           ...t,
-          isDone: action.isDone
+          status: action.newStatusValue
         } : t)
       }
 
@@ -151,11 +151,11 @@ export const addTaskAC = (todoListId: string, title: string) => ({
   todoListId: todoListId,
   title: title,
 } as const)
-export const changeStatusTaskAC = (todoListId: string, taskId: string, isDone: boolean) => ({
+export const changeStatusTaskAC = (todoListId: string, taskId: string, newStatusValue: TaskStatuses) => ({
   type: CHANGE_TASK_STATUS,
   todoListId: todoListId,
   taskId: taskId,
-  isDone: isDone,
+  newStatusValue: newStatusValue,
 } as const)
 export const changeTaskTitleAC = (todoListId: string, taskId: string, newTitle: string) => ({
   type: CHANGE_TASK_TITLE,
