@@ -5,19 +5,18 @@ import React, {ChangeEvent, useCallback} from "react";
 import {changeStatusTaskAC, changeTaskTitleAC, removeTaskAC} from "../../state/task-reducer";
 import {useDispatch} from "react-redux";
 import {v1} from "uuid";
-import {TasksResponseType} from "../../api/tasks-api";
+import {TasksResponseType, TaskStatuses} from "../../api/tasks-api";
 
 type TaskPropsType = TasksResponseType & {
   todoListID: string,
-  isDone: boolean
 }
 
 export const Task = React.memo((props: TaskPropsType) => {
   const {
     title,
-    isDone,
     id,
     todoListID,
+    status
   } = props;
 
   const taskStyles = {
@@ -28,7 +27,7 @@ export const Task = React.memo((props: TaskPropsType) => {
     margin: "0",
     fontSize: "14px",
     borderBottom: "1px solid #bababa",
-    opacity: isDone ? "0.4" : "",
+    opacity: status === TaskStatuses.Completed ? "0.4" : "",
   }
 
   const dispatch = useDispatch();
@@ -39,15 +38,21 @@ export const Task = React.memo((props: TaskPropsType) => {
     dispatch(changeTaskTitleAC(todoListID, id, newValue))
   }, [todoListID, id]);
   const onChangeStatusHandler = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    let newIsDoneValue = e.currentTarget.checked;
-    dispatch(changeStatusTaskAC(todoListID, id, newIsDoneValue));
+    let newStatusValue;
+
+    if (e.currentTarget.checked) {
+      newStatusValue = TaskStatuses.Completed
+    } else {
+      newStatusValue = TaskStatuses.New
+    }
+    dispatch(changeStatusTaskAC(todoListID, id, newStatusValue));
   }, [todoListID, id]);
 
   return (
     <li key={v1()} style={taskStyles}>
       <Checkbox
         color={"success"}
-        checked={isDone}
+        checked={status === TaskStatuses.Completed}
         onChange={onChangeStatusHandler}
       />
       <EditableSpan
