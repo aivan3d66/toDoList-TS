@@ -33,6 +33,13 @@ export enum TaskStatuses {
   Completed,
   Draft
 }
+export enum TaskPriorities {
+  Low = 0,
+  Middle,
+  Hi,
+  Urgently,
+  Later
+}
 
 export const tasksAPI = {
   getAllTasks(todoListId: string) {
