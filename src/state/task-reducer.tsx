@@ -161,3 +161,13 @@ export const setNewTodoListTask = (todoListId: string, title: string): ThunkType
     console.log(e);
   }
 }
+export const deleteTodoListTask = (todoListId: string, taskId: string): ThunkType => async (dispatch) => {
+  try {
+    const response = await tasksAPI.deleteTask(todoListId, taskId);
+    if (response.status === ResultCode.Success) {
+      dispatch(removeTaskAC(todoListId, taskId));
+    }
+  } catch (e) {
+    console.log(e);
+  }
+}
