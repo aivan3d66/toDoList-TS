@@ -1,4 +1,3 @@
-import {TaskType} from "../../redux/state";
 import {Checkbox, IconButton} from "@mui/material";
 import {EditableSpan} from "./EditableSpan/EditableSpan";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -6,9 +5,11 @@ import React, {ChangeEvent, useCallback} from "react";
 import {changeStatusTaskAC, changeTaskTitleAC, removeTaskAC} from "../../state/task-reducer";
 import {useDispatch} from "react-redux";
 import {v1} from "uuid";
+import {TasksResponseType} from "../../api/tasks-api";
 
-type TaskPropsType = TaskType & {
-  todoListID: string
+type TaskPropsType = TasksResponseType & {
+  todoListID: string,
+  isDone: boolean
 }
 
 export const Task = React.memo((props: TaskPropsType) => {
