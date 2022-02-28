@@ -109,8 +109,6 @@ export const App: React.FC<AppPropsTpe> = () => {
                         key={t.id}
                         todoListID={t.id}
                         titleList={t.title}
-                        // filter={t.filter}
-                        filter={FILTERS.ALL}
                         changeFilter={changeFilter}
                         removeTodoList={removeTodoList}
                         changeTodoListTitle={changeTodoListTitle}
