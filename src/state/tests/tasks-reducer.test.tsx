@@ -1,7 +1,7 @@
 import {
   addTaskAC,
   changeStatusTaskAC,
-  changeTaskTitleAC,
+  changeTaskTitleAC, getAllTodoListTasksAC,
   removeTaskAC,
   taskReducer,
   TodoListTasksType
@@ -94,7 +94,7 @@ test('current task should be removed', () => {
   const endState = taskReducer(startState, action)
 
   expect(endState["todoListId2"].length).toBe(2)
-})
+});
 
 test('current task should be added', () => {
   const newTitle = "Whiskey"
@@ -107,7 +107,7 @@ test('current task should be added', () => {
   expect(endState["todoListId2"].length).toBe(4);
   expect(endState["todoListId2"][0].id).toBeDefined();
   expect(endState["todoListId2"][0].title).toBe(newTitle);
-})
+});
 
 test('current task should change his name', () => {
   const newTitle = "SASS or LESS"
@@ -117,7 +117,7 @@ test('current task should change his name', () => {
   const endState = taskReducer(startState, action)
 
   expect(endState["todoListId2"][2].title).toBe(newTitle)
-})
+});
 
 test('current task checkbox should be changed', () => {
   const newIsDone = TaskStatuses.InProgress
@@ -127,15 +127,27 @@ test('current task checkbox should be changed', () => {
   const endState = taskReducer(startState, action)
 
   expect(endState["todoListId1"][0].status).toBe(newIsDone)
-})
+});
 
 test('property with todolistId should be deleted', () => {
   const action = removeTodoListAC("todolistId2");
 
   const endState = taskReducer(startState, action)
 
-  const keys = Object.keys(endState);
+  // const keys = Object.keys(endState);
 
   // expect(keys.length).toBe(1);
   expect(endState["todolistId2"]).not.toBeDefined();
 });
+
+test('tasks should be added', () => {
+  const action = getAllTodoListTasksAC("todoListId1", startState["todoListId1"]);
+
+  const endState = taskReducer({
+    "todoListId2": [],
+    "todoListId1": []
+  }, action)
+
+  expect(endState["todoListId1"].length).toBe(3);
+  expect(endState["todoListId2"].length).toBe(0);
+})
