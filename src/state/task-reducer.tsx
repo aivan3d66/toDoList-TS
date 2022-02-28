@@ -1,5 +1,5 @@
 import {v1} from "uuid";
-import {TodoListTasksType} from "../redux/state";
+import {TasksResponseType} from "../api/tasks-api";
 import {todoListId1, todoListId2} from "./todolist-reducer";
 import {AddTodoListActionType, RemoveTodoListActionType} from "./todolist-reducer";
 
@@ -22,6 +22,10 @@ export type GeneraTasksActionType =
   | ChangeTaskTitleActionType
   | AddTodoListActionType
   | RemoveTodoListActionType
+
+export type TodoListTasksType = {
+  [key: string]: Array<TasksResponseType>,
+}
 
 export const initialTasksState: TodoListTasksType = {
   [todoListId1]: [
