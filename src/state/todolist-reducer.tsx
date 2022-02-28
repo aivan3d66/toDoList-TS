@@ -1,7 +1,6 @@
 import {FILTERS} from "../common/constants";
 import {v1} from "uuid";
 import {todoListsAPI} from "../api/todoList-api";
-import {ResultCode} from "../api/api";
 import {ThunkAction} from "redux-thunk";
 import {AppStateType} from "./redux-store";
 
@@ -9,7 +8,7 @@ const REMOVE_TODOLIST = 'REMOVE_TODOLIST';
 const ADD_TODOLIST = 'ADD_TODOLIST';
 const CHANGE_TODOLIST_TITLE = 'CHANGE_TODOLIST_TITLE';
 const CHANGE_TODOLIST_FILTER = 'CHANGE_TODOLIST_FILTER';
-const GET_ALL_TODOS = 'GET_ALL_TODOS';
+export const GET_ALL_TODOS = 'GET_ALL_TODOS';
 
 export type RemoveTodoListActionType = ReturnType<typeof removeTodoListAC>
 export type AddTodoListActionType = ReturnType<typeof addTodoListAC>
@@ -106,14 +105,18 @@ export const changeTodoListFilterAC = (id: string, filter: FilterValueType) => (
 
 
 export const getTodoListsThunk = (): ThunkType => async (dispatch) => {
-  const response = await todoListsAPI.getAllTodoLists();
-  if (response.status === 1) {
+  try {
+    const response = await todoListsAPI.getAllTodoLists();
     dispatch(getAllTodoListAC(response.data));
+  } catch (e) {
+    console.log(e)
   }
 }
 export const setTodoListsThunk = (title: string): ThunkType => async (dispatch) => {
-  const response = await todoListsAPI.setTodoLists(title);
-  if (response.status === ResultCode.Success) {
+  try {
+    const response = await todoListsAPI.setTodoLists(title);
     // dispatch(getAllTodoListAC(response.data));
+  } catch (e) {
+    console.log(e)
   }
 }
