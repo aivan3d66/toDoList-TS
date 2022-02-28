@@ -4,6 +4,7 @@ import {GET_ALL_TODOS, GetAllTodoListActionType} from "./todolist-reducer";
 import {AddTodoListActionType, RemoveTodoListActionType} from "./todolist-reducer";
 import {ThunkAction} from "redux-thunk";
 import {AppStateType} from "./redux-store";
+import {ResultCode} from "../api/api";
 
 const REMOVE_TASK = 'REMOVE_TASK';
 const ADD_TASK = 'ADD_TASK';
@@ -145,6 +146,16 @@ export const getAllTodoListTasks = (todoListId: string): ThunkType => async (dis
     const response = await tasksAPI.getAllTasks(todoListId);
     if (response.data) {
       dispatch(getAllTodoListTasksAC(todoListId, response.data.items))
+    }
+  } catch (e) {
+    console.log(e);
+  }
+}
+export const setNewTodoListTask = (todoListId: string, title: string): ThunkType => async (dispatch) => {
+  try {
+    const response = await tasksAPI.addTask(todoListId, title);
+    if (response.status === ResultCode.Success) {
+      dispatch(getAllTodoListTasks(todoListId));
     }
   } catch (e) {
     console.log(e);
