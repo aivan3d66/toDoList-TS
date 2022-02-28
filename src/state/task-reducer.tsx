@@ -1,5 +1,5 @@
 import {v1} from "uuid";
-import {TaskPriorities, tasksAPI, TasksResponseType, TaskStatuses} from "../api/tasks-api";
+import {TaskPriorities, tasksAPI, TasksResponseType, TaskStatuses, UpdateTaskModelType} from "../api/tasks-api";
 import {GET_ALL_TODOS, GetAllTodoListActionType} from "./todolist-reducer";
 import {AddTodoListActionType, RemoveTodoListActionType} from "./todolist-reducer";
 import {ThunkAction} from "redux-thunk";
@@ -166,6 +166,17 @@ export const deleteTodoListTask = (todoListId: string, taskId: string): ThunkTyp
     const response = await tasksAPI.deleteTask(todoListId, taskId);
     if (response.status === ResultCode.Success) {
       dispatch(removeTaskAC(todoListId, taskId));
+      // dispatch(getAllTodoListTasks(todoListId));
+    }
+  } catch (e) {
+    console.log(e);
+  }
+}
+export const updateTodoListTask = (todoListId: string, taskId: string, model: UpdateTaskModelType): ThunkType => async (dispatch) => {
+  try {
+    const response = await tasksAPI.updateTask(todoListId, taskId, model);
+    if (response.status === ResultCode.Success) {
+      // dispatch(getAllTodoListTasks(todoListId));
     }
   } catch (e) {
     console.log(e);
