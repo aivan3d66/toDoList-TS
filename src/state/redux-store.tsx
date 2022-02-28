@@ -1,5 +1,4 @@
 import {createStore, combineReducers, applyMiddleware, Action} from "redux";
-import {loadState} from "../utils/localStorage";
 import {taskReducer} from "./task-reducer";
 import {todoListsReducer} from "./todolist-reducer";
 import thunkMiddleware, {ThunkAction} from "redux-thunk";
@@ -18,10 +17,5 @@ const rootReducer = combineReducers({
 })
 
 const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
-
-// , loadState()
-// store.subscribe(() => {
-//   localStorage.setItem('todoList-state', JSON.stringify(store.getState()))
-// })
 
 export default store;
