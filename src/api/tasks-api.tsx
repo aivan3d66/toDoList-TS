@@ -9,7 +9,6 @@ type GetTasksResponse = {
 export type TasksResponseType = {
   description: string,
   title: string,
-  completed: boolean,
   status: TaskStatuses,
   priority: TaskPriorities,
   startDate: string,
