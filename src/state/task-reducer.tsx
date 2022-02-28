@@ -1,6 +1,6 @@
 import {v1} from "uuid";
 import {TaskPriorities, tasksAPI, TasksResponseType, TaskStatuses} from "../api/tasks-api";
-import {GET_ALL_TODOS, GetAllTodoListActionType, todoListId1, todoListId2} from "./todolist-reducer";
+import {GET_ALL_TODOS, GetAllTodoListActionType} from "./todolist-reducer";
 import {AddTodoListActionType, RemoveTodoListActionType} from "./todolist-reducer";
 import {ThunkAction} from "redux-thunk";
 import {AppStateType} from "./redux-store";
@@ -139,3 +139,14 @@ export const getAllTodoListTasksAC = (todoListId: string, tasksList: Array<Tasks
   todoListId: todoListId,
   tasksList: tasksList,
 } as const)
+
+export const getAllTodoListTasks = (todoListId: string): ThunkType => async (dispatch) => {
+  try {
+    const response = await tasksAPI.getAllTasks(todoListId);
+    if (response.data) {
+      dispatch(getAllTodoListTasksAC(todoListId, response.data.items))
+    }
+  } catch (e) {
+    console.log(e);
+  }
+}
