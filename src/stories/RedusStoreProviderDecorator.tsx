@@ -4,7 +4,7 @@ import {combineReducers, createStore} from "redux";
 import {taskReducer} from "../state/task-reducer";
 import {todoListId1, todoListId2, todoListsReducer} from "../state/todolist-reducer";
 import {FILTERS} from "../common/constants";
-import {v1} from "uuid";
+import {TaskPriorities, TaskStatuses} from "../api/tasks-api";
 
 export type AppRootState = ReturnType<typeof rootReducer>
 
@@ -20,16 +20,80 @@ const initialGlobalState = {
   ],
   tasks: {
     [todoListId1]: [
-      {id: v1(), title: "HTML", isDone: true},
-      {id: v1(), title: "CSS", isDone: true},
-      {id: v1(), title: "JavaScript", isDone: false},
-      {id: v1(), title: "TypeScript", isDone: false},
-      {id: v1(), title: "React", isDone: false},
+      {
+        id: "1",
+        title: "HTML",
+        status: TaskStatuses.Completed,
+        todolistId: todoListId1,
+        startDate: '',
+        deadline: '',
+        addedDate: '',
+        priority: TaskPriorities.Low,
+        order: 0,
+        description: '',
+      },
+      {
+        id: "2",
+        title: "CSS",
+        status: TaskStatuses.Completed,
+        todolistId: todoListId1,
+        startDate: '',
+        deadline: '',
+        addedDate: '',
+        priority: TaskPriorities.Low,
+        order: 0,
+        description: '',
+      },
+      {
+        id: "3",
+        title: "JavaScript",
+        status: TaskStatuses.Completed,
+        todolistId: todoListId1,
+        startDate: '',
+        deadline: '',
+        addedDate: '',
+        priority: TaskPriorities.Low,
+        order: 0,
+        description: '',
+      }
     ],
     [todoListId2]: [
-      {id: v1(), title: "Coffee", isDone: true},
-      {id: v1(), title: "New brains", isDone: false},
-      {id: v1(), title: "React book", isDone: false},
+      {
+        id: "1",
+        title: "Coffee",
+        status: TaskStatuses.Completed,
+        todolistId: todoListId1,
+        startDate: '',
+        deadline: '',
+        addedDate: '',
+        priority: TaskPriorities.Low,
+        order: 0,
+        description: '',
+      },
+      {
+        id: "2",
+        title: "New brains",
+        status: TaskStatuses.Completed,
+        todolistId: todoListId1,
+        startDate: '',
+        deadline: '',
+        addedDate: '',
+        priority: TaskPriorities.Low,
+        order: 0,
+        description: '',
+      },
+      {
+        id: "3",
+        title: "React book",
+        status: TaskStatuses.Completed,
+        todolistId: todoListId1,
+        startDate: '',
+        deadline: '',
+        addedDate: '',
+        priority: TaskPriorities.Low,
+        order: 0,
+        description: '',
+      }
     ]
   }
 }
