@@ -134,3 +134,8 @@ export const changeTaskTitleAC = (todoListId: string, taskId: string, newTitle: 
   taskId: taskId,
   newTitle: newTitle,
 } as const)
+export const getAllTodoListTasksAC = (todoListId: string, tasksList: Array<TasksResponseType>) => ({
+  type: GET_ALL_TASKS,
+  todoListId: todoListId,
+  tasksList: tasksList,
+} as const)
