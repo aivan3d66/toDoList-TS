@@ -1,6 +1,5 @@
 import {TodoListsType} from "../redux/state";
 import {FILTERS} from "../common/constants";
-import {FilterValueType} from "../App";
 import {v1} from "uuid";
 import {todoListsAPI} from "../api/todoList-api";
 import {ResultCode} from "../api/api";
@@ -9,9 +8,7 @@ const REMOVE_TODOLIST = 'REMOVE_TODOLIST';
 const ADD_TODOLIST = 'ADD_TODOLIST';
 const CHANGE_TODOLIST_TITLE = 'CHANGE_TODOLIST_TITLE';
 const CHANGE_TODOLIST_FILTER = 'CHANGE_TODOLIST_FILTER';
-
 const GET_ALL_TODOS = 'GET_ALL_TODOS';
-const SET_ALL_TODOS = 'SET_ALL_TODOS';
 
 export type RemoveTodoListActionType = ReturnType<typeof removeTodoListAC>
 export type AddTodoListActionType = ReturnType<typeof addTodoListAC>
@@ -27,6 +24,18 @@ export type ActionType =
 
 export const todoListId1 = v1();
 export const todoListId2 = v1();
+
+export type TodoListType = {
+  id: string,
+  title: string,
+  addedDate: string,
+  order: number,
+}
+export type FilterValueType = typeof FILTERS.ALL | typeof FILTERS.COMPLETED | typeof FILTERS.ACTIVE;
+export type TodoListDomainType = TodoListsType & {
+  filter: FilterValueType
+}
+
 
 export const initialTodoList: Array<TodoListsType> = [
   {
