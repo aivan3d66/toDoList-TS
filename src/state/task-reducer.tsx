@@ -29,7 +29,8 @@ export type TodoListTasksType = {
 
 export const initialTasksState: TodoListTasksType = {
   [todoListId1]: [
-    {id: v1(),
+    {
+      id: v1(),
       title: "HTML",
       status: TaskStatuses.Completed,
       todolistId: todoListId1,
@@ -40,7 +41,8 @@ export const initialTasksState: TodoListTasksType = {
       order: 0,
       description: '',
     },
-    {id: v1(),
+    {
+      id: v1(),
       title: "CSS",
       status: TaskStatuses.New,
       todolistId: todoListId1,
@@ -53,7 +55,8 @@ export const initialTasksState: TodoListTasksType = {
     },
   ],
   [todoListId2]: [
-    {id: v1(),
+    {
+      id: v1(),
       title: "Coffee",
       status: TaskStatuses.New,
       todolistId: todoListId2,
@@ -64,7 +67,8 @@ export const initialTasksState: TodoListTasksType = {
       order: 0,
       description: '',
     },
-    {id: v1(),
+    {
+      id: v1(),
       title: "Cookies",
       status: TaskStatuses.Completed,
       todolistId: todoListId2,
@@ -78,17 +82,29 @@ export const initialTasksState: TodoListTasksType = {
   ]
 }
 
-export const taskReducer = (state = initialTasksState, action: GeneraTasksActionType) => {
+export const taskReducer = (state = initialTasksState, action: GeneraTasksActionType): TodoListTasksType => {
   switch (action.type) {
     case REMOVE_TASK:
       return {
-        ...state, [action.todoListId]: state[action.todoListId].filter((f) => f.id !== action.id)
+        ...state,
+        [action.todoListId]: state[action.todoListId].filter((f) => f.id !== action.id)
       }
 
     case ADD_TASK:
       return {
         ...state,
-        [action.todoListId]: [{id: v1(), title: action.title, isDone: false}, ...state[action.todoListId]]
+        [action.todoListId]: [{
+          id: v1(),
+          title: action.title,
+          todolistId: action.todoListId,
+          status: TaskStatuses.New,
+          priority: TaskPriorities.Low,
+          startDate: '',
+          deadline: '',
+          addedDate: '',
+          order: 0,
+          description: '',
+        }, ...state[action.todoListId]]
       }
 
     case CHANGE_TASK_STATUS:
