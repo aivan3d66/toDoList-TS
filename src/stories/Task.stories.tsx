@@ -1,5 +1,4 @@
 import React from "react";
-import {action} from "@storybook/addon-actions";
 import {Task} from "../components/TodoListItems/Task";
 import {v1} from "uuid";
 import {ComponentMeta, ComponentStory} from "@storybook/react";
@@ -16,14 +15,12 @@ const Template: ComponentStory<typeof Task> = (args) => <Task {...args}/>
 export const TaskExampleDone = Template.bind({});
 TaskExampleDone.args = {
   title: "react",
-  isDone: true,
   id: v1(),
   todoListID: v1(),
 }
 export const TaskExampleNotDone = Template.bind({});
 TaskExampleNotDone.args = {
   title: "TypeScript",
-  isDone: false,
   id: v1(),
   todoListID: v1(),
 }
