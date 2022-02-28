@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import './App.css';
 import TodoList from "./components/ToDoList";
 import {AddItemForm} from "./components/AddItemForm";
@@ -8,7 +8,13 @@ import MenuIcon from '@mui/icons-material/Menu';
 import {
   removeTodoListAC,
   addTodoListAC,
-  changeTodoListFilterAC, changeTodoListTitleAC, FilterValueType, TodoListType, TodoListDomainType
+  changeTodoListFilterAC,
+  changeTodoListTitleAC,
+  FilterValueType,
+  TodoListType,
+  TodoListDomainType,
+  getAllTodoListAC,
+  getTodoListsThunk
 } from "./state/todolist-reducer";
 import {v1} from 'uuid';
 import {useDispatch, useSelector} from "react-redux";
@@ -39,6 +45,10 @@ export const App: React.FC<AppPropsTpe> = () => {
     minHeight: "200px",
     padding: "16px",
   }
+
+  useEffect(() => {
+    dispatch(getTodoListsThunk())
+  }, [])
 
   const dispatch = useDispatch();
   const todoLists = useSelector<AppRootState, Array<TodoListDomainType>>(state => state.todoLists)
