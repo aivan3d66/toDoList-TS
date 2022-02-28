@@ -23,7 +23,6 @@ export const TodoListItems = React.memo((props: TodoListItemsPropsType) => {
       return (
         <Task
           title={task.title}
-          isDone={task.status === TaskStatuses.Completed}
           id={task.id}
           todoListID={todoListID}
           key={index}
