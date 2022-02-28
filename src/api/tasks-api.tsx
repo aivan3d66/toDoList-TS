@@ -27,6 +27,12 @@ export type UpdateTaskType = {
   deadline: string,
 }
 export type UpdateTaskModelType = {}
+export enum TaskStatuses {
+  New = 0,
+  InProgress,
+  Completed,
+  Draft
+}
 
 export const tasksAPI = {
   getAllTasks(todoListId: string) {
