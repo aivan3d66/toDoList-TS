@@ -1,21 +1,87 @@
-import {TodoListsType, TodoListTasksType} from "../../redux/state";
-import {addTodoListAC, todoListsReducer} from "../todolist-reducer";
-import {taskReducer} from "../task-reducer";
-import { v1 } from "uuid";
+import {addTodoListAC, TodoListDomainType, todoListId1, todoListsReducer} from "../todolist-reducer";
+import {taskReducer, TodoListTasksType} from "../task-reducer";
+import {v1} from "uuid";
+import {TaskPriorities, TaskStatuses} from "../../api/tasks-api";
 
 test('new array should be added when new todolist is added', () => {
   const startState: TodoListTasksType = {
-    "todolistId1": [
-      { id: "1", title: "CSS", isDone: false },
-      { id: "2", title: "JS", isDone: true },
-      { id: "3", title: "React", isDone: false }
+    "todoListId1": [
+      {
+        id: "1",
+        title: "HTML",
+        status: TaskStatuses.Completed,
+        todolistId: todoListId1,
+        startDate: '',
+        deadline: '',
+        addedDate: '',
+        priority: TaskPriorities.Low,
+        order: 0,
+        description: '',
+      },
+      {
+        id: "2",
+        title: "CSS",
+        status: TaskStatuses.Completed,
+        todolistId: todoListId1,
+        startDate: '',
+        deadline: '',
+        addedDate: '',
+        priority: TaskPriorities.Low,
+        order: 0,
+        description: '',
+      },
+      {
+        id: "3",
+        title: "JavaScript",
+        status: TaskStatuses.Completed,
+        todolistId: todoListId1,
+        startDate: '',
+        deadline: '',
+        addedDate: '',
+        priority: TaskPriorities.Low,
+        order: 0,
+        description: '',
+      }
     ],
-    "todolistId2": [
-      { id: "1", title: "bread", isDone: false },
-      { id: "2", title: "milk", isDone: true },
-      { id: "3", title: "tea", isDone: false }
-    ]
-  };
+    "todoListId2": [
+      {
+        id: "1",
+        title: "Coffee",
+        status: TaskStatuses.Completed,
+        todolistId: todoListId1,
+        startDate: '',
+        deadline: '',
+        addedDate: '',
+        priority: TaskPriorities.Low,
+        order: 0,
+        description: '',
+      },
+      {
+        id: "2",
+        title: "New brains",
+        status: TaskStatuses.Completed,
+        todolistId: todoListId1,
+        startDate: '',
+        deadline: '',
+        addedDate: '',
+        priority: TaskPriorities.Low,
+        order: 0,
+        description: '',
+      },
+      {
+        id: "3",
+        title: "React book",
+        status: TaskStatuses.Completed,
+        todolistId: todoListId1,
+        startDate: '',
+        deadline: '',
+        addedDate: '',
+        priority: TaskPriorities.Low,
+        order: 0,
+        description: '',
+      }
+    ],
+  }
 
   const action = addTodoListAC("new todolist", "todolistId3");
 
@@ -33,7 +99,7 @@ test('new array should be added when new todolist is added', () => {
 
 test('ids should be equals', () => {
   const startTasksState: TodoListTasksType = {};
-  const startTodolistsState: Array<TodoListsType> = [];
+  const startTodolistsState: Array<TodoListDomainType> = [];
 
   const action = addTodoListAC("new todolist", v1());
   const endTasksState = taskReducer(startTasksState, action)
