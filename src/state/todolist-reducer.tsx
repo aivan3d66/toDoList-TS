@@ -123,3 +123,13 @@ export const setTodoListsThunk = (title: string): ThunkType => async (dispatch) 
     console.log(e)
   }
 }
+export const deleteTodoListThunk = (todoListId: string): ThunkType => async (dispatch) => {
+  try {
+    const response = await todoListsAPI.deleteTodoList(todoListId);
+    if (response.data.resultCode === ResultCode.Success) {
+      dispatch(getTodoListsThunk());
+    }
+  } catch (e) {
+    console.log(e)
+  }
+}
