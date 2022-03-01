@@ -10,7 +10,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootState} from "../state/redux-store";
 import {addTaskAC, getAllTodoListTasks} from "../state/task-reducer";
-import {FilterValueType} from "../state/todolist-reducer";
+import {FilterValueType, TodoListDomainType} from "../state/todolist-reducer";
 import {TasksResponseType, TaskStatuses} from "../api/tasks-api";
 
 export type TodoListProps = {
@@ -42,10 +42,11 @@ const TodoList = React.memo((props: TodoListProps) => {
 
     const dispatch = useDispatch();
     const tasks = useSelector<AppRootState, Array<TasksResponseType>>(state => state.tasks[todoListID])
+    const todoLists = useSelector<AppRootState, Array<TodoListDomainType>>(state => state.todoLists)
 
     useEffect(() => {
       dispatch(getAllTodoListTasks(todoListID))
-    }, [])
+    }, [todoLists])
 
     const onChangeTodoListTitle = useCallback((title: string) => {
       changeTodoListTitle(todoListID, title)
