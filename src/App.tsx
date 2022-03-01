@@ -6,13 +6,12 @@ import AppBar from '@mui/material/AppBar';
 import {Toolbar, IconButton, Typography, Container, Grid, Paper} from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import {
-  removeTodoListAC,
   changeTodoListFilterAC,
   changeTodoListTitleAC,
   FilterValueType,
   TodoListDomainType,
   getTodoListsThunk,
-  setTodoListsThunk
+  setTodoListsThunk, deleteTodoListThunk
 } from "./state/todolist-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootState} from './state/redux-store';
@@ -55,8 +54,7 @@ export const App: React.FC<AppPropsTpe> = () => {
   }, [dispatch]);
 
   const removeTodoList = useCallback((todoListId: string) => {
-    const action = removeTodoListAC(todoListId)
-    dispatch(action);
+    dispatch(deleteTodoListThunk(todoListId));
   }, [dispatch]);
   const changeTodoListTitle = useCallback((todoListID: string, newTitle: string) => {
     dispatch(changeTodoListTitleAC(todoListID, newTitle));
