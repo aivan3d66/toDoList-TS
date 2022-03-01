@@ -3,6 +3,7 @@ import {v1} from "uuid";
 import {todoListsAPI} from "../api/todoList-api";
 import {ThunkAction} from "redux-thunk";
 import {AppStateType} from "./redux-store";
+import {ResultCode} from "../api/api";
 
 const REMOVE_TODOLIST = 'REMOVE_TODOLIST';
 const ADD_TODOLIST = 'ADD_TODOLIST';
@@ -115,7 +116,9 @@ export const getTodoListsThunk = (): ThunkType => async (dispatch) => {
 export const setTodoListsThunk = (title: string): ThunkType => async (dispatch) => {
   try {
     const response = await todoListsAPI.setTodoLists(title);
-    // dispatch(getAllTodoListAC(response.data));
+    if (response.data) {
+      dispatch(getTodoListsThunk());
+    }
   } catch (e) {
     console.log(e)
   }
