@@ -18,7 +18,6 @@ import {AppRootState} from './state/redux-store';
 export type AddTodoList = (title: string) => void;
 export type RemoveTodoList = (todoListId: string) => void;
 export type ChangeTodoListTitleType = (todoListID: string, title: string) => void;
-
 export type ChangeFilter = (todoListId: string, value: FilterValueType) => void;
 
 type AppPropsTpe = {};
@@ -30,23 +29,23 @@ export const App: React.FC<AppPropsTpe> = () => {
     padding: "16px",
     backgroundColor: "rgba(211, 211, 211, 0.5)",
     borderRadius: "5px"
-  }
+  };
   const gridContainerAppStyles = {
     display: "flex",
     justifyContent: "center",
-  }
+  };
   const paperAppStyles = {
     width: "300px",
     minHeight: "200px",
     padding: "16px",
-  }
+  };
 
   const dispatch = useDispatch();
   const todoLists = useSelector<AppRootState, Array<TodoListDomainType>>(state => state.todoLists)
 
   useEffect(() => {
     dispatch(getTodoListsThunk())
-  }, [])
+  }, []);
 
   const addTodoList = useCallback((title: string) => {
     dispatch(setTodoListsThunk(title));

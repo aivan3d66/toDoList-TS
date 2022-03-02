@@ -72,30 +72,30 @@ export const todoListsReducer = (state = initialTodoList, action: ActionType): A
     default:
       return state
   }
-}
+};
 
 export const getAllTodoListAC = (todoLists: Array<TodoListType>) => ({
   type: GET_ALL_TODOS,
   todoLists
-} as const)
+} as const);
 export const removeTodoListAC = (todoListId: string) => ({
   type: REMOVE_TODOLIST,
   todoListId: todoListId
-} as const)
+} as const);
 export const changeTodoListTitleAC = (id: string, title: string) => ({
   type: CHANGE_TODOLIST_TITLE,
   id: id,
   title: title
-} as const)
+} as const);
 export const addTodoListAC = (todoList: TodoListType) => ({
   type: ADD_TODOLIST,
   todoList: todoList,
-} as const)
+} as const);
 export const changeTodoListFilterAC = (id: string, filter: FilterValueType) => ({
   type: CHANGE_TODOLIST_FILTER,
   id: id,
   filter: filter
-} as const)
+} as const);
 
 export const getTodoListsThunk = (): ThunkType => async (dispatch) => {
   try {
@@ -104,7 +104,7 @@ export const getTodoListsThunk = (): ThunkType => async (dispatch) => {
   } catch (e) {
     console.log(e)
   }
-}
+};
 export const setTodoListsThunk = (title: string): ThunkType => async (dispatch) => {
   try {
     const response = await todoListsAPI.setTodoLists(title);
@@ -114,7 +114,7 @@ export const setTodoListsThunk = (title: string): ThunkType => async (dispatch) 
   } catch (e) {
     console.log(e)
   }
-}
+};
 export const deleteTodoListThunk = (todoListId: string): ThunkType => async (dispatch) => {
   try {
     const response = await todoListsAPI.deleteTodoList(todoListId);
@@ -124,7 +124,7 @@ export const deleteTodoListThunk = (todoListId: string): ThunkType => async (dis
   } catch (e) {
     console.log(e)
   }
-}
+};
 export const updateTodoListTitleThunk = (todoListId: string, title: string): ThunkType => async (dispatch) => {
   try {
     const response = await todoListsAPI.updateTodoList(todoListId, title);
@@ -134,4 +134,4 @@ export const updateTodoListTitleThunk = (todoListId: string, title: string): Thu
   } catch (e) {
     console.log(e)
   }
-}
+};
