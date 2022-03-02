@@ -4,12 +4,12 @@ type GetTasksResponse = {
   error: string | null,
   totalCount: number,
   items: Array<TasksResponseType>
-}
+};
 type SetTasksResponse = {
   error: string | null,
   totalCount: number,
   item: TasksResponseType
-}
+};
 export type TasksResponseType = {
   description: string,
   title: string,
@@ -21,7 +21,7 @@ export type TasksResponseType = {
   todolistId: string,
   order: number,
   addedDate: string,
-}
+};
 export type UpdateTaskType = {
   description: string,
   title: string,
@@ -29,8 +29,15 @@ export type UpdateTaskType = {
   priority: number,
   startDate: string,
   deadline: string,
-}
-export type UpdateTaskModelType = {}
+};
+export type UpdateTaskModelType = {
+  description: string,
+  title: string,
+  status: TaskStatuses,
+  priority: TaskPriorities,
+  startDate: string,
+  deadline: string,
+};
 export enum TaskStatuses {
   New = 0,
   InProgress,
