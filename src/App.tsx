@@ -51,7 +51,6 @@ export const App: React.FC<AppPropsTpe> = () => {
   const addTodoList = useCallback((title: string) => {
     dispatch(setTodoListsThunk(title));
   }, [dispatch]);
-
   const removeTodoList = useCallback((todoListId: string) => {
     dispatch(deleteTodoListThunk(todoListId));
   }, [dispatch]);
@@ -59,7 +58,7 @@ export const App: React.FC<AppPropsTpe> = () => {
     dispatch(updateTodoListTitleThunk(todoListID, newTitle));
   }, [dispatch]);
 
-  const changeFilter = useCallback((todoListId: string, value: FilterValueType,) => {
+  const changeFilter = useCallback((todoListId: string, value: FilterValueType) => {
     dispatch(changeTodoListFilterAC(todoListId, value));
   }, [dispatch]);
 
