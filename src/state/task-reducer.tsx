@@ -1,6 +1,10 @@
-import {tasksAPI, TasksResponseType, TaskStatuses, UpdateTaskModelType} from "../api/tasks-api";
-import {GET_ALL_TODOS, GetAllTodoListActionType} from "./todolist-reducer";
-import {AddTodoListActionType, RemoveTodoListActionType} from "./todolist-reducer";
+import {TaskPriorities, tasksAPI, TasksResponseType, TaskStatuses, UpdateTaskModelType} from "../api/tasks-api";
+import {
+  AddTodoListActionType,
+  GET_ALL_TODOS,
+  GetAllTodoListActionType,
+  RemoveTodoListActionType
+} from "./todolist-reducer";
 import {ThunkAction} from "redux-thunk";
 import {AppStateType} from "./redux-store";
 import {ResultCode} from "../api/api";
@@ -95,35 +99,28 @@ export const taskReducer = (state = initialTasksState, action: GeneraTasksAction
     default:
       return state
   }
-}
+};
 
 export const removeTaskAC = (todoListId: string, id: string) => ({
   type: REMOVE_TASK,
   todoListId: todoListId,
   id: id,
-} as const)
+} as const);
 export const addTaskAC = (task: TasksResponseType) => ({
   type: ADD_TASK,
   task: task
-} as const)
+} as const);
 export const getAllTodoListTasksAC = (todoListId: string, tasksList: Array<TasksResponseType>) => ({
   type: GET_ALL_TASKS,
   todoListId: todoListId,
   tasksList: tasksList,
-} as const)
-
-export const changeStatusTaskAC = (todoListId: string, taskId: string, newStatusValue: TaskStatuses) => ({
-  type: CHANGE_TASK_STATUS,
+} as const);
+export const updateTaskAC = (todoListId: string, taskId: string, model: UpdateDomainTaskModelType) => ({
+  type: UPDATE_TASK,
   todoListId: todoListId,
   taskId: taskId,
-  newStatusValue: newStatusValue,
-} as const)
-export const changeTaskTitleAC = (todoListId: string, taskId: string, newTitle: string) => ({
-  type: CHANGE_TASK_TITLE,
-  todoListId: todoListId,
-  taskId: taskId,
-  newTitle: newTitle,
-} as const)
+  model: model,
+} as const);
 
 export const getAllTodoListTasks = (todoListId: string): ThunkType => async (dispatch) => {
   try {
@@ -134,7 +131,7 @@ export const getAllTodoListTasks = (todoListId: string): ThunkType => async (dis
   } catch (e) {
     console.log(e);
   }
-}
+};
 export const setNewTodoListTask = (todoListId: string, title: string): ThunkType => async (dispatch) => {
   try {
     const response = await tasksAPI.addTask(todoListId, title);
@@ -145,7 +142,7 @@ export const setNewTodoListTask = (todoListId: string, title: string): ThunkType
   } catch (e) {
     console.log(e);
   }
-}
+};
 export const deleteTodoListTask = (todoListId: string, taskId: string): ThunkType => async (dispatch) => {
   try {
     const response = await tasksAPI.deleteTask(todoListId, taskId);
@@ -155,14 +152,31 @@ export const deleteTodoListTask = (todoListId: string, taskId: string): ThunkTyp
   } catch (e) {
     console.log(e);
   }
-}
-export const updateTodoListTask = (todoListId: string, taskId: string, model: UpdateTaskModelType): ThunkType => async (dispatch) => {
+};
+export const updateTodoListTask = (todoListId: string, taskId: string, domainModel: UpdateDomainTaskModelType): ThunkType => async (dispatch, getState: () => AppStateType) => {
   try {
-    const response = await tasksAPI.updateTask(todoListId, taskId, model);
-    if (response.data) {
-      dispatch(changeStatusTaskAC(todoListId, taskId, response.data.status));
+    const state = getState();
+    const currentTask = state.tasks[todoListId].find(t => t.id === taskId);
+
+    if (!currentTask) {
+      return console.warn('The task is not found in state');
     }
+
+    const apiModel: UpdateTaskModelType = {
+      deadline: currentTask.deadline,
+      description: currentTask.description,
+      priority: currentTask.priority,
+      startDate: currentTask.startDate,
+      status: currentTask.status,
+      title: currentTask.title,
+      ...domainModel
+    };
+
+    tasksAPI.updateTask(todoListId, taskId, apiModel)
+      .then(res => {
+        dispatch(updateTaskAC(todoListId, taskId, domainModel));
+      })
   } catch (e) {
     console.log(e);
   }
-}
+};
