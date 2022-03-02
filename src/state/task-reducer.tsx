@@ -38,7 +38,7 @@ export type TodoListTasksType = {
 }
 type ThunkType = ThunkAction<void, AppStateType, unknown, GeneraTasksActionType>;
 
-export const initialTasksState: TodoListTasksType = {}
+export const initialTasksState: TodoListTasksType = {};
 
 export const taskReducer = (state = initialTasksState, action: GeneraTasksActionType): TodoListTasksType => {
   switch (action.type) {
@@ -61,23 +61,15 @@ export const taskReducer = (state = initialTasksState, action: GeneraTasksAction
         [action.task.todolistId]: [action.task, ...state[action.task.todolistId]]
       }
 
-    case CHANGE_TASK_STATUS:
-      return {
-        ...state,
-        [action.todoListId]: state[action.todoListId].map((t) => t.id === action.taskId ? {
-          ...t,
-          status: action.newStatusValue
-        } : t)
-      }
-
-    case CHANGE_TASK_TITLE:
-      return {
-        ...state,
-        [action.todoListId]: state[action.todoListId].map((t) => t.id === action.taskId ? {
-          ...t,
-          title: action.newTitle
-        } : t)
-      }
+    case UPDATE_TASK: {
+        return {
+          ...state,
+          [action.todoListId]: state[action.todoListId].map((t) => t.id === action.taskId ? {
+            ...t,
+            ...action.model
+          } : t)
+        }
+    }
 
     case ADD_TODOLIST:
       return {
