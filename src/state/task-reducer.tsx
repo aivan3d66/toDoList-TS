@@ -77,7 +77,7 @@ export const taskReducer = (state = initialTasksState, action: GeneraTasksAction
 
     case ADD_TODOLIST:
       return {
-        ...state, [action.todoListId]: []
+        ...state, [action.todoList.id]: []
       }
 
     case GET_ALL_TODOS: {
