@@ -142,9 +142,10 @@ export const getAllTodoListTasks = (todoListId: string): ThunkType => async (dis
 export const setNewTodoListTask = (todoListId: string, title: string): ThunkType => async (dispatch) => {
   try {
     const response = await tasksAPI.addTask(todoListId, title);
-    if (response) {
-      dispatch(addTaskAC(todoListId, title));
+    if (response.status === ResultCode.Success) {
+      dispatch(addTaskAC(response.data.item));
     }
+    dispatch(getAllTodoListTasks(todoListId));
   } catch (e) {
     console.log(e);
   }
