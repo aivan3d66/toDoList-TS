@@ -97,16 +97,25 @@ test('current task should be removed', () => {
 });
 
 test('current task should be added', () => {
-  const newTitle = "Whiskey"
-
-  const action = addTaskAC("todoListId2", newTitle)
+  const action = addTaskAC({
+    todolistId: "todoListId2",
+    id: "3",
+    title: "beer",
+    status: TaskStatuses.Completed,
+    startDate: '',
+    deadline: '',
+    addedDate: '',
+    priority: TaskPriorities.Low,
+    order: 0,
+    description: '',
+  })
 
   const endState = taskReducer(startState, action)
 
   expect(endState["todoListId1"].length).toBe(3);
   expect(endState["todoListId2"].length).toBe(4);
   expect(endState["todoListId2"][0].id).toBeDefined();
-  expect(endState["todoListId2"][0].title).toBe(newTitle);
+  expect(endState["todoListId2"][0].title).toBe("beer");
 });
 
 test('current task should change his name', () => {
