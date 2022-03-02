@@ -7,28 +7,31 @@ import {ResultCode} from "../api/api";
 
 const REMOVE_TASK = 'REMOVE_TASK';
 const ADD_TASK = 'ADD_TASK';
-const CHANGE_TASK_STATUS = 'CHANGE_TASK_STATUS';
-const CHANGE_TASK_TITLE = 'CHANGE_TASK_TITLE';
 const ADD_TODOLIST = 'ADD_TODOLIST';
 const REMOVE_TODOLIST = 'REMOVE_TODOLIST';
 const GET_ALL_TASKS = 'GET_ALL_TASKS';
 const UPDATE_TASK = 'UPDATE_TASK';
 
-export type RemoveTaskActionType = ReturnType<typeof removeTaskAC>
-export type AddTaskActionType = ReturnType<typeof addTaskAC>
-export type ChangeTaskStatusActionType = ReturnType<typeof changeStatusTaskAC>
-export type ChangeTaskTitleActionType = ReturnType<typeof changeTaskTitleAC>
-export type GetAllTodoListTasksActionType = ReturnType<typeof getAllTodoListTasksAC>
-
+export type RemoveTaskActionType = ReturnType<typeof removeTaskAC>;
+export type AddTaskActionType = ReturnType<typeof addTaskAC>;
+export type GetAllTodoListTasksActionType = ReturnType<typeof getAllTodoListTasksAC>;
+export type UpdateTodoListTask = ReturnType<typeof updateTaskAC>;
+export type UpdateDomainTaskModelType = {
+  description?: string,
+  title?: string,
+  status?: TaskStatuses,
+  priority?: TaskPriorities,
+  startDate?: string,
+  deadline?: string,
+};
 export type GeneraTasksActionType =
   RemoveTaskActionType
   | AddTaskActionType
-  | ChangeTaskStatusActionType
-  | ChangeTaskTitleActionType
   | AddTodoListActionType
   | RemoveTodoListActionType
   | GetAllTodoListActionType
   | GetAllTodoListTasksActionType
+  | UpdateTodoListTask
 
 export type TodoListTasksType = {
   [key: string]: Array<TasksResponseType>,
