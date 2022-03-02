@@ -12,6 +12,7 @@ const CHANGE_TASK_TITLE = 'CHANGE_TASK_TITLE';
 const ADD_TODOLIST = 'ADD_TODOLIST';
 const REMOVE_TODOLIST = 'REMOVE_TODOLIST';
 const GET_ALL_TASKS = 'GET_ALL_TASKS';
+const UPDATE_TASK = 'UPDATE_TASK';
 
 export type RemoveTaskActionType = ReturnType<typeof removeTaskAC>
 export type AddTaskActionType = ReturnType<typeof addTaskAC>
