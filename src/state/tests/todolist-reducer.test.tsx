@@ -57,7 +57,6 @@ test('current todolist should be removed', () => {
 test('current todolist should be added', () => {
   const todoListId1 = v1();
   const todoListId2 = v1();
-  const newTodoListTitle = "New TodoList"
 
   const startState: Array<TodoListDomainType> = [
     {
@@ -76,10 +75,17 @@ test('current todolist should be added', () => {
     }
   ]
 
-  const endState = todoListsReducer(startState, addTodoListAC(newTodoListTitle, todoListId2))
+  const newObj = {
+    id: "todoListId3",
+    title: "New TodoList",
+    addedDate: '',
+    order: 0,
+  }
+
+  const endState = todoListsReducer(startState, addTodoListAC(newObj));
 
   expect(endState.length).toBe(3);
-  expect(endState[2].title).toBe(newTodoListTitle)
+  expect(endState[0].title).toBe("New TodoList")
   expect(endState[2].filter).toBe(FILTERS.ALL)
 })
 
