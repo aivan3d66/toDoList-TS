@@ -123,6 +123,12 @@ export const addTaskAC = (todoListId: string, title: string) => ({
   todoListId: todoListId,
   title: title,
 } as const)
+export const getAllTodoListTasksAC = (todoListId: string, tasksList: Array<TasksResponseType>) => ({
+  type: GET_ALL_TASKS,
+  todoListId: todoListId,
+  tasksList: tasksList,
+} as const)
+
 export const changeStatusTaskAC = (todoListId: string, taskId: string, newStatusValue: TaskStatuses) => ({
   type: CHANGE_TASK_STATUS,
   todoListId: todoListId,
@@ -134,12 +140,6 @@ export const changeTaskTitleAC = (todoListId: string, taskId: string, newTitle: 
   todoListId: todoListId,
   taskId: taskId,
   newTitle: newTitle,
-} as const)
-
-export const getAllTodoListTasksAC = (todoListId: string, tasksList: Array<TasksResponseType>) => ({
-  type: GET_ALL_TASKS,
-  todoListId: todoListId,
-  tasksList: tasksList,
 } as const)
 
 export const getAllTodoListTasks = (todoListId: string): ThunkType => async (dispatch) => {
@@ -175,8 +175,8 @@ export const deleteTodoListTask = (todoListId: string, taskId: string): ThunkTyp
 export const updateTodoListTask = (todoListId: string, taskId: string, model: UpdateTaskModelType): ThunkType => async (dispatch) => {
   try {
     const response = await tasksAPI.updateTask(todoListId, taskId, model);
-    if (response.status === ResultCode.Success) {
-      // dispatch(getAllTodoListTasks(todoListId));
+    if (response.data) {
+      dispatch(changeStatusTaskAC(todoListId, taskId, response.data.status));
     }
   } catch (e) {
     console.log(e);
