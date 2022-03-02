@@ -1,15 +1,15 @@
 import {
   addTaskAC,
-  changeStatusTaskAC,
-  changeTaskTitleAC, getAllTodoListTasksAC,
+  getAllTodoListTasksAC,
   removeTaskAC,
   taskReducer,
-  TodoListTasksType
+  TodoListTasksType,
+  updateTaskAC
 } from "../task-reducer";
 import {removeTodoListAC, todoListId1} from "../todolist-reducer";
 import {TaskPriorities, TaskStatuses} from "../../api/tasks-api";
 
-const startState: TodoListTasksType = {
+export const startState: TodoListTasksType = {
   "todoListId1": [
     {
       id: "1",
@@ -120,8 +120,9 @@ test('current task should be added', () => {
 
 test('current task should change his name', () => {
   const newTitle = "SASS or LESS"
-
-  const action = changeTaskTitleAC("todoListId2", "3", newTitle)
+  const action = updateTaskAC("todoListId2", "3", {
+    title: "SASS or LESS"
+  })
 
   const endState = taskReducer(startState, action)
 
