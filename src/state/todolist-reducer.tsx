@@ -87,7 +87,6 @@ export const changeTodoListTitleAC = (id: string, title: string) => ({
   id: id,
   title: title
 } as const)
-
 export const addTodoListAC = (todoList: TodoListType) => ({
   type: ADD_TODOLIST,
   todoList: todoList,
@@ -110,7 +109,7 @@ export const setTodoListsThunk = (title: string): ThunkType => async (dispatch) 
   try {
     const response = await todoListsAPI.setTodoLists(title);
     if (response.data) {
-      dispatch(getTodoListsThunk());
+      dispatch(addTodoListAC(response.data.data.item));
     }
   } catch (e) {
     console.log(e)
