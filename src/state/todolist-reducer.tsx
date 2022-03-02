@@ -48,13 +48,8 @@ export const todoListsReducer = (state = initialTodoList, action: ActionType): A
     }
 
     case ADD_TODOLIST: {
-      return [{
-        id: action.todoListId,
-        title: action.title,
-        filter: FILTERS.ALL,
-        addedDate: '',
-        order: 0,
-      }, ...state];
+      const newTodoList: TodoListDomainType = {...action.todoList, filter: FILTERS.ALL}
+      return [newTodoList, ...state];
     }
 
     case CHANGE_TODOLIST_TITLE: {
@@ -93,10 +88,9 @@ export const changeTodoListTitleAC = (id: string, title: string) => ({
   title: title
 } as const)
 
-export const addTodoListAC = (title: string, todoListId: string) => ({
+export const addTodoListAC = (todoList: TodoListType) => ({
   type: ADD_TODOLIST,
-  todoListId: todoListId,
-  title: title
+  todoList: todoList,
 } as const)
 export const changeTodoListFilterAC = (id: string, filter: FilterValueType) => ({
   type: CHANGE_TODOLIST_FILTER,
