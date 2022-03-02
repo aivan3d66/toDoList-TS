@@ -133,3 +133,13 @@ export const deleteTodoListThunk = (todoListId: string): ThunkType => async (dis
     console.log(e)
   }
 }
+export const updateTodoListTitleThunk = (todoListId: string, title: string): ThunkType => async (dispatch) => {
+  try {
+    const response = await todoListsAPI.updateTodoList(todoListId, title);
+    if (response.data.resultCode === ResultCode.Success) {
+      dispatch(changeTodoListTitleAC(todoListId, title));
+    }
+  } catch (e) {
+    console.log(e)
+  }
+}
