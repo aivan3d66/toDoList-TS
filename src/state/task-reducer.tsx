@@ -135,6 +135,7 @@ export const changeTaskTitleAC = (todoListId: string, taskId: string, newTitle: 
   taskId: taskId,
   newTitle: newTitle,
 } as const)
+
 export const getAllTodoListTasksAC = (todoListId: string, tasksList: Array<TasksResponseType>) => ({
   type: GET_ALL_TASKS,
   todoListId: todoListId,
@@ -154,8 +155,8 @@ export const getAllTodoListTasks = (todoListId: string): ThunkType => async (dis
 export const setNewTodoListTask = (todoListId: string, title: string): ThunkType => async (dispatch) => {
   try {
     const response = await tasksAPI.addTask(todoListId, title);
-    if (response.status === ResultCode.Success) {
-      dispatch(getAllTodoListTasks(todoListId));
+    if (response) {
+      dispatch(addTaskAC(todoListId, title));
     }
   } catch (e) {
     console.log(e);
@@ -164,9 +165,8 @@ export const setNewTodoListTask = (todoListId: string, title: string): ThunkType
 export const deleteTodoListTask = (todoListId: string, taskId: string): ThunkType => async (dispatch) => {
   try {
     const response = await tasksAPI.deleteTask(todoListId, taskId);
-    if (response.status === ResultCode.Success) {
+    if (response.data.resultCode === ResultCode.Success) {
       dispatch(removeTaskAC(todoListId, taskId));
-      // dispatch(getAllTodoListTasks(todoListId));
     }
   } catch (e) {
     console.log(e);
