@@ -2,7 +2,9 @@ import {Checkbox, IconButton} from "@mui/material";
 import {EditableSpan} from "./EditableSpan/EditableSpan";
 import DeleteIcon from "@mui/icons-material/Delete";
 import React, {ChangeEvent, useCallback} from "react";
-import {changeStatusTaskAC, changeTaskTitleAC, deleteTodoListTask} from "../../state/task-reducer";
+import {
+  deleteTodoListTask, updateTodoListTask
+} from "../../state/task-reducer";
 import {useDispatch} from "react-redux";
 import {v1} from "uuid";
 import {TasksResponseType, TaskStatuses} from "../../api/tasks-api";
@@ -34,18 +36,17 @@ export const Task = React.memo((props: TaskPropsType) => {
   const onClickHandler = useCallback(() => {
     dispatch(deleteTodoListTask(todoListID, id));
   }, [todoListID, id]);
-  const onChangeTitleHandler = useCallback((newValue: string) => {
-    dispatch(changeTaskTitleAC(todoListID, id, newValue))
+  const onChangeTitleHandler = useCallback((newTitle: string) => {
+    dispatch(updateTodoListTask(todoListID, id, {title: newTitle}))
   }, [todoListID, id]);
   const onChangeStatusHandler = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    let newStatusValue;
-
+    let newStatus;
     if (e.currentTarget.checked) {
-      newStatusValue = TaskStatuses.Completed
-    } else {
-      newStatusValue = TaskStatuses.New
+      newStatus = TaskStatuses.Completed
+    } else if (!e.currentTarget.checked) {
+      newStatus = TaskStatuses.New;
     }
-    dispatch(changeStatusTaskAC(todoListID, id, newStatusValue));
+    dispatch(updateTodoListTask(todoListID, id, {status: newStatus}));
   }, [todoListID, id]);
 
   return (
