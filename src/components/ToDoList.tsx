@@ -9,7 +9,7 @@ import {Button, IconButton} from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootState} from "../state/redux-store";
-import {addTaskAC, getAllTodoListTasks} from "../state/task-reducer";
+import {getAllTodoListTasks, setNewTodoListTask} from "../state/task-reducer";
 import {FilterValueType, TodoListDomainType} from "../state/todolist-reducer";
 import {TasksResponseType, TaskStatuses} from "../api/tasks-api";
 
@@ -56,7 +56,7 @@ const TodoList = React.memo((props: TodoListProps) => {
     }, [removeTodoList, todoListID]);
 
     const addTaskHandler = useCallback((title: string) => {
-      dispatch(addTaskAC(todoListID, title));
+      dispatch(setNewTodoListTask(todoListID, title));
     }, [todoListID]);
 
     let taskForTodoList = tasks;
