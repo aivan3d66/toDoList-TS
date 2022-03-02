@@ -5,7 +5,11 @@ type GetTasksResponse = {
   totalCount: number,
   items: Array<TasksResponseType>
 }
-
+type SetTasksResponse = {
+  error: string | null,
+  totalCount: number,
+  item: TasksResponseType
+}
 export type TasksResponseType = {
   description: string,
   title: string,
