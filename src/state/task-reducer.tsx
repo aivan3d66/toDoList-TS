@@ -1,5 +1,4 @@
-import {v1} from "uuid";
-import {TaskPriorities, tasksAPI, TasksResponseType, TaskStatuses, UpdateTaskModelType} from "../api/tasks-api";
+import {tasksAPI, TasksResponseType, TaskStatuses, UpdateTaskModelType} from "../api/tasks-api";
 import {GET_ALL_TODOS, GetAllTodoListActionType} from "./todolist-reducer";
 import {AddTodoListActionType, RemoveTodoListActionType} from "./todolist-reducer";
 import {ThunkAction} from "redux-thunk";
@@ -55,18 +54,7 @@ export const taskReducer = (state = initialTasksState, action: GeneraTasksAction
     case ADD_TASK:
       return {
         ...state,
-        [action.todoListId]: [{
-          id: v1(),
-          title: action.title,
-          todolistId: action.todoListId,
-          status: TaskStatuses.New,
-          priority: TaskPriorities.Low,
-          startDate: '',
-          deadline: '',
-          addedDate: '',
-          order: 0,
-          description: '',
-        }, ...state[action.todoListId]]
+        [action.task.todolistId]: [action.task, ...state[action.task.todolistId]]
       }
 
     case CHANGE_TASK_STATUS:
@@ -118,10 +106,9 @@ export const removeTaskAC = (todoListId: string, id: string) => ({
   todoListId: todoListId,
   id: id,
 } as const)
-export const addTaskAC = (todoListId: string, title: string) => ({
+export const addTaskAC = (task: TasksResponseType) => ({
   type: ADD_TASK,
-  todoListId: todoListId,
-  title: title,
+  task: task
 } as const)
 export const getAllTodoListTasksAC = (todoListId: string, tasksList: Array<TasksResponseType>) => ({
   type: GET_ALL_TASKS,
