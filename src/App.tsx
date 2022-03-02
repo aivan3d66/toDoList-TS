@@ -7,11 +7,10 @@ import {Toolbar, IconButton, Typography, Container, Grid, Paper} from '@mui/mate
 import MenuIcon from '@mui/icons-material/Menu';
 import {
   changeTodoListFilterAC,
-  changeTodoListTitleAC,
   FilterValueType,
   TodoListDomainType,
   getTodoListsThunk,
-  setTodoListsThunk, deleteTodoListThunk
+  setTodoListsThunk, deleteTodoListThunk, updateTodoListTitleThunk
 } from "./state/todolist-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootState} from './state/redux-store';
@@ -57,7 +56,7 @@ export const App: React.FC<AppPropsTpe> = () => {
     dispatch(deleteTodoListThunk(todoListId));
   }, [dispatch]);
   const changeTodoListTitle = useCallback((todoListID: string, newTitle: string) => {
-    dispatch(changeTodoListTitleAC(todoListID, newTitle));
+    dispatch(updateTodoListTitleThunk(todoListID, newTitle));
   }, [dispatch]);
 
   const changeFilter = useCallback((todoListId: string, value: FilterValueType,) => {
