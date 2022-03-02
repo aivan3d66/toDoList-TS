@@ -2,7 +2,7 @@ import {Checkbox, IconButton} from "@mui/material";
 import {EditableSpan} from "./EditableSpan/EditableSpan";
 import DeleteIcon from "@mui/icons-material/Delete";
 import React, {ChangeEvent, useCallback} from "react";
-import {changeStatusTaskAC, changeTaskTitleAC, removeTaskAC} from "../../state/task-reducer";
+import {changeStatusTaskAC, changeTaskTitleAC, deleteTodoListTask} from "../../state/task-reducer";
 import {useDispatch} from "react-redux";
 import {v1} from "uuid";
 import {TasksResponseType, TaskStatuses} from "../../api/tasks-api";
@@ -32,7 +32,7 @@ export const Task = React.memo((props: TaskPropsType) => {
 
   const dispatch = useDispatch();
   const onClickHandler = useCallback(() => {
-    dispatch(removeTaskAC(todoListID, id));
+    dispatch(deleteTodoListTask(todoListID, id));
   }, [todoListID, id]);
   const onChangeTitleHandler = useCallback((newValue: string) => {
     dispatch(changeTaskTitleAC(todoListID, id, newValue))
