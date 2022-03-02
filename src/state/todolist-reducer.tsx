@@ -83,19 +83,19 @@ export const getAllTodoListAC = (todoLists: Array<TodoListType>) => ({
   type: GET_ALL_TODOS,
   todoLists
 } as const)
-
 export const removeTodoListAC = (todoListId: string) => ({
   type: REMOVE_TODOLIST,
   todoListId: todoListId
 } as const)
-export const addTodoListAC = (title: string, todoListId: string) => ({
-  type: ADD_TODOLIST,
-  todoListId: todoListId,
-  title: title
-} as const)
 export const changeTodoListTitleAC = (id: string, title: string) => ({
   type: CHANGE_TODOLIST_TITLE,
   id: id,
+  title: title
+} as const)
+
+export const addTodoListAC = (title: string, todoListId: string) => ({
+  type: ADD_TODOLIST,
+  todoListId: todoListId,
   title: title
 } as const)
 export const changeTodoListFilterAC = (id: string, filter: FilterValueType) => ({
@@ -103,7 +103,6 @@ export const changeTodoListFilterAC = (id: string, filter: FilterValueType) => (
   id: id,
   filter: filter
 } as const)
-
 
 export const getTodoListsThunk = (): ThunkType => async (dispatch) => {
   try {
@@ -127,7 +126,7 @@ export const deleteTodoListThunk = (todoListId: string): ThunkType => async (dis
   try {
     const response = await todoListsAPI.deleteTodoList(todoListId);
     if (response.data.resultCode === ResultCode.Success) {
-      dispatch(getTodoListsThunk());
+      dispatch(removeTodoListAC(todoListId));
     }
   } catch (e) {
     console.log(e)
