@@ -5,12 +5,13 @@ import {Add} from "@mui/icons-material";
 
 type AddItemFormPropsType = {
   addTask: (title: string) => void,
+  disabled?: boolean
 };
 export type OnKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => void;
 export type OnChangeHandler = (e: ChangeEvent<HTMLInputElement>) => void;
 export type AddTaskHandler = () => void;
 
-export const AddItemForm = React.memo((props: AddItemFormPropsType) => {
+export const AddItemForm: React.FC<AddItemFormPropsType> = React.memo(({addTask, disabled = false}) => {
   console.log('AddItemForm called');
 
   const addItemListContStyles = {
@@ -37,7 +38,7 @@ export const AddItemForm = React.memo((props: AddItemFormPropsType) => {
 
   const addItemHandler: AddTaskHandler = () => {
     if (title.trim() !== "") {
-      props.addTask(title);
+      addTask(title);
       setTitle("");
       setError("");
     } else {
@@ -69,6 +70,7 @@ export const AddItemForm = React.memo((props: AddItemFormPropsType) => {
         onKeyPress={onKeyPressHandler}
         onChange={onChangeTitleHandler}
         style={addItemTextFieldStyles}
+        disabled={disabled}
       />
       <Button
         onClick={addItemHandler}
