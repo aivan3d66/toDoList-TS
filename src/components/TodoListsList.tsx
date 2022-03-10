@@ -44,10 +44,9 @@ export const TodoListsList: React.FC<TodoListsListPropsType> = ({demo, ...props}
                 <Paper style={paperAppStyles}>
                   <TodoList
                     demo={demo}
+                    todoList={t}
                     key={t.id}
-                    todoListID={t.id}
                     filter={t.filter}
-                    titleList={t.title}
                     changeFilter={changeFilter}
                     removeTodoList={removeTodoList}
                     changeTodoListTitle={changeTodoListTitle}
