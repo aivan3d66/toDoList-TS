@@ -1,7 +1,7 @@
 import React, {useCallback, useEffect} from 'react';
 import './App.css';
-import TodoList from "./components/ToDoList";
-import {AddItemForm} from "./components/AddItemForm";
+import TodoList from "../components/ToDoList";
+import {AddItemForm} from "../components/AddItemForm";
 import AppBar from '@mui/material/AppBar';
 import {Toolbar, IconButton, Typography, Container, Grid, Paper, LinearProgress} from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -11,10 +11,10 @@ import {
   TodoListDomainType,
   getTodoListsThunk,
   setTodoListsThunk, deleteTodoListThunk, updateTodoListTitleThunk
-} from "./state/todolist-reducer";
+} from "../state/todolist-reducer";
 import {useDispatch, useSelector} from "react-redux";
-import {AppRootState} from './state/redux-store';
-import ErrorSnackbar from "./components/ErrorSnackbar/ErrorSnackbar";
+import {AppRootState} from '../state/redux-store';
+import ErrorSnackbar from "../components/ErrorSnackbar/ErrorSnackbar";
 
 export type AddTodoList = (title: string) => void;
 export type RemoveTodoList = (todoListId: string) => void;
