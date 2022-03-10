@@ -4,7 +4,7 @@ import {todoListsAPI} from "../api/todoList-api";
 import {ThunkAction} from "redux-thunk";
 import {AppStateType} from "./redux-store";
 import {ResultCode} from "../api/api";
-import {setStatus, SetStatusActionType} from "../app/app-reducer";
+import {setStatus, SetStatusActionType, StatusType} from "../app/app-reducer";
 
 const REMOVE_TODOLIST = 'REMOVE_TODOLIST';
 const ADD_TODOLIST = 'ADD_TODOLIST';
@@ -12,34 +12,8 @@ const CHANGE_TODOLIST_TITLE = 'CHANGE_TODOLIST_TITLE';
 const CHANGE_TODOLIST_FILTER = 'CHANGE_TODOLIST_FILTER';
 export const GET_ALL_TODOS = 'GET_ALL_TODOS';
 
-export type RemoveTodoListActionType = ReturnType<typeof removeTodoListAC>
-export type AddTodoListActionType = ReturnType<typeof addTodoListAC>
-export type ChangeTodoListTitleActionType = ReturnType<typeof changeTodoListTitleAC>
-export type ChangeTodoListFilterActionType = ReturnType<typeof changeTodoListFilterAC>
-export type GetAllTodoListActionType = ReturnType<typeof getAllTodoListAC>
-export type ActionType =
-  RemoveTodoListActionType
-  | AddTodoListActionType
-  | ChangeTodoListTitleActionType
-  | ChangeTodoListFilterActionType
-  | GetAllTodoListActionType
-  | SetStatusActionType
-
 export const todoListId1 = v1();
 export const todoListId2 = v1();
-
-export type TodoListType = {
-  id: string,
-  title: string,
-  addedDate: string,
-  order: number,
-}
-export type FilterValueType = typeof FILTERS.ALL | typeof FILTERS.COMPLETED | typeof FILTERS.ACTIVE;
-export type TodoListDomainType = TodoListType & {
-  filter: FilterValueType
-}
-
-type ThunkType = ThunkAction<void, AppStateType, unknown, ActionType>;
 
 export const initialTodoList: Array<TodoListDomainType> = [];
 
@@ -50,7 +24,7 @@ export const todoListsReducer = (state = initialTodoList, action: ActionType): A
     }
 
     case ADD_TODOLIST: {
-      const newTodoList: TodoListDomainType = {...action.todoList, filter: FILTERS.ALL}
+      const newTodoList: TodoListDomainType = {...action.todoList, filter: FILTERS.ALL, entityStatus: 'idle'}
       return [newTodoList, ...state];
     }
 
@@ -67,6 +41,7 @@ export const todoListsReducer = (state = initialTodoList, action: ActionType): A
         return {
           ...tl,
           filter: FILTERS.ALL,
+          entityStatus: 'idle',
         }
       })
     }
@@ -86,7 +61,7 @@ export const removeTodoListAC = (todoListId: string) => ({
 } as const);
 export const changeTodoListTitleAC = (id: string, title: string) => ({
   type: CHANGE_TODOLIST_TITLE,
-  id: id,
+  id,
   title
 } as const);
 export const addTodoListAC = (todoList: TodoListType) => ({
@@ -95,7 +70,7 @@ export const addTodoListAC = (todoList: TodoListType) => ({
 } as const);
 export const changeTodoListFilterAC = (id: string, filter: FilterValueType) => ({
   type: CHANGE_TODOLIST_FILTER,
-  id: id,
+  id,
   filter
 } as const);
 
@@ -140,3 +115,30 @@ export const updateTodoListTitleThunk = (todoListId: string, title: string): Thu
     console.log(e)
   }
 };
+
+// Types
+
+export type RemoveTodoListActionType = ReturnType<typeof removeTodoListAC>
+export type AddTodoListActionType = ReturnType<typeof addTodoListAC>
+export type ChangeTodoListTitleActionType = ReturnType<typeof changeTodoListTitleAC>
+export type ChangeTodoListFilterActionType = ReturnType<typeof changeTodoListFilterAC>
+export type GetAllTodoListActionType = ReturnType<typeof getAllTodoListAC>
+export type ActionType =
+  RemoveTodoListActionType
+  | AddTodoListActionType
+  | ChangeTodoListTitleActionType
+  | ChangeTodoListFilterActionType
+  | GetAllTodoListActionType
+  | SetStatusActionType
+export type TodoListType = {
+  id: string,
+  title: string,
+  addedDate: string,
+  order: number,
+}
+export type FilterValueType = typeof FILTERS.ALL | typeof FILTERS.COMPLETED | typeof FILTERS.ACTIVE;
+export type TodoListDomainType = TodoListType & {
+  filter: FilterValueType,
+  entityStatus: StatusType
+}
+type ThunkType = ThunkAction<void, AppStateType, unknown, ActionType>;
