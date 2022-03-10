@@ -22,6 +22,7 @@ const initialGlobalState: AppRootState = {
       filter: FILTERS.ALL,
       addedDate: '',
       order: 0,
+      entityStatus: 'idle'
     },
     {
       id: todoListId2,
@@ -29,6 +30,7 @@ const initialGlobalState: AppRootState = {
       filter: FILTERS.ALL,
       addedDate: '',
       order: 0,
+      entityStatus: 'idle'
     }
   ],
   tasks: {

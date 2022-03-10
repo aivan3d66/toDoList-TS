@@ -18,6 +18,7 @@ const startState: Array<TodoListDomainType> = [
     filter: FILTERS.ALL,
     addedDate: '',
     order: 0,
+    entityStatus: 'idle'
   },
   {
     id: todoListId2,
@@ -25,6 +26,7 @@ const startState: Array<TodoListDomainType> = [
     filter: FILTERS.ALL,
     addedDate: '',
     order: 0,
+    entityStatus: 'idle'
   }
 ]
 
@@ -39,6 +41,7 @@ test('current todolist should be removed', () => {
       filter: FILTERS.ALL,
       addedDate: '',
       order: 0,
+      entityStatus: 'idle'
     },
     {
       id: todoListId2,
@@ -46,6 +49,8 @@ test('current todolist should be removed', () => {
       filter: FILTERS.ALL,
       addedDate: '',
       order: 0,
+      entityStatus: 'idle'
+
     }
   ]
   const endState = todoListsReducer(startState, removeTodoListAC(todoListId1))
@@ -65,6 +70,7 @@ test('current todolist should be added', () => {
       filter: FILTERS.ALL,
       addedDate: '',
       order: 0,
+      entityStatus: 'idle'
     },
     {
       id: todoListId2,
@@ -72,6 +78,7 @@ test('current todolist should be added', () => {
       filter: FILTERS.ALL,
       addedDate: '',
       order: 0,
+      entityStatus: 'idle'
     }
   ]
 
@@ -101,6 +108,7 @@ test('current todolist should change his name', () => {
       filter: FILTERS.ALL,
       addedDate: '',
       order: 0,
+      entityStatus: 'idle'
     },
     {
       id: todoListId2,
@@ -108,6 +116,7 @@ test('current todolist should change his name', () => {
       filter: FILTERS.ALL,
       addedDate: '',
       order: 0,
+      entityStatus: 'idle'
     }
   ]
 
@@ -131,6 +140,7 @@ test('current filter should be changed', () => {
       filter: FILTERS.ALL,
       addedDate: '',
       order: 0,
+      entityStatus: 'idle'
     },
     {
       id: todoListId2,
@@ -138,6 +148,7 @@ test('current filter should be changed', () => {
       filter: FILTERS.ALL,
       addedDate: '',
       order: 0,
+      entityStatus: 'idle'
     }
   ]
 
