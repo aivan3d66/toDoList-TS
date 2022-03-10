@@ -1,14 +1,12 @@
 import React, {useCallback, useEffect} from 'react';
 import './App.css';
-import TodoList from "../components/ToDoList";
 import {AddItemForm} from "../components/AddItemForm";
 import AppBar from '@mui/material/AppBar';
-import {Toolbar, IconButton, Typography, Container, Grid, Paper, LinearProgress} from '@mui/material';
+import {Toolbar, IconButton, Typography, Container, Grid, LinearProgress} from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import {
   changeTodoListFilterAC,
   FilterValueType,
-  TodoListDomainType,
   getTodoListsThunk,
   setTodoListsThunk, deleteTodoListThunk, updateTodoListTitleThunk
 } from "../state/todolist-reducer";
@@ -16,6 +14,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {AppRootState} from '../state/redux-store';
 import ErrorSnackbar from "../components/ErrorSnackbar/ErrorSnackbar";
 import {StatusType} from "./app-reducer";
+import {TodoListsList} from "../components/TodoListsList";
 
 export type AddTodoList = (title: string) => void;
 export type RemoveTodoList = (todoListId: string) => void;
@@ -36,14 +35,8 @@ export const App: React.FC<AppPropsTpe> = () => {
     display: "flex",
     justifyContent: "center",
   };
-  const paperAppStyles = {
-    width: "300px",
-    minHeight: "200px",
-    padding: "16px",
-  };
 
   const dispatch = useDispatch();
-  const todoLists = useSelector<AppRootState, Array<TodoListDomainType>>(state => state.todoLists);
   const status = useSelector<AppRootState, StatusType>(state => state.app.status);
 
   useEffect(() => {
@@ -94,32 +87,11 @@ export const App: React.FC<AppPropsTpe> = () => {
         </Grid>
 
         <Grid container spacing={2} style={gridContainerAppStyles}>
-          {
-            todoLists.length === 0
-              ? <h3 style={{
-                fontWeight: "normal",
-                fontSize: "24px",
-                textTransform: "uppercase",
-                color: "#bababa"
-              }}>Please, add new tasks list ...</h3>
-              : todoLists.map(t => {
-                return (
-                  <Grid item key={t.id}>
-                    <Paper style={paperAppStyles}>
-                      <TodoList
-                        key={t.id}
-                        todoListID={t.id}
-                        filter={t.filter}
-                        titleList={t.title}
-                        changeFilter={changeFilter}
-                        removeTodoList={removeTodoList}
-                        changeTodoListTitle={changeTodoListTitle}
-                      />
-                    </Paper>
-                  </Grid>
-                )
-              })
-          }
+          <TodoListsList
+            changeFilter={changeFilter}
+            changeTodoListTitle={changeTodoListTitle}
+            removeTodoList={removeTodoList}
+          />
         </Grid>
       </Container>
     </div>
