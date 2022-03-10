@@ -82,21 +82,21 @@ export const getAllTodoListAC = (todoLists: Array<TodoListType>) => ({
 } as const);
 export const removeTodoListAC = (todoListId: string) => ({
   type: REMOVE_TODOLIST,
-  todoListId: todoListId
+  todoListId
 } as const);
 export const changeTodoListTitleAC = (id: string, title: string) => ({
   type: CHANGE_TODOLIST_TITLE,
   id: id,
-  title: title
+  title
 } as const);
 export const addTodoListAC = (todoList: TodoListType) => ({
   type: ADD_TODOLIST,
-  todoList: todoList,
+  todoList,
 } as const);
 export const changeTodoListFilterAC = (id: string, filter: FilterValueType) => ({
   type: CHANGE_TODOLIST_FILTER,
   id: id,
-  filter: filter
+  filter
 } as const);
 
 export const getTodoListsThunk = (): ThunkType => async (dispatch) => {
