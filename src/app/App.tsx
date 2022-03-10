@@ -15,6 +15,7 @@ import {
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootState} from '../state/redux-store';
 import ErrorSnackbar from "../components/ErrorSnackbar/ErrorSnackbar";
+import {StatusType} from "./app-reducer";
 
 export type AddTodoList = (title: string) => void;
 export type RemoveTodoList = (todoListId: string) => void;
@@ -42,7 +43,8 @@ export const App: React.FC<AppPropsTpe> = () => {
   };
 
   const dispatch = useDispatch();
-  const todoLists = useSelector<AppRootState, Array<TodoListDomainType>>(state => state.todoLists)
+  const todoLists = useSelector<AppRootState, Array<TodoListDomainType>>(state => state.todoLists);
+  const status = useSelector<AppRootState, StatusType>(state => state.app.status);
 
   useEffect(() => {
     dispatch(getTodoListsThunk())
@@ -79,7 +81,7 @@ export const App: React.FC<AppPropsTpe> = () => {
             News
           </Typography>
         </Toolbar>
-        <LinearProgress/>
+        {status === 'loading' &&  <LinearProgress/>}
       </AppBar>
 
       <ErrorSnackbar/>
