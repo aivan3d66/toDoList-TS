@@ -10,9 +10,10 @@ export type TodoListsListPropsType = {
   changeFilter: ChangeFilter,
   removeTodoList: RemoveTodoList,
   changeTodoListTitle: ChangeTodoListTitleType,
+  demo?: boolean
 }
 
-export const TodoListsList: React.FC<TodoListsListPropsType> = (props) => {
+export const TodoListsList: React.FC<TodoListsListPropsType> = ({demo, ...props}) => {
   const paperAppStyles = {
     width: "300px",
     minHeight: "200px",
@@ -42,6 +43,7 @@ export const TodoListsList: React.FC<TodoListsListPropsType> = (props) => {
               <Grid item key={t.id}>
                 <Paper style={paperAppStyles}>
                   <TodoList
+                    demo={demo}
                     key={t.id}
                     todoListID={t.id}
                     filter={t.filter}

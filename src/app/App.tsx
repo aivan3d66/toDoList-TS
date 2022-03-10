@@ -21,9 +21,9 @@ export type RemoveTodoList = (todoListId: string) => void;
 export type ChangeTodoListTitleType = (todoListID: string, title: string) => void;
 export type ChangeFilter = (todoListId: string, value: FilterValueType) => void;
 
-type AppPropsTpe = {};
+type AppPropsTpe = {demo?: boolean};
 
-export const App: React.FC<AppPropsTpe> = () => {
+export const App: React.FC<AppPropsTpe> = ({demo = false}) => {
   const gridItemAppStyles = {
     width: "100%",
     margin: "40px 0",
@@ -91,6 +91,7 @@ export const App: React.FC<AppPropsTpe> = () => {
             changeFilter={changeFilter}
             changeTodoListTitle={changeTodoListTitle}
             removeTodoList={removeTodoList}
+            demo={demo}
           />
         </Grid>
       </Container>
