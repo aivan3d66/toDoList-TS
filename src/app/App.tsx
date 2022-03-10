@@ -40,7 +40,9 @@ export const App: React.FC<AppPropsTpe> = ({demo = false}) => {
   const status = useSelector<AppRootState, StatusType>(state => state.app.status);
 
   useEffect(() => {
-    dispatch(getTodoListsThunk())
+    if (!demo) {
+      dispatch(getTodoListsThunk())
+    }
   }, []);
 
   const addTodoList = useCallback((title: string) => {
