@@ -97,7 +97,9 @@ export const TodoList: React.FC<TodoListProps> = React.memo(({demo = false, ...p
           <IconButton
             onClick={onRemoveListHandler}
             color={'default'}
-            size={'small'}>
+            size={'small'}
+            disabled={todoList.entityStatus === 'loading'}
+          >
             <DeleteIcon/>
           </IconButton>
         </div>
