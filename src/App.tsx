@@ -14,6 +14,7 @@ import {
 } from "./state/todolist-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootState} from './state/redux-store';
+import ErrorSnackbar from "./components/ErrorSnackbar/ErrorSnackbar";
 
 export type AddTodoList = (title: string) => void;
 export type RemoveTodoList = (todoListId: string) => void;
@@ -80,6 +81,8 @@ export const App: React.FC<AppPropsTpe> = () => {
         </Toolbar>
         <LinearProgress/>
       </AppBar>
+
+      <ErrorSnackbar/>
 
       <Container fixed maxWidth="xl">
         <Grid container style={{maxWidth: "760px", margin: "0 auto"}}>
