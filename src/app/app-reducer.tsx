@@ -3,7 +3,9 @@ export type InitialStateType = {
   status: StatusType,
   error: string | null,
 };
-type ActionType = any;
+type SetErrorActionType = ReturnType<typeof setError>;
+type SetStatusActionType = ReturnType<typeof setStatus>;
+type ActionType = SetErrorActionType | SetStatusActionType;
 
 const SET_STATUS = 'APP/SET-STATUS';
 const SET_ERROR = 'APP/SET-ERROR';
