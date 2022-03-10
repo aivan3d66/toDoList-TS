@@ -5,12 +5,13 @@ import {taskReducer} from "../state/task-reducer";
 import {todoListId1, todoListId2, todoListsReducer} from "../state/todolist-reducer";
 import {FILTERS} from "../common/constants";
 import {TaskPriorities, TaskStatuses} from "../api/tasks-api";
-
-export type AppRootState = ReturnType<typeof rootReducer>
+import {AppRootState} from "../state/redux-store";
+import {appReducer} from "../app/app-reducer";
 
 const rootReducer = combineReducers({
   tasks: taskReducer,
   todoLists: todoListsReducer,
+  app: appReducer
 })
 
 const initialGlobalState: AppRootState = {
@@ -107,6 +108,10 @@ const initialGlobalState: AppRootState = {
         description: '',
       }
     ]
+  },
+  app: {
+    status: 'idle',
+    error: null
   }
 }
 
