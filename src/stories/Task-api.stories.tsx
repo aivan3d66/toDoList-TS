@@ -1,6 +1,5 @@
 import React, {useState} from "react";
 import {tasksAPI} from "../api/tasks-api";
-import {todoListsAPI} from "../api/todoList-api";
 
 export default {
   title: "Project/API's/Task API",
