@@ -3,6 +3,7 @@ import {Task} from "../components/TodoListItems/Task";
 import {v1} from "uuid";
 import {ComponentMeta, ComponentStory} from "@storybook/react";
 import {ReduxStoreProviderDecorator} from "./RedusStoreProviderDecorator";
+import {TaskStatuses} from "../api/tasks-api";
 
 export default {
   title: 'Project/Components/Task Component',
@@ -17,10 +18,12 @@ TaskExampleDone.args = {
   title: "react",
   id: v1(),
   todoListID: v1(),
+  status: TaskStatuses.Completed
 }
 export const TaskExampleNotDone = Template.bind({});
 TaskExampleNotDone.args = {
   title: "TypeScript",
   id: v1(),
   todoListID: v1(),
+  status: TaskStatuses.New
 }
