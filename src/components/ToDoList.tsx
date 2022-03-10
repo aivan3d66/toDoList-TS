@@ -1,7 +1,7 @@
 import React, {useCallback, useEffect} from "react";
-import {ChangeFilter, ChangeTodoListTitleType, RemoveTodoList} from "../App";
+import {ChangeFilter, ChangeTodoListTitleType, RemoveTodoList} from "../app/App";
 import {FILTERS} from "../common/constants";
-import '../App.css';
+import '../app/App.css';
 import {AddItemForm} from "./AddItemForm";
 import {EditableSpan} from "./TodoListItems/EditableSpan/EditableSpan";
 import {TodoListItems} from "./TodoListItems/TodoListItems";
