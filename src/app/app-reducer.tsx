@@ -9,7 +9,7 @@ const SET_ERROR = 'APP/SET-ERROR';
 
 const initialState: InitialStateType = {
   status: 'idle',
-  error: null,
+  error: 'some error',
 };
 
 export const appReducer = (state: InitialStateType = initialState, action: ActionType): InitialStateType => {
