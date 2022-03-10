@@ -1,17 +1,17 @@
 import React, {useCallback, useEffect} from "react";
-import {ChangeFilter, ChangeTodoListTitleType, RemoveTodoList} from "../app/App";
-import {FILTERS} from "../common/constants";
-import '../app/App.css';
-import {AddItemForm} from "./AddItemForm";
-import {EditableSpan} from "./TodoListItems/EditableSpan/EditableSpan";
-import {TodoListItems} from "./TodoListItems/TodoListItems";
+import {ChangeFilter, ChangeTodoListTitleType, RemoveTodoList} from "../../app/App";
+import {FILTERS} from "../../common/constants";
+import '../../app/App.css';
+import {AddItemForm} from "../AddItemForm";
+import {EditableSpan} from "../TodoListItems/EditableSpan/EditableSpan";
+import {TodoListTasks} from "../TodoListItems/TodoListTasks";
 import {Button, IconButton} from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
 import {useDispatch, useSelector} from "react-redux";
-import {AppRootState} from "../state/redux-store";
-import {getAllTodoListTasks, setNewTodoListTask} from "../state/task-reducer";
-import {FilterValueType, TodoListDomainType} from "../state/todolist-reducer";
-import {TasksResponseType, TaskStatuses} from "../api/tasks-api";
+import {AppRootState} from "../../state/redux-store";
+import {getAllTodoListTasks, setNewTodoListTask} from "../../state/task-reducer";
+import {FilterValueType, TodoListDomainType} from "../../state/todolist-reducer";
+import {TasksResponseType, TaskStatuses} from "../../api/tasks-api";
 
 export type TodoListProps = {
   todoListID: string,
@@ -29,7 +29,7 @@ const todoListBtnWrapperStyles = {
   margin: "auto 0 0 0"
 }
 
-const TodoList: React.FC<TodoListProps> = React.memo(({demo = false, ...props}) => {
+export const TodoList: React.FC<TodoListProps> = React.memo(({demo = false, ...props}) => {
     console.log('TodoList called');
 
     const {
@@ -107,7 +107,7 @@ const TodoList: React.FC<TodoListProps> = React.memo(({demo = false, ...props}) 
           addTask={addTaskHandler}
         />
 
-        <TodoListItems
+        <TodoListTasks
           tasks={taskForTodoList}
           todoListID={todoListID}
         />
@@ -139,5 +139,3 @@ const TodoList: React.FC<TodoListProps> = React.memo(({demo = false, ...props}) 
     )
   }
 )
-
-export default TodoList;
