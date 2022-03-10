@@ -1,3 +1,4 @@
+export type StatusType = 'idle' | 'loading' | 'succeeded' | 'failed';
 export type InitialStateType = {
   status: 'idle' | 'loading' | 'succeeded' | 'failed',
   error: string | null,
