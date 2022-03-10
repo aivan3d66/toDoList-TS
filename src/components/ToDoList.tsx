@@ -20,6 +20,7 @@ export type TodoListProps = {
   changeFilter: ChangeFilter,
   removeTodoList: RemoveTodoList,
   changeTodoListTitle: ChangeTodoListTitleType
+  demo?: boolean,
 };
 
 const todoListBtnWrapperStyles = {
@@ -28,7 +29,7 @@ const todoListBtnWrapperStyles = {
   margin: "auto 0 0 0"
 }
 
-const TodoList = React.memo((props: TodoListProps) => {
+const TodoList: React.FC<TodoListProps> = React.memo(({demo = false, ...props}) => {
     console.log('TodoList called');
 
     const {
@@ -45,7 +46,9 @@ const TodoList = React.memo((props: TodoListProps) => {
     const todoLists = useSelector<AppRootState, Array<TodoListDomainType>>(state => state.todoLists)
 
     useEffect(() => {
-      dispatch(getAllTodoListTasks(todoListID))
+      if (!demo) {
+        dispatch(getAllTodoListTasks(todoListID))
+      }
     }, [todoLists])
 
     const onChangeTodoListTitle = useCallback((title: string) => {
