@@ -3,7 +3,7 @@ import './App.css';
 import TodoList from "./components/ToDoList";
 import {AddItemForm} from "./components/AddItemForm";
 import AppBar from '@mui/material/AppBar';
-import {Toolbar, IconButton, Typography, Container, Grid, Paper} from '@mui/material';
+import {Toolbar, IconButton, Typography, Container, Grid, Paper, LinearProgress} from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import {
   changeTodoListFilterAC,
@@ -78,6 +78,7 @@ export const App: React.FC<AppPropsTpe> = () => {
             News
           </Typography>
         </Toolbar>
+        <LinearProgress/>
       </AppBar>
 
       <Container fixed maxWidth="xl">
