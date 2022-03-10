@@ -1,13 +1,13 @@
 import React from "react";
 import {Task} from "./Task";
-import {TasksResponseType, TaskStatuses} from "../../api/tasks-api";
+import {TasksResponseType} from "../../api/tasks-api";
 
 type TodoListItemsPropsType = {
   tasks: Array<TasksResponseType>,
   todoListID: string,
 }
 
-export const TodoListItems = React.memo((props: TodoListItemsPropsType) => {
+export const TodoListTasks = React.memo((props: TodoListItemsPropsType) => {
   const tasksListStyles = {
     listStyle: "none",
     width: "100%",
