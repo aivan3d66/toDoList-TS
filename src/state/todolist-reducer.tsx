@@ -4,6 +4,7 @@ import {todoListsAPI} from "../api/todoList-api";
 import {ThunkAction} from "redux-thunk";
 import {AppStateType} from "./redux-store";
 import {ResultCode} from "../api/api";
+import {setStatus, SetStatusActionType} from "../app/app-reducer";
 
 const REMOVE_TODOLIST = 'REMOVE_TODOLIST';
 const ADD_TODOLIST = 'ADD_TODOLIST';
@@ -22,6 +23,7 @@ export type ActionType =
   | ChangeTodoListTitleActionType
   | ChangeTodoListFilterActionType
   | GetAllTodoListActionType
+  | SetStatusActionType
 
 export const todoListId1 = v1();
 export const todoListId2 = v1();
@@ -98,11 +100,14 @@ export const changeTodoListFilterAC = (id: string, filter: FilterValueType) => (
 } as const);
 
 export const getTodoListsThunk = (): ThunkType => async (dispatch) => {
+  dispatch(setStatus('loading'));
   try {
     const response = await todoListsAPI.getAllTodoLists();
     dispatch(getAllTodoListAC(response.data));
+    dispatch(setStatus('succeeded'));
   } catch (e) {
     console.log(e)
+    dispatch(setStatus('failed'));
   }
 };
 export const setTodoListsThunk = (title: string): ThunkType => async (dispatch) => {
