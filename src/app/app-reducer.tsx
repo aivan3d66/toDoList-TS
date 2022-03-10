@@ -1,6 +1,6 @@
 export type StatusType = 'idle' | 'loading' | 'succeeded' | 'failed';
 export type InitialStateType = {
-  status: 'idle' | 'loading' | 'succeeded' | 'failed',
+  status: StatusType,
   error: string | null,
 };
 type ActionType = any;
