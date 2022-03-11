@@ -21,7 +21,7 @@ export type RemoveTodoList = (todoListId: string) => void;
 export type ChangeTodoListTitleType = (todoListID: string, title: string) => void;
 export type ChangeFilter = (todoListId: string, value: FilterValueType) => void;
 
-type AppPropsTpe = {demo?: boolean};
+type AppPropsTpe = { demo?: boolean };
 
 export const App: React.FC<AppPropsTpe> = ({demo = false}) => {
   const gridItemAppStyles = {
@@ -76,7 +76,13 @@ export const App: React.FC<AppPropsTpe> = ({demo = false}) => {
             News
           </Typography>
         </Toolbar>
-        {status === 'loading' &&  <LinearProgress/>}
+
+        <div style={{
+          position: "relative",
+          height: "2px",
+        }}>
+          {status === 'loading' && <LinearProgress/>}
+        </div>
       </AppBar>
 
       <ErrorSnackbar/>
