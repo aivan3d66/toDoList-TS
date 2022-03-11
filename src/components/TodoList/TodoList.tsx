@@ -88,6 +88,7 @@ export const TodoList: React.FC<TodoListProps> = React.memo(({demo = false, ...p
           display: "flex",
           flexDirection: "row",
           justifyContent: "space-between",
+          alignItems: "center",
           height: "40px",
           margin: "0 0 20px 0",
           fontSize: "20px",
