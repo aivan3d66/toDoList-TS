@@ -1,5 +1,5 @@
 import React, {ChangeEvent, useCallback, useState} from "react";
-import SuperInputText from "../../../common/super-components/SuperInputText/SuperInputText";
+import {TextField} from "@mui/material";
 
 type EditableSpanPropsType = {
   title: string,
