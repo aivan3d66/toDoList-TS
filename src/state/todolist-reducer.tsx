@@ -113,6 +113,7 @@ export const deleteTodoListThunk = (todoListId: string): ThunkType => async (dis
     if (response.data.resultCode === ResultCode.Success) {
       dispatch(removeTodoListAC(todoListId));
       dispatch(setAppStatus('succeeded'));
+      dispatch(changeTodoListEntityStatus(todoListId, 'idle'))
     }
   } catch (e) {
     console.log(e)
