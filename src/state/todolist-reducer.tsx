@@ -106,6 +106,7 @@ export const setTodoListsThunk = (title: string): ThunkType => async (dispatch) 
   }
 };
 export const deleteTodoListThunk = (todoListId: string): ThunkType => async (dispatch) => {
+  dispatch(changeTodoListEntityStatus(todoListId, 'loading'))
   try {
     const response = await todoListsAPI.deleteTodoList(todoListId);
     if (response.data.resultCode === ResultCode.Success) {
