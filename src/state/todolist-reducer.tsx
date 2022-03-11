@@ -133,6 +133,7 @@ export type AddTodoListActionType = ReturnType<typeof addTodoListAC>
 export type ChangeTodoListTitleActionType = ReturnType<typeof changeTodoListTitleAC>
 export type ChangeTodoListFilterActionType = ReturnType<typeof changeTodoListFilterAC>
 export type GetAllTodoListActionType = ReturnType<typeof getAllTodoListAC>
+export type ChangeTodoListEntityStatusActionType = ReturnType<typeof changeTodoListEntityStatus>
 export type ActionType =
   RemoveTodoListActionType
   | AddTodoListActionType
@@ -140,6 +141,7 @@ export type ActionType =
   | ChangeTodoListFilterActionType
   | GetAllTodoListActionType
   | SetStatusActionType
+  | ChangeTodoListEntityStatusActionType
 export type TodoListType = {
   id: string,
   title: string,
