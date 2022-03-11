@@ -63,7 +63,6 @@ export const AddItemForm: React.FC<AddItemFormPropsType> = React.memo(({addTask,
   return (
     <Grid container style={addItemListContStyles}>
       <TextField
-        placeholder={"Write the text ..."}
         value={title}
         size={'small'}
         error={!!error}
@@ -71,6 +70,7 @@ export const AddItemForm: React.FC<AddItemFormPropsType> = React.memo(({addTask,
         onChange={onChangeTitleHandler}
         style={addItemTextFieldStyles}
         disabled={disabled}
+        label="Write the title"
       />
       <Button
         onClick={addItemHandler}
