@@ -63,11 +63,12 @@ export const taskReducer = (state = initialTasksState, action: GeneraTasksAction
       }
     }
 
-    case ADD_TASK:
+    case ADD_TASK: {
       return {
         ...state,
-        [action.task.todolistId]: [action.task, ...state[action.task.todolistId]]
+        [action.task.todolistId]: [action.task]
       }
+    }
 
     case UPDATE_TASK: {
       return {
