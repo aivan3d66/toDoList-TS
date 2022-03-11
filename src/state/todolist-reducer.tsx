@@ -78,6 +78,11 @@ export const changeTodoListFilterAC = (id: string, filter: FilterValueType) => (
   id,
   filter
 } as const);
+export const changeTodoListEntityStatus = (id: string, status: StatusType) => ({
+  type: CHANGE_TODOLIST_STATUS,
+  id,
+  status
+} as const);
 
 export const getTodoListsThunk = (): ThunkType => async (dispatch) => {
   dispatch(setStatus('loading'));
