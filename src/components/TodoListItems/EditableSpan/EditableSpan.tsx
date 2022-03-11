@@ -32,15 +32,19 @@ export const EditableSpan = React.memo((props: EditableSpanPropsType) => {
   return (
     <div style={{
       flexGrow: 10,
-      margin: "8px 0",
+      margin: "0",
     }}>
       {
         editMode
-          ? <SuperInputText
+          ? <TextField
             onChange={onChangeTitleHandler}
             value={newTitle}
             onBlur={activateViewMode}
             autoFocus
+            size={'small'}
+            id="standard-basic"
+            variant="standard"
+            margin={'none'}
           />
           : <span onDoubleClick={activateEditMode}>{title}</span>
       }
