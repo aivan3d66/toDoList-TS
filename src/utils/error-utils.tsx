@@ -11,7 +11,7 @@ export const handleServerAppError = (data: ApiResponseType, dispatch: Dispatch<S
   dispatch(setAppError('failed'))
 };
 
-export const handleServerNetworkError = (error: any, dispatch: Dispatch<SetErrorActionType |SetStatusActionType>) => {
-  dispatch(setAppError(error.messages ? error.messages : 'Some network error occurred'));
+export const handleServerNetworkError = (error: {message: string}, dispatch: Dispatch<SetErrorActionType |SetStatusActionType>) => {
+  dispatch(setAppError(error.message ? error.message : 'Some network error occurred'));
   dispatch(setAppError('failed'))
 }
