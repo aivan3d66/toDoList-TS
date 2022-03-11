@@ -9,6 +9,7 @@ import {ThunkAction} from "redux-thunk";
 import {AppStateType} from "./redux-store";
 import {ResultCode} from "../api/api";
 import {setAppError, SetErrorActionType, setAppStatus, SetStatusActionType} from "../app/app-reducer";
+import {handleServerAppError} from "../utils/error-utils";
 
 const REMOVE_TASK = 'REMOVE_TASK';
 const ADD_TASK = 'ADD_TASK';
@@ -163,29 +164,34 @@ export const deleteTodoListTask = (todoListId: string, taskId: string): ThunkTyp
   }
 };
 export const updateTodoListTask = (todoListId: string, taskId: string, domainModel: UpdateDomainTaskModelType): ThunkType => async (dispatch, getState: () => AppStateType) => {
-  try {
-    const state = getState();
-    const currentTask = state.tasks[todoListId].find(t => t.id === taskId);
+  const state = getState();
+  const currentTask = state.tasks[todoListId].find(t => t.id === taskId);
 
-    if (!currentTask) {
-      return console.warn('The task is not found in state');
-    }
-
-    const apiModel: UpdateTaskModelType = {
-      deadline: currentTask.deadline,
-      description: currentTask.description,
-      priority: currentTask.priority,
-      startDate: currentTask.startDate,
-      status: currentTask.status,
-      title: currentTask.title,
-      ...domainModel
-    };
-
-    tasksAPI.updateTask(todoListId, taskId, apiModel)
-      .then(res => {
-        dispatch(updateTaskAC(todoListId, taskId, domainModel));
-      })
-  } catch (e) {
-    alert(e);
+  if (!currentTask) {
+    return console.warn('The task is not found in state');
   }
+
+  const apiModel: UpdateTaskModelType = {
+    deadline: currentTask.deadline,
+    description: currentTask.description,
+    priority: currentTask.priority,
+    startDate: currentTask.startDate,
+    status: currentTask.status,
+    title: currentTask.title,
+    ...domainModel
+  };
+
+  tasksAPI.updateTask(todoListId, taskId, apiModel)
+    .then(res => {
+      if (res.data.resultCode === ResultCode.Success) {
+        dispatch(updateTaskAC(todoListId, taskId, domainModel));
+      } else {
+        handleServerAppError(res.data, dispatch)
+      }
+    })
+    .catch(e => {
+      dispatch(setAppError(e.message));
+      dispatch(setAppStatus('failed'));
+    })
+
 };
