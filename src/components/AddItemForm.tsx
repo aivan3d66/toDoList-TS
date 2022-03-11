@@ -76,6 +76,7 @@ export const AddItemForm: React.FC<AddItemFormPropsType> = React.memo(({addTask,
         onClick={addItemHandler}
         startIcon={<Add/>}
         variant={'contained'}
+        disabled={disabled}
       >
         add
       </Button>
