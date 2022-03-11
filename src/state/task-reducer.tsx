@@ -9,7 +9,7 @@ import {ThunkAction} from "redux-thunk";
 import {AppStateType} from "./redux-store";
 import {ResultCode} from "../api/api";
 import {setAppError, SetErrorActionType, setAppStatus, SetStatusActionType} from "../app/app-reducer";
-import {handleServerAppError} from "../utils/error-utils";
+import {handleServerAppError, handleServerNetworkError} from "../utils/error-utils";
 
 const REMOVE_TASK = 'REMOVE_TASK';
 const ADD_TASK = 'ADD_TASK';
@@ -142,17 +142,18 @@ export const getAllTodoListTasks = (todoListId: string): ThunkType => async (dis
 
 };
 export const setNewTodoListTask = (todoListId: string, title: string): ThunkType => async (dispatch) => {
-  try {
-    const response = await tasksAPI.addTask(todoListId, title);
-    if (response.status === ResultCode.Success) {
-      dispatch(addTaskAC(response.data.data.item));
-    } else if (response.data.messages.length) {
-      dispatch(setAppError(response.data.messages[0]))
-    }
-    dispatch(getAllTodoListTasks(todoListId));
-  } catch (e) {
-    alert(e);
-  }
+  tasksAPI.addTask(todoListId, title)
+    .then(response => {
+      if (response.resultCode === ResultCode.Success) {
+        dispatch(addTaskAC(response.data.item));
+      } else {
+        handleServerAppError(response, dispatch)
+      }
+      dispatch(getAllTodoListTasks(todoListId));
+    })
+    .catch(error => {
+      handleServerNetworkError(error, dispatch)
+    })
 };
 export const deleteTodoListTask = (todoListId: string, taskId: string): ThunkType => async (dispatch) => {
   try {
