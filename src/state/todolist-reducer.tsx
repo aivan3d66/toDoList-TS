@@ -2,9 +2,9 @@ import {FILTERS} from "../common/constants";
 import {v1} from "uuid";
 import {todoListsAPI} from "../api/todoList-api";
 import {ThunkAction} from "redux-thunk";
-import {AppStateType} from "./redux-store";
 import {ResultCode} from "../api/api";
 import {setAppStatus, SetStatusActionType, StatusType} from "../app/app-reducer";
+import {AppRootState} from "./redux-store";
 
 const REMOVE_TODOLIST = 'REMOVE_TODOLIST';
 const ADD_TODOLIST = 'ADD_TODOLIST';
@@ -157,4 +157,4 @@ export type TodoListDomainType = TodoListType & {
   filter: FilterValueType,
   entityStatus: StatusType
 }
-type ThunkType = ThunkAction<void, AppStateType, unknown, ActionType>;
+type ThunkType = ThunkAction<void, AppRootState, unknown, ActionType>;

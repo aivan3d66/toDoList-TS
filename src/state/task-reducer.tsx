@@ -6,10 +6,10 @@ import {
   RemoveTodoListActionType
 } from "./todolist-reducer";
 import {ThunkAction} from "redux-thunk";
-import {AppStateType} from "./redux-store";
 import {ResultCode} from "../api/api";
 import {setAppError, SetErrorActionType, setAppStatus, SetStatusActionType} from "../app/app-reducer";
 import {handleServerAppError, handleServerNetworkError} from "../utils/error-utils";
+import {AppRootState} from "./redux-store";
 
 const REMOVE_TASK = 'REMOVE_TASK';
 const ADD_TASK = 'ADD_TASK';
@@ -44,7 +44,7 @@ export type GeneraTasksActionType =
 export type TodoListTasksType = {
   [key: string]: Array<TasksResponseType>,
 }
-type ThunkType = ThunkAction<void, AppStateType, unknown, GeneraTasksActionType>;
+type ThunkType = ThunkAction<void, AppRootState, unknown, GeneraTasksActionType>;
 
 export const initialTasksState: TodoListTasksType = {};
 
@@ -165,7 +165,7 @@ export const deleteTodoListTask = (todoListId: string, taskId: string): ThunkTyp
     alert(e);
   }
 };
-export const updateTodoListTask = (todoListId: string, taskId: string, domainModel: UpdateDomainTaskModelType): ThunkType => async (dispatch, getState: () => AppStateType) => {
+export const updateTodoListTask = (todoListId: string, taskId: string, domainModel: UpdateDomainTaskModelType): ThunkType => async (dispatch, getState: () => AppRootState) => {
   const state = getState();
   const currentTask = state.tasks[todoListId].find(t => t.id === taskId);
 
