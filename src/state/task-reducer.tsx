@@ -134,7 +134,7 @@ export const getAllTodoListTasks = (todoListId: string): ThunkType => async (dis
       dispatch(setAppStatus('succeeded'));
     }
   } catch (e) {
-    console.log(e);
+    alert(e);
     dispatch(setAppStatus('failed'))
   }
 
@@ -159,7 +159,7 @@ export const deleteTodoListTask = (todoListId: string, taskId: string): ThunkTyp
       dispatch(removeTaskAC(todoListId, taskId));
     }
   } catch (e) {
-    console.log(e);
+    alert(e);
   }
 };
 export const updateTodoListTask = (todoListId: string, taskId: string, domainModel: UpdateDomainTaskModelType): ThunkType => async (dispatch, getState: () => AppStateType) => {
@@ -186,6 +186,6 @@ export const updateTodoListTask = (todoListId: string, taskId: string, domainMod
         dispatch(updateTaskAC(todoListId, taskId, domainModel));
       })
   } catch (e) {
-    console.log(e);
+    alert(e);
   }
 };

@@ -91,7 +91,7 @@ export const getTodoListsThunk = (): ThunkType => async (dispatch) => {
     dispatch(getAllTodoListAC(response.data));
     dispatch(setAppStatus('succeeded'));
   } catch (e) {
-    console.log(e)
+    alert(e)
     dispatch(setAppStatus('failed'));
   }
 };
@@ -102,7 +102,7 @@ export const setTodoListsThunk = (title: string): ThunkType => async (dispatch) 
       dispatch(addTodoListAC(response.data.data.item));
     }
   } catch (e) {
-    console.log(e)
+    alert(e)
   }
 };
 export const deleteTodoListThunk = (todoListId: string): ThunkType => async (dispatch) => {
@@ -116,7 +116,7 @@ export const deleteTodoListThunk = (todoListId: string): ThunkType => async (dis
       dispatch(changeTodoListEntityStatus(todoListId, 'idle'))
     }
   } catch (e) {
-    console.log(e)
+    alert(e)
   }
 };
 export const updateTodoListTitleThunk = (todoListId: string, title: string): ThunkType => async (dispatch) => {
@@ -126,7 +126,7 @@ export const updateTodoListTitleThunk = (todoListId: string, title: string): Thu
       dispatch(changeTodoListTitleAC(todoListId, title));
     }
   } catch (e) {
-    console.log(e)
+    alert(e)
   }
 };
 
