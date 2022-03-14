@@ -3,10 +3,21 @@ import {Button, Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, G
 
 export const Login = () => {
   return (
-    <Grid container justify="center">
-      <Grid item xs={4}>
+    // <Grid container justify="center">
+      <Grid item style={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        margin: "100px auto",
+        minWidth: "320px",
+        maxWidth: "400px"
+      }}>
         <FormLabel>
-
+          <p>To log in get registered <a href="https://social-network.samuraijs.com/">here</a>  or use common test account credentials:</p>
+           <p style={{display: "flex", flexDirection: "column"}}>
+             <span>Email: free@samuraijs.com</span>
+             <span>Password: free</span>
+           </p>
         </FormLabel>
         <FormControl>
           <FormGroup>
@@ -32,6 +43,6 @@ export const Login = () => {
           </FormGroup>
         </FormControl>
       </Grid>
-    </Grid>
+    // </Grid>
   )
 }
