@@ -18,5 +18,8 @@ export const authAPI = {
   },
   login(email: string, password: string, rememberMe: boolean, captcha: string,) {
     return instance.post<ApiResponseType<LoginResponseType>>(`/auth/login`, {email, password, rememberMe, captcha})
-  }
+  },
+  logout() {
+    return instance.delete<ApiResponseType<LoginResponseType>>(`/auth/login`)
+  },
 }
