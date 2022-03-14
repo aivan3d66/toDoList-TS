@@ -5,7 +5,16 @@ import {useFormik} from "formik";
 export const Login = () => {
   const formik = useFormik({
     validate: (values) => {
-      return {email: "bad email"};
+      if (!values.email) {
+        return {
+          email: "Email is required",
+        }
+      }
+      if (!values.password) {
+        return {
+          password: "Password is required"
+        }
+      }
     },
     initialValues: {
       email: '',
@@ -51,8 +60,8 @@ export const Login = () => {
               label="Password"
               margin="normal"
               {...formik.getFieldProps("password")}
-
             />
+            {formik.errors.password ? <span>{formik.errors.password}</span> : null}
             <FormControlLabel
               control={<Checkbox name="rememberMe"/>}
               label={"Remember me"}
