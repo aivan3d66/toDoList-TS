@@ -1,5 +1,5 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from "react";
-import {SET_ERROR_NAME} from "../common/constants";
+import {SET_ERROR_NAME} from "../../common/constants";
 import {Button, TextField, Grid, Alert} from "@mui/material";
 import {Add} from "@mui/icons-material";
 

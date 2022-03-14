@@ -1,6 +1,6 @@
 import React from "react";
 import {Task} from "./Task";
-import {TasksResponseType} from "../../api/tasks-api";
+import {TasksResponseType} from "../../../../api/tasks-api";
 
 type TodoListItemsPropsType = {
   tasks: Array<TasksResponseType>,

@@ -1,17 +1,17 @@
 import React, {useCallback, useEffect} from "react";
-import {ChangeFilter, ChangeTodoListTitleType, RemoveTodoList} from "../../app/App";
-import {FILTERS} from "../../common/constants";
-import '../../app/App.css';
-import {AddItemForm} from "../AddItemForm";
-import {EditableSpan} from "../TodoListItems/EditableSpan/EditableSpan";
-import {TodoListTasks} from "../TodoListItems/TodoListTasks";
+import {ChangeFilter, ChangeTodoListTitleType, RemoveTodoList} from "../../../app/App";
+import {FILTERS} from "../../../common/constants";
+import '../../../app/App.css';
+import {AddItemForm} from "../../../components/AddItemForm/AddItemForm";
+import {EditableSpan} from "../../../components/EditableSpan/EditableSpan";
 import {Button, IconButton} from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
 import {useDispatch, useSelector} from "react-redux";
-import {AppRootState} from "../../state/redux-store";
-import {getAllTodoListTasks, setNewTodoListTask} from "../../state/task-reducer";
-import {FilterValueType, TodoListDomainType} from "../../state/todolist-reducer";
-import {TasksResponseType, TaskStatuses} from "../../api/tasks-api";
+import {AppRootState} from "../../../state/redux-store";
+import {getAllTodoListTasks, setNewTodoListTask} from "../../../state/task-reducer";
+import {FilterValueType, TodoListDomainType} from "../../../state/todolist-reducer";
+import {TasksResponseType, TaskStatuses} from "../../../api/tasks-api";
+import {TodoListTasks} from "./TodoListItems/TodoListTasks";
 
 export type TodoListProps = {
   todoList: TodoListDomainType,

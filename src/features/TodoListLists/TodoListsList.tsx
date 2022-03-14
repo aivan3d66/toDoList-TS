@@ -1,10 +1,10 @@
 import React from "react";
 import {Grid, Paper} from "@mui/material";
-import {TodoListDomainType} from "../state/todolist-reducer";
 import {useSelector} from "react-redux";
-import {AppRootState} from "../state/redux-store";
-import {ChangeFilter, ChangeTodoListTitleType, RemoveTodoList} from "../app/App";
-import {TodoList} from "./TodoList/TodoList";
+import {AppRootState} from "../../state/redux-store";
+import {TodoListDomainType} from "../../state/todolist-reducer";
+import {ChangeFilter, ChangeTodoListTitleType, RemoveTodoList} from "../../app/App";
+import { TodoList } from "./TodoList/TodoList";
 
 export type TodoListsListPropsType = {
   changeFilter: ChangeFilter,

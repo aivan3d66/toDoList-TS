@@ -1,13 +1,13 @@
 import {Checkbox, IconButton} from "@mui/material";
-import {EditableSpan} from "./EditableSpan/EditableSpan";
+import {EditableSpan} from "../../../../components/EditableSpan/EditableSpan";
 import DeleteIcon from "@mui/icons-material/Delete";
 import React, {ChangeEvent, useCallback} from "react";
 import {
   deleteTodoListTask, updateTodoListTask
-} from "../../state/task-reducer";
+} from "../../../../state/task-reducer";
 import {useDispatch} from "react-redux";
 import {v1} from "uuid";
-import {TasksResponseType, TaskStatuses} from "../../api/tasks-api";
+import {TasksResponseType, TaskStatuses} from "../../../../api/tasks-api";
 
 type TaskPropsType = TasksResponseType & {
   todoListID: string,
