@@ -5,14 +5,16 @@ import {taskReducer} from "../state/task-reducer";
 import {todoListId1, todoListId2, todoListsReducer} from "../state/todolist-reducer";
 import {FILTERS} from "../common/constants";
 import {TaskPriorities, TaskStatuses} from "../api/tasks-api";
-import {AppRootState} from "../state/redux-store";
 import {appReducer} from "../app/app-reducer";
 import thunkMiddleware from "redux-thunk";
+
+type AppRootState = ReturnType<typeof rootReducer>
+
 
 const rootReducer = combineReducers({
   tasks: taskReducer,
   todoLists: todoListsReducer,
-  app: appReducer
+  app: appReducer,
 })
 
 const initialGlobalState: AppRootState = {
@@ -115,7 +117,7 @@ const initialGlobalState: AppRootState = {
   app: {
     status: 'idle',
     error: null
-  }
+  },
 }
 
 const storyBookStore = createStore(rootReducer, initialGlobalState, applyMiddleware(thunkMiddleware));
