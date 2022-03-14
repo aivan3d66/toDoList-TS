@@ -5,21 +5,21 @@ type GetAuthResponseType = {
   email: string,
   login: string
 };
-type LoginResponseType = {
+export type LoginParamsType = {
   email: string,
   password: string,
   rememberMe: boolean,
-  captcha: string,
+  captcha?: string,
 }
 
 export const authAPI = {
   getAuth() {
     return instance.get<ApiResponseType<GetAuthResponseType>>(`/auth/me`)
   },
-  login(email: string, password: string, rememberMe: boolean, captcha: string,) {
-    return instance.post<ApiResponseType<LoginResponseType>>(`/auth/login`, {email, password, rememberMe, captcha})
+  login(data: LoginParamsType) {
+    return instance.post<ApiResponseType<{userId?: number}>>(`/auth/login`, data)
   },
   logout() {
-    return instance.delete<ApiResponseType<LoginResponseType>>(`/auth/login`)
+    return instance.delete<ApiResponseType<LoginParamsType>>(`/auth/login`)
   },
 }
