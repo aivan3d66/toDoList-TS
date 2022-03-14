@@ -1,5 +1,5 @@
 import React from "react";
-import {Task} from "../components/TodoListItems/Task";
+import {Task} from "../features/TodoListLists/TodoList/TodoListItems/Task";
 import {v1} from "uuid";
 import {ComponentMeta, ComponentStory} from "@storybook/react";
 import {ReduxStoreProviderDecorator} from "./RedusStoreProviderDecorator";
