@@ -17,35 +17,46 @@ export const Login = () => {
     }
   })
   return (
-    // <Grid container justify="center">
-      <Grid item style={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        margin: "100px auto",
-        minWidth: "320px",
-        maxWidth: "400px"
-      }}>
-        <FormLabel>
-          <p>To log in get registered <a href="https://social-network.samuraijs.com/">here</a>  or use common test account credentials:</p>
-           <p style={{display: "flex", flexDirection: "column"}}>
-             <span>Email: free@samuraijs.com</span>
-             <span>Password: free</span>
-           </p>
-        </FormLabel>
+    <Grid item style={{
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
+      margin: "100px auto",
+      minWidth: "320px",
+      maxWidth: "400px"
+    }}>
+      <form onSubmit={formik.handleSubmit}>
         <FormControl>
+          <FormLabel>
+            <p>To log in get registered <a href="https://social-network.samuraijs.com/">here</a> or use common test
+              account
+              credentials:</p>
+            <p style={{
+              display: "flex",
+              flexDirection: "column"
+            }}>
+              <span>Email: free@samuraijs.com</span>
+              <span>Password: free</span>
+            </p>
+          </FormLabel>
           <FormGroup>
             <TextField
               label="Email"
               margin="normal"
+              {...formik.getFieldProps("email")}
             />
+            {formik.errors.email ? <span>{formik.errors.email}</span> : null}
             <TextField
+              type={"password"}
               label="Password"
               margin="normal"
+              {...formik.getFieldProps("password")}
+
             />
             <FormControlLabel
               control={<Checkbox name="rememberMe"/>}
               label={"Remember me"}
+              {...formik.getFieldProps("rememberMe")}
             />
             <Button
               type={"submit"}
@@ -56,7 +67,7 @@ export const Login = () => {
             </Button>
           </FormGroup>
         </FormControl>
-      </Grid>
-    // </Grid>
+      </form>
+    </Grid>
   )
 }
