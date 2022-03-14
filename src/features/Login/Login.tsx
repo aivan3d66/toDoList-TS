@@ -2,6 +2,19 @@ import React from "react";
 import {Button, Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, Grid, TextField} from "@mui/material";
 
 export const Login = () => {
+  const formik = useFormik({
+    validate: (values) => {
+      return {email: "bad email"};
+    },
+    initialValues: {
+      email: '',
+      password: '',
+      rememberMe: false,
+    },
+    onSubmit: values => {
+      alert(JSON.stringify(values))
+    }
+  })
   return (
     // <Grid container justify="center">
       <Grid item style={{
