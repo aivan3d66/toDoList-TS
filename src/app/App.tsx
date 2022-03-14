@@ -1,6 +1,5 @@
 import React, {useCallback, useEffect} from 'react';
 import './App.css';
-import {AddItemForm} from "../components/AddItemForm";
 import AppBar from '@mui/material/AppBar';
 import {Toolbar, IconButton, Typography, Container, Grid, LinearProgress} from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -14,7 +13,9 @@ import {useDispatch, useSelector} from "react-redux";
 import {AppRootState} from '../state/redux-store';
 import ErrorSnackbar from "../components/ErrorSnackbar/ErrorSnackbar";
 import {StatusType} from "./app-reducer";
-import {TodoListsList} from "../components/TodoListsList";
+import {Login} from "../features/Login/Login";
+import {Routes, Route} from 'react-router-dom';
+import {TodoListsList} from '../features/TodoListLists/TodoListsList';
 
 export type AddTodoList = (title: string) => void;
 export type RemoveTodoList = (todoListId: string) => void;
@@ -24,18 +25,6 @@ export type ChangeFilter = (todoListId: string, value: FilterValueType) => void;
 type AppPropsTpe = { demo?: boolean };
 
 export const App: React.FC<AppPropsTpe> = ({demo = false}) => {
-  const gridItemAppStyles = {
-    width: "100%",
-    margin: "40px 0",
-    padding: "16px",
-    backgroundColor: "rgba(211, 211, 211, 0.5)",
-    borderRadius: "5px"
-  };
-  const gridContainerAppStyles = {
-    display: "flex",
-    justifyContent: "center",
-  };
-
   const dispatch = useDispatch();
   const status = useSelector<AppRootState, StatusType>(state => state.app.status);
 
@@ -84,25 +73,21 @@ export const App: React.FC<AppPropsTpe> = ({demo = false}) => {
           {status === 'loading' && <LinearProgress/>}
         </div>
       </AppBar>
-
-      <ErrorSnackbar/>
-
-      <Container fixed maxWidth="xl">
-        <Grid container style={{maxWidth: "760px", margin: "0 auto"}}>
-          <Grid item style={gridItemAppStyles}>
-            <AddItemForm addTask={addTodoList}/>
-          </Grid>
-        </Grid>
-
-        <Grid container spacing={2} style={gridContainerAppStyles}>
-          <TodoListsList
-            changeFilter={changeFilter}
-            changeTodoListTitle={changeTodoListTitle}
-            removeTodoList={removeTodoList}
-            demo={demo}
-          />
-        </Grid>
+      <Container fixed>
+        <Routes>
+          <Route path={"/login"} element={<Login/>}/>
+          <Route path={"/"} element={
+            <TodoListsList
+              demo={demo}
+              addTask={addTodoList}
+              changeFilter={changeFilter}
+              changeTodoListTitle={changeTodoListTitle}
+              removeTodoList={removeTodoList}
+            />
+          }/>
+        </Routes>
       </Container>
+      <ErrorSnackbar/>
     </div>
   );
 }
