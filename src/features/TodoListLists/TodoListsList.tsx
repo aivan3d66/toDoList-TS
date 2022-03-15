@@ -1,21 +1,28 @@
-import React from "react";
+import React, {useCallback, useEffect} from "react";
 import {Container, Grid, Paper} from "@mui/material";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {AppRootState} from "../../state/redux-store";
-import {TodoListDomainType} from "../../state/todolist-reducer";
-import {ChangeFilter, ChangeTodoListTitleType, RemoveTodoList} from "../../app/App";
+import {
+  changeTodoListFilterAC,
+  deleteTodoListThunk, FilterValueType,
+  getTodoListsThunk,
+  setTodoListsThunk,
+  TodoListDomainType, updateTodoListTitleThunk
+} from "../../state/todolist-reducer";
 import {TodoList} from "./TodoList/TodoList";
 import {AddItemForm} from "../../components/AddItemForm/AddItemForm";
+import {Navigate} from "react-router-dom";
+import {ROUTES} from "../../common/constants";
 
+export type AddTodoList = (title: string) => void;
+export type RemoveTodoList = (todoListId: string) => void;
+export type ChangeTodoListTitleType = (todoListID: string, title: string) => void;
+export type ChangeFilter = (todoListId: string, value: FilterValueType) => void;
 export type TodoListsListPropsType = {
-  addTask: (title: string) => void,
-  changeFilter: ChangeFilter,
-  removeTodoList: RemoveTodoList,
-  changeTodoListTitle: ChangeTodoListTitleType,
   demo?: boolean
 }
 
-export const TodoListsList: React.FC<TodoListsListPropsType> = ({demo, ...props}) => {
+export const TodoListsList: React.FC<TodoListsListPropsType> = ({demo}) => {
   const paperAppStyles = {
     width: "300px",
     minHeight: "200px",
@@ -33,50 +40,59 @@ export const TodoListsList: React.FC<TodoListsListPropsType> = ({demo, ...props}
     justifyContent: "center",
   };
 
-  const {
-    changeFilter,
-    removeTodoList,
-    changeTodoListTitle,
-    addTask
-  } = props;
-
+  const dispatch = useDispatch();
   const todoLists = useSelector<AppRootState, Array<TodoListDomainType>>(state => state.todoLists);
+  const isLoggedIn = useSelector<AppRootState>(state => state.auth.isLoginIn);
+
+  useEffect(() => {
+    if (demo || !isLoggedIn) {
+      return;
+    }
+    dispatch(getTodoListsThunk())
+  }, [])
+
+  const addTodoList = useCallback((title: string) => {
+    dispatch(setTodoListsThunk(title));
+  }, [dispatch]);
+  const removeTodoList = useCallback((todoListId: string) => {
+    dispatch(deleteTodoListThunk(todoListId));
+  }, [dispatch]);
+  const changeTodoListTitle = useCallback((todoListID: string, newTitle: string) => {
+    dispatch(updateTodoListTitleThunk(todoListID, newTitle));
+  }, [dispatch]);
+
+  const changeFilter = useCallback((todoListId: string, value: FilterValueType) => {
+    dispatch(changeTodoListFilterAC(todoListId, value));
+  }, [dispatch]);
+
+  if (!isLoggedIn) return <Navigate to={ROUTES.LOGIN}/>
 
   return (
     <Container fixed maxWidth="xl">
       <Grid container style={{maxWidth: "760px", margin: "0 auto"}}>
         <Grid item style={gridItemAppStyles}>
-          <AddItemForm addTask={addTask}/>
+          <AddItemForm addTask={addTodoList}/>
         </Grid>
       </Grid>
 
       <Grid container spacing={2} style={gridContainerAppStyles}>
-        {
-          todoLists.length === 0
-            ? <h3 style={{
-              fontWeight: "normal",
-              fontSize: "24px",
-              textTransform: "uppercase",
-              color: "#bababa"
-            }}>Please, add new tasks list ...</h3>
-            : todoLists.map(t => {
-              return (
-                <Grid item key={t.id}>
-                  <Paper style={paperAppStyles}>
-                    <TodoList
-                      demo={demo}
-                      todoList={t}
-                      key={t.id}
-                      filter={t.filter}
-                      changeFilter={changeFilter}
-                      removeTodoList={removeTodoList}
-                      changeTodoListTitle={changeTodoListTitle}
-                    />
-                  </Paper>
-                </Grid>
-              )
-            })
-        }
+        {todoLists.map(t => {
+          return (
+            <Grid item key={t.id}>
+              <Paper style={paperAppStyles}>
+                <TodoList
+                  demo={demo}
+                  todoList={t}
+                  key={t.id}
+                  filter={t.filter}
+                  changeFilter={changeFilter}
+                  removeTodoList={removeTodoList}
+                  changeTodoListTitle={changeTodoListTitle}
+                />
+              </Paper>
+            </Grid>
+          )
+        })}
       </Grid>
     </Container>
   )
