@@ -27,6 +27,9 @@ export const appReducer = (state: InitialStateType = initialState, action: Actio
     case SET_ERROR:
       return {...state, error: action.error}
 
+    case SET_APP_INITIALISED:
+      return {...state, initialised: action.value}
+
     default:
       return {...state}
   }
