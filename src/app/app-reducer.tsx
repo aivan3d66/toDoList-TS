@@ -11,6 +11,7 @@ type ActionType = SetErrorActionType | SetStatusActionType | SetAppInitActionTyp
 
 const SET_STATUS = 'APP/SET-STATUS';
 const SET_ERROR = 'APP/SET-ERROR';
+const SET_APP_INITIALISED = 'APP/SET-SET_APP_INITIALISED';
 
 const initialState: InitialStateType = {
   status: 'idle',
