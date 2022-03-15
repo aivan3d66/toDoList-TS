@@ -1,11 +1,16 @@
 import React from "react";
 import {Button, Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, Grid, TextField} from "@mui/material";
 import {useFormik} from "formik";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {getAuth} from "../../state/login-reducer";
+import {AppRootState} from "../../state/redux-store";
+import {Navigate} from "react-router-dom";
+import {ROUTES} from "../../common/constants";
 
 export const Login = () => {
   const dispatch = useDispatch();
+  const isLoggedIn = useSelector<AppRootState>(state => state.auth.isLoginIn)
+
   const formik = useFormik({
     validate: (values) => {
       if (!values.email) {
