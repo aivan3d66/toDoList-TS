@@ -16,9 +16,9 @@ const initialState = {
 
 export const loginReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
   switch (action.type) {
-    case GET_AUTH:
+    case LOGGED_IN:
       return {
-        ...state
+        ...state, isLoginIn: action.value
       }
 
     default:
