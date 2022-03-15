@@ -27,10 +27,7 @@ export const loginReducer = (state = initialState, action: ActionsTypes): Initia
 }
 
 const actions = {
-  getAuth: () => ({
-    type: GET_AUTH,
-    payload: {}
-  } as const)
+  setIsLoggedIn: (value: boolean) => ({type: LOGGED_IN, value} as const),
 }
 
 export const getAuth = (email: string, password: string, rememberMe: boolean, captcha: string): ThunkType => async (dispatch) => {
