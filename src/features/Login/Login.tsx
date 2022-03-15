@@ -32,7 +32,10 @@ export const Login = () => {
     onSubmit: values => {
       dispatch(getAuth(values))
     }
-  })
+  });
+
+  if (isLoggedIn) return <Navigate to={ROUTES.APP}/>
+
   return (
     <Grid item style={{
       display: "flex",
