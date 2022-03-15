@@ -44,4 +44,19 @@ export const getAuth = (data: LoginParamsType): ThunkType => async (dispatch) =>
     .catch(error => {
       handleServerNetworkError(error, dispatch)
     })
+};
+export const getLogOut = (): ThunkType => async (dispatch) => {
+  dispatch(setAppStatus('loading'));
+  authAPI.logout()
+    .then(response => {
+      if (response.data.resultCode === ResultCode.Success) {
+        dispatch(actions.setIsLoggedIn(false));
+        dispatch(setAppStatus('succeeded'));
+      } else {
+        handleServerAppError(response.data, dispatch)
+      }
+    })
+    .catch(error => {
+      handleServerNetworkError(error, dispatch)
+    })
 }
