@@ -1,6 +1,6 @@
 import {BaseThunksType, InferActionsTypes } from "./redux-store";
 import {setAppStatus, SetStatusActionType} from "../app/app-reducer";
-import {authAPI} from "../api/auth-api";
+import {authAPI, LoginParamsType} from "../api/auth-api";
 import {ResultCode} from "../api/api";
 import {handleServerAppError, handleServerNetworkError} from "../utils/error-utils";
 
@@ -8,8 +8,7 @@ type InitialStateType = typeof initialState;
 type ActionsTypes = InferActionsTypes<typeof actions> | SetStatusActionType;
 type ThunkType = BaseThunksType<ActionsTypes>;
 
-const GET_AUTH = 'GET_AUTH';
-const LOGIN = 'LOGIN';
+const LOGGED_IN = 'login/LOGGED_IN';
 
 const initialState = {};
 
