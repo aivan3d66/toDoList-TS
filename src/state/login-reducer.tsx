@@ -30,12 +30,12 @@ const actions = {
   setIsLoggedIn: (value: boolean) => ({type: LOGGED_IN, value} as const),
 }
 
-export const getAuth = (email: string, password: string, rememberMe: boolean, captcha: string): ThunkType => async (dispatch) => {
+export const getAuth = (data: LoginParamsType): ThunkType => async (dispatch) => {
   dispatch(setAppStatus('loading'));
-  authAPI.login(email, password, rememberMe, captcha)
+  authAPI.login(data)
     .then(response => {
       if (response.data.resultCode === ResultCode.Success) {
-        alert('Yeeeee');
+        dispatch(actions.setIsLoggedIn(true));
         dispatch(setAppStatus('succeeded'));
       } else {
         handleServerAppError(response.data, dispatch)
