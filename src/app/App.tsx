@@ -1,7 +1,7 @@
 import React, {useCallback, useEffect} from 'react';
 import './App.css';
 import AppBar from '@mui/material/AppBar';
-import {Toolbar, IconButton, Typography, Container, LinearProgress, CircularProgress, Button} from '@mui/material';
+import {Toolbar, IconButton, Container, LinearProgress, CircularProgress, Button} from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import {getTodoListsThunk,} from "../state/todolist-reducer";
 import {useDispatch, useSelector} from "react-redux";
@@ -9,7 +9,7 @@ import {AppRootState} from '../state/redux-store';
 import ErrorSnackbar from "../components/ErrorSnackbar/ErrorSnackbar";
 import {initialApp, StatusType} from "./app-reducer";
 import {Login} from "../features/Login/Login";
-import {Routes, Route, NavLink} from 'react-router-dom';
+import {Routes, Route} from 'react-router-dom';
 import {TodoListsList} from '../features/TodoListLists/TodoListsList';
 import {ROUTES} from '../common/constants';
 import {getLogOut} from "../state/login-reducer";
