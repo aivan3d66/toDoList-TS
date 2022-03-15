@@ -53,15 +53,7 @@ export const App: React.FC<AppPropsTpe> = ({demo = false}) => {
           >
             <MenuIcon/>
           </IconButton>
-          <Typography variant="h6" component="div" sx={{flexGrow: 1}}>
-            <NavLink to={ROUTES.LOGIN} style={{
-              color: "#ffffff",
-              textDecoration: "none",
-            }}>
-              Login
-            </NavLink>
-          </Typography>
-
+          {isLoggedIn && <Button color="inherit" onClick={logOutHandler}>Log out</Button>}
         </Toolbar>
 
         <div style={{
