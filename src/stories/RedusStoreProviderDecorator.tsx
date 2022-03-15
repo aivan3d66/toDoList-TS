@@ -116,7 +116,8 @@ const initialGlobalState: AppRootState = {
   },
   app: {
     status: 'idle',
-    error: null
+    error: null,
+    initialised: true
   },
 }
 
