@@ -11,3 +11,8 @@ export const FILTERS: Filters = {
 }
 
 export const SET_ERROR_NAME = 'Field is required';
+
+export const ROUTES = {
+  LOGIN: "/login",
+  APP: "/toDoList-TS",
+}
