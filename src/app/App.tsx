@@ -1,7 +1,7 @@
-import React, {useEffect} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import './App.css';
 import AppBar from '@mui/material/AppBar';
-import {Toolbar, IconButton, Typography, Container, LinearProgress, CircularProgress} from '@mui/material';
+import {Toolbar, IconButton, Typography, Container, LinearProgress, CircularProgress, Button} from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import {getTodoListsThunk,} from "../state/todolist-reducer";
 import {useDispatch, useSelector} from "react-redux";
@@ -12,6 +12,7 @@ import {Login} from "../features/Login/Login";
 import {Routes, Route, NavLink} from 'react-router-dom';
 import {TodoListsList} from '../features/TodoListLists/TodoListsList';
 import {ROUTES} from '../common/constants';
+import {getLogOut} from "../state/login-reducer";
 
 type AppPropsTpe = { demo?: boolean };
 
@@ -19,6 +20,7 @@ export const App: React.FC<AppPropsTpe> = ({demo = false}) => {
   const dispatch = useDispatch();
   const status = useSelector<AppRootState, StatusType>(state => state.app.status);
   const initialised = useSelector<AppRootState>(state => state.app.initialised);
+  const isLoggedIn = useSelector<AppRootState>(state => state.auth.isLoginIn)
 
   useEffect(() => {
     dispatch(initialApp());
@@ -26,6 +28,10 @@ export const App: React.FC<AppPropsTpe> = ({demo = false}) => {
       dispatch(getTodoListsThunk())
     }
   }, []);
+
+  const logOutHandler = useCallback(() => {
+    dispatch(getLogOut());
+  }, [])
 
   if (!initialised) {
     return <CircularProgress style={{
