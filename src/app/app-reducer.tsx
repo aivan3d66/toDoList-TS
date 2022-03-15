@@ -6,7 +6,8 @@ export type InitialStateType = {
 };
 export type SetErrorActionType = ReturnType<typeof setAppError>;
 export type SetStatusActionType = ReturnType<typeof setAppStatus>;
-type ActionType = SetErrorActionType | SetStatusActionType;
+export type SetAppInitActionType = ReturnType<typeof setAppInitialised>;
+type ActionType = SetErrorActionType | SetStatusActionType | SetAppInitActionType;
 
 const SET_STATUS = 'APP/SET-STATUS';
 const SET_ERROR = 'APP/SET-ERROR';
