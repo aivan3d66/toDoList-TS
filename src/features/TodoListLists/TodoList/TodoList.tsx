@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect} from "react";
-import {ChangeFilter, ChangeTodoListTitleType, RemoveTodoList} from "../../../app/App";
+import {ChangeFilter, ChangeTodoListTitleType, RemoveTodoList} from "../TodoListsList";
 import {FILTERS} from "../../../common/constants";
 import '../../../app/App.css';
 import {AddItemForm} from "../../../components/AddItemForm/AddItemForm";
