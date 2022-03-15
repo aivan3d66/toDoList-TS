@@ -37,3 +37,4 @@ export const appReducer = (state: InitialStateType = initialState, action: Actio
 
 export const setAppError = (error: string | null) => ({type: SET_ERROR, error} as const)
 export const setAppStatus = (status: StatusType) => ({type: SET_STATUS, status} as const)
+export const setAppInitialised = (value: boolean) => ({type: SET_APP_INITIALISED, value} as const)
