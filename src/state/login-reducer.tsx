@@ -10,7 +10,9 @@ type ThunkType = BaseThunksType<ActionsTypes>;
 
 const LOGGED_IN = 'login/LOGGED_IN';
 
-const initialState = {};
+const initialState = {
+  isLoginIn: false,
+};
 
 export const loginReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
   switch (action.type) {
