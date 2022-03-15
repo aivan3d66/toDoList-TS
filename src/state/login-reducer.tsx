@@ -26,7 +26,7 @@ export const loginReducer = (state = initialState, action: ActionsTypes): Initia
   }
 }
 
-const actions = {
+export const actions = {
   setIsLoggedIn: (value: boolean) => ({type: LOGGED_IN, value} as const),
 }
 
