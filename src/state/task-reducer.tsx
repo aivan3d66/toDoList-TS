@@ -6,7 +6,8 @@ import {ThunkAction} from "redux-thunk";
 import {ResultCode} from "../api/api";
 import {setAppError, SetErrorActionType, setAppStatus, SetStatusActionType} from "../app/app-reducer";
 import {handleServerAppError, handleServerNetworkError} from "../utils/error-utils";
-import {AppRootState} from "./redux-store";
+import {AppRootState, InferActionsTypes} from "./redux-store";
+
 const REMOVE_TASK = 'REMOVE_TASK';
 const ADD_TASK = 'ADD_TASK';
 const ADD_TODOLIST = 'ADD_TODOLIST';
@@ -14,42 +15,9 @@ const REMOVE_TODOLIST = 'REMOVE_TODOLIST';
 const GET_ALL_TASKS = 'GET_ALL_TASKS';
 const UPDATE_TASK = 'UPDATE_TASK';
 
-export type RemoveTaskActionType = ReturnType<typeof removeTaskAC>;
-export type AddTaskActionType = ReturnType<typeof addTaskAC>;
-export type GetAllTodoListTasksActionType = ReturnType<typeof getAllTodoListTasksAC>;
-export type UpdateTodoListTask = ReturnType<typeof updateTaskAC>;
-export type UpdateDomainTaskModelType = {
-  description?: string,
-  title?: string,
-  status?: TaskStatuses,
-  priority?: TaskPriorities,
-  startDate?: string,
-  deadline?: string,
-};
-
-type AddTodoListActionType = ReturnType<typeof todoListActions.addTodoListAC>;
-type RemoveTodoListActionType = ReturnType<typeof todoListActions.removeTodoListAC>;
-type GetAllTodoListActionType = ReturnType<typeof todoListActions.getAllTodoListAC>;
-
-export type GeneraTasksActionType =
-  RemoveTaskActionType
-  | AddTaskActionType
-  | AddTodoListActionType
-  | RemoveTodoListActionType
-  | GetAllTodoListActionType
-  | GetAllTodoListTasksActionType
-  | UpdateTodoListTask
-  | SetErrorActionType
-  | SetStatusActionType
-
-export type TodoListTasksType = {
-  [key: string]: Array<TasksResponseType>,
-}
-type ThunkType = ThunkAction<void, AppRootState, unknown, GeneraTasksActionType>;
-
 export const initialTasksState: TodoListTasksType = {};
 
-export const taskReducer = (state = initialTasksState, action: GeneraTasksActionType): TodoListTasksType => {
+export const taskReducer = (state = initialTasksState, action: ActionsTypes): TodoListTasksType => {
   switch (action.type) {
     case REMOVE_TASK:
       return {
