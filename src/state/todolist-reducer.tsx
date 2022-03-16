@@ -102,14 +102,20 @@ export const getTodoListsThunk = (): ThunkType => async (dispatch) => {
     })
 };
 export const setTodoListsThunk = (title: string): ThunkType => async (dispatch) => {
-  try {
-    const response = await todoListsAPI.setTodoLists(title);
-    if (response.data) {
-      dispatch(addTodoListAC(response.data.data.item));
-    }
-  } catch (e) {
-    alert(e)
-  }
+  dispatch(setAppStatus('loading'));
+  todoListsAPI.setTodoLists(title)
+    .then(response => {
+      if (response.resultCode === ResultCode.Success) {
+        dispatch(addTodoListAC(response.data.item));
+        dispatch(setAppStatus('succeeded'));
+      } else {
+        handleServerAppError(response, dispatch);
+      }
+    })
+    .catch(error => {
+      handleServerNetworkError(error, dispatch);
+      dispatch(setAppStatus('failed'));
+    })
 };
 export const deleteTodoListThunk = (todoListId: string): ThunkType => async (dispatch) => {
   dispatch(setAppStatus('loading'));
