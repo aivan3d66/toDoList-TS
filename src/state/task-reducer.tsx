@@ -135,7 +135,7 @@ export const getAllTodoListTasks = (todoListId: string): ThunkType => async (dis
   tasksAPI.getAllTasks(todoListId)
     .then(response => {
       if (response.data) {
-        dispatch(getAllTodoListTasksAC(todoListId, response.data.items));
+        dispatch(tasksActions.getAllTodoListTasksAC(todoListId, response.data.items));
         dispatch(setAppStatus('succeeded'));
       } else {
         handleServerAppError(response.data, dispatch)
@@ -150,7 +150,7 @@ export const setNewTodoListTask = (todoListId: string, title: string): ThunkType
   tasksAPI.addTask(todoListId, title)
     .then(response => {
       if (response.resultCode === ResultCode.Success) {
-        dispatch(addTaskAC(response.data.item));
+        dispatch(tasksActions.addTaskAC(response.data.item));
       } else {
         handleServerAppError(response, dispatch)
       }
@@ -165,7 +165,7 @@ export const deleteTodoListTask = (todoListId: string, taskId: string): ThunkTyp
   tasksAPI.deleteTask(todoListId, taskId)
     .then(response => {
       if (response.data.resultCode === ResultCode.Success) {
-        dispatch(removeTaskAC(todoListId, taskId));
+        dispatch(tasksActions.removeTaskAC(todoListId, taskId));
         dispatch(setAppStatus('succeeded'));
       }
     })
@@ -195,7 +195,7 @@ export const updateTodoListTask = (todoListId: string, taskId: string, domainMod
   tasksAPI.updateTask(todoListId, taskId, apiModel)
     .then(res => {
       if (res.data.resultCode === ResultCode.Success) {
-        dispatch(updateTaskAC(todoListId, taskId, domainModel));
+        dispatch(tasksActions.updateTaskAC(todoListId, taskId, domainModel));
       } else {
         handleServerAppError(res.data, dispatch)
       }
