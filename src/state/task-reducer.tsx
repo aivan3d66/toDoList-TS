@@ -29,6 +29,11 @@ export type UpdateDomainTaskModelType = {
   startDate?: string,
   deadline?: string,
 };
+
+type AddTodoListActionType = ReturnType<typeof todoListActions.addTodoListAC>;
+type RemoveTodoListActionType = ReturnType<typeof todoListActions.removeTodoListAC>;
+type GetAllTodoListActionType = ReturnType<typeof todoListActions.getAllTodoListAC>;
+
 export type GeneraTasksActionType =
   RemoveTaskActionType
   | AddTaskActionType
