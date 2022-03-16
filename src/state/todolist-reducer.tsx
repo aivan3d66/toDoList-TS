@@ -57,33 +57,35 @@ export const todoListsReducer = (state = initialTodoList, action: ActionType): A
   }
 };
 
-export const getAllTodoListAC = (todoLists: Array<TodoListType>) => ({
-  type: GET_ALL_TODOS,
-  todoLists
-} as const);
-export const removeTodoListAC = (todoListId: string) => ({
-  type: REMOVE_TODOLIST,
-  todoListId
-} as const);
-export const changeTodoListTitleAC = (id: string, title: string) => ({
-  type: CHANGE_TODOLIST_TITLE,
-  id,
-  title
-} as const);
-export const addTodoListAC = (todoList: TodoListType) => ({
-  type: ADD_TODOLIST,
-  todoList,
-} as const);
-export const changeTodoListFilterAC = (id: string, filter: FilterValueType) => ({
-  type: CHANGE_TODOLIST_FILTER,
-  id,
-  filter
-} as const);
-export const changeTodoListEntityStatus = (id: string, status: StatusType) => ({
-  type: CHANGE_TODOLIST_STATUS,
-  id,
-  status
-} as const);
+export const todoListActions = {
+  getAllTodoListAC: (todoLists: Array<TodoListType>) => ({
+    type: GET_ALL_TODOS,
+    todoLists
+  } as const),
+  removeTodoListAC: (todoListId: string) => ({
+    type: REMOVE_TODOLIST,
+    todoListId
+  } as const),
+  changeTodoListTitleAC: (id: string, title: string) => ({
+    type: CHANGE_TODOLIST_TITLE,
+    id,
+    title
+  } as const),
+  addTodoListAC: (todoList: TodoListType) => ({
+    type: ADD_TODOLIST,
+    todoList,
+  } as const),
+  changeTodoListFilterAC: (id: string, filter: FilterValueType) => ({
+    type: CHANGE_TODOLIST_FILTER,
+    id,
+    filter
+  } as const),
+  changeTodoListEntityStatus: (id: string, status: StatusType) => ({
+    type: CHANGE_TODOLIST_STATUS,
+    id,
+    status
+  } as const),
+};
 
 export const getTodoListsThunk = (): ThunkType => async (dispatch) => {
   dispatch(setAppStatus('loading'));
