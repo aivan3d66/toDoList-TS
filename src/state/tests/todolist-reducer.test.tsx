@@ -1,8 +1,6 @@
 import {
-  addTodoListAC, changeTodoListEntityStatus,
-  changeTodoListFilterAC,
-  changeTodoListTitleAC, getAllTodoListAC,
-  removeTodoListAC, TodoListDomainType,
+  todoListActions,
+  TodoListDomainType,
   todoListsReducer
 } from "../todolist-reducer";
 import {v1} from "uuid";
@@ -54,7 +52,7 @@ test('current todolist should be removed', () => {
 
     }
   ]
-  const endState = todoListsReducer(startState, removeTodoListAC(todoListId1))
+  const endState = todoListsReducer(startState, todoListActions.removeTodoListAC(todoListId1))
 
   expect(endState.length).toBe(1);
   expect(endState[0].id).toBe(todoListId2)
@@ -90,7 +88,7 @@ test('current todolist should be added', () => {
     order: 0,
   }
 
-  const endState = todoListsReducer(startState, addTodoListAC(newObj));
+  const endState = todoListsReducer(startState, todoListActions.addTodoListAC(newObj));
 
   expect(endState.length).toBe(3);
   expect(endState[0].title).toBe("New TodoList")
@@ -121,7 +119,7 @@ test('current todolist should change his name', () => {
     }
   ]
 
-  const action = changeTodoListTitleAC(todoListId2, newTodoListTitle)
+  const action = todoListActions.changeTodoListTitleAC(todoListId2, newTodoListTitle)
 
   const endState = todoListsReducer(startState, action)
 
@@ -153,7 +151,7 @@ test('current filter should be changed', () => {
     }
   ]
 
-  const action = changeTodoListFilterAC(todoListId2, newFilter)
+  const action = todoListActions.changeTodoListFilterAC(todoListId2, newFilter)
 
   const endState = todoListsReducer(startState, action)
 
@@ -163,7 +161,7 @@ test('current filter should be changed', () => {
 
 test('todoLists should be added', () => {
 
-  const endState = todoListsReducer([], getAllTodoListAC(startState))
+  const endState = todoListsReducer([], todoListActions.getAllTodoListAC(startState))
 
   expect(endState.length).toBe(2);
   expect(endState[0].id).toBe(todoListId1)
@@ -193,7 +191,7 @@ test('current entity status should be changed', () => {
     }
   ]
 
-  const action = changeTodoListEntityStatus(todoListId2, newStatus)
+  const action = todoListActions.changeTodoListEntityStatus(todoListId2, newStatus)
 
   const endState = todoListsReducer(startState, action)
 

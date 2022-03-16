@@ -6,7 +6,7 @@ import {
   TodoListTasksType,
   updateTaskAC
 } from "../task-reducer";
-import {removeTodoListAC, todoListId1} from "../todolist-reducer";
+import {todoListActions, todoListId1} from "../todolist-reducer";
 import {TaskPriorities, TaskStatuses} from "../../api/tasks-api";
 
 export const startState: TodoListTasksType = {
@@ -141,7 +141,7 @@ test('current task checkbox should be changed', () => {
 });
 
 test('property with todolistId should be deleted', () => {
-  const action = removeTodoListAC("todolistId2");
+  const action = todoListActions.removeTodoListAC("todolistId2");
 
   const endState = taskReducer(startState, action)
 

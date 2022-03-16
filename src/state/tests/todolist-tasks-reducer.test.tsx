@@ -1,4 +1,4 @@
-import {addTodoListAC, TodoListDomainType, todoListsReducer, TodoListType} from "../todolist-reducer";
+import {todoListActions, TodoListDomainType, todoListsReducer, TodoListType} from "../todolist-reducer";
 import {taskReducer, TodoListTasksType} from "../task-reducer";
 
 test('new array should be added when new todolist is added', () => {
@@ -10,7 +10,7 @@ test('new array should be added when new todolist is added', () => {
     order: 0
   }
 
-  const action = addTodoListAC(newTodoList);
+  const action = todoListActions.addTodoListAC(newTodoList);
 
   const endState = taskReducer(startTasksState, action)
 
@@ -35,7 +35,7 @@ test('ids should be equals', () => {
     order: 0
   }
 
-  const action = addTodoListAC(newTodoList);
+  const action = todoListActions.addTodoListAC(newTodoList);
   const endTasksState = taskReducer(startTasksState, action)
   const endTodoListsState = todoListsReducer(startTodoListsState, action)
 
