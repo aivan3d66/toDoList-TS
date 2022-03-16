@@ -107,26 +107,28 @@ export const taskReducer = (state = initialTasksState, action: GeneraTasksAction
   }
 };
 
-export const removeTaskAC = (todoListId: string, id: string) => ({
-  type: REMOVE_TASK,
-  todoListId: todoListId,
-  id: id,
-} as const);
-export const addTaskAC = (task: TasksResponseType) => ({
-  type: ADD_TASK,
-  task: task
-} as const);
-export const getAllTodoListTasksAC = (todoListId: string, tasksList: Array<TasksResponseType>) => ({
-  type: GET_ALL_TASKS,
-  todoListId: todoListId,
-  tasksList: tasksList,
-} as const);
-export const updateTaskAC = (todoListId: string, taskId: string, model: UpdateDomainTaskModelType) => ({
-  type: UPDATE_TASK,
-  todoListId: todoListId,
-  taskId: taskId,
-  model: model,
-} as const);
+export const tasksActions = {
+  removeTaskAC: (todoListId: string, id: string) => ({
+    type: REMOVE_TASK,
+    todoListId: todoListId,
+    id: id,
+  } as const),
+  addTaskAC: (task: TasksResponseType) => ({
+    type: ADD_TASK,
+    task: task
+  } as const),
+  getAllTodoListTasksAC: (todoListId: string, tasksList: Array<TasksResponseType>) => ({
+    type: GET_ALL_TASKS,
+    todoListId: todoListId,
+    tasksList: tasksList,
+  } as const),
+  updateTaskAC: (todoListId: string, taskId: string, model: UpdateDomainTaskModelType) => ({
+    type: UPDATE_TASK,
+    todoListId: todoListId,
+    taskId: taskId,
+    model: model,
+  } as const),
+};
 
 export const getAllTodoListTasks = (todoListId: string): ThunkType => async (dispatch) => {
   dispatch(setAppStatus('loading'))
