@@ -3,10 +3,9 @@ import {Container, Grid, Paper} from "@mui/material";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootState} from "../../state/redux-store";
 import {
-  changeTodoListFilterAC,
   deleteTodoListThunk, FilterValueType,
   getTodoListsThunk,
-  setTodoListsThunk,
+  setTodoListsThunk, todoListActions,
   TodoListDomainType, updateTodoListTitleThunk
 } from "../../state/todolist-reducer";
 import {TodoList} from "./TodoList/TodoList";
@@ -62,7 +61,7 @@ export const TodoListsList: React.FC<TodoListsListPropsType> = ({demo}) => {
   }, [dispatch]);
 
   const changeFilter = useCallback((todoListId: string, value: FilterValueType) => {
-    dispatch(changeTodoListFilterAC(todoListId, value));
+    dispatch(todoListActions.changeTodoListFilterAC(todoListId, value));
   }, [dispatch]);
 
   if (!isLoggedIn) return <Navigate to={ROUTES.LOGIN}/>
