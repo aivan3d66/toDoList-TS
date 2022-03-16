@@ -135,14 +135,17 @@ export const deleteTodoListThunk = (todoListId: string): ThunkType => async (dis
     })
 };
 export const updateTodoListTitleThunk = (todoListId: string, title: string): ThunkType => async (dispatch) => {
-  try {
-    const response = await todoListsAPI.updateTodoList(todoListId, title);
-    if (response.data.resultCode === ResultCode.Success) {
-      dispatch(changeTodoListTitleAC(todoListId, title));
-    }
-  } catch (e) {
-    alert(e)
-  }
+  dispatch(setAppStatus('loading'));
+  todoListsAPI.updateTodoList(todoListId, title)
+    .then(response => {
+      if (response.data.resultCode === ResultCode.Success) {
+        dispatch(changeTodoListTitleAC(todoListId, title));
+        dispatch(setAppStatus('succeeded'));
+      } else {
+        handleServerAppError(response.data, dispatch);
+        dispatch(setAppStatus('failed'));
+      }
+    })
 };
 
 // Types
