@@ -119,17 +119,20 @@ export const setTodoListsThunk = (title: string): ThunkType => async (dispatch) 
 };
 export const deleteTodoListThunk = (todoListId: string): ThunkType => async (dispatch) => {
   dispatch(setAppStatus('loading'));
-  dispatch(changeTodoListEntityStatus(todoListId, 'loading'))
-  try {
-    const response = await todoListsAPI.deleteTodoList(todoListId);
-    if (response.data.resultCode === ResultCode.Success) {
-      dispatch(removeTodoListAC(todoListId));
-      dispatch(setAppStatus('succeeded'));
-      dispatch(changeTodoListEntityStatus(todoListId, 'idle'))
-    }
-  } catch (e) {
-    alert(e)
-  }
+  todoListsAPI.deleteTodoList(todoListId)
+    .then(response => {
+      if (response.data.resultCode === ResultCode.Success) {
+        dispatch(removeTodoListAC(todoListId));
+        dispatch(setAppStatus('succeeded'));
+        dispatch(changeTodoListEntityStatus(todoListId, 'idle'));
+      } else {
+        handleServerAppError(response.data, dispatch);
+      }
+    })
+    .catch(error => {
+      handleServerNetworkError(error, dispatch);
+      dispatch(setAppStatus('failed'));
+    })
 };
 export const updateTodoListTitleThunk = (todoListId: string, title: string): ThunkType => async (dispatch) => {
   try {
