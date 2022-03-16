@@ -206,3 +206,31 @@ export const updateTodoListTask = (todoListId: string, taskId: string, domainMod
     })
 
 };
+
+// types
+
+export type UpdateDomainTaskModelType = {
+  description?: string,
+  title?: string,
+  status?: TaskStatuses,
+  priority?: TaskPriorities,
+  startDate?: string,
+  deadline?: string,
+};
+
+type AddTodoListActionType = ReturnType<typeof todoListActions.addTodoListAC>;
+type RemoveTodoListActionType = ReturnType<typeof todoListActions.removeTodoListAC>;
+type GetAllTodoListActionType = ReturnType<typeof todoListActions.getAllTodoListAC>;
+
+type ActionsTypes =
+  InferActionsTypes<typeof tasksActions>
+  | AddTodoListActionType
+  | RemoveTodoListActionType
+  | GetAllTodoListActionType
+  | SetErrorActionType
+  | SetStatusActionType;
+
+export type TodoListTasksType = {
+  [key: string]: Array<TasksResponseType>,
+}
+type ThunkType = ThunkAction<void, AppRootState, unknown, ActionsTypes>;
