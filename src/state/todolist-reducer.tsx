@@ -152,20 +152,8 @@ export const updateTodoListTitleThunk = (todoListId: string, title: string): Thu
 
 // Types
 
-export type RemoveTodoListActionType = ReturnType<typeof removeTodoListAC>
-export type AddTodoListActionType = ReturnType<typeof addTodoListAC>
-export type ChangeTodoListTitleActionType = ReturnType<typeof changeTodoListTitleAC>
-export type ChangeTodoListFilterActionType = ReturnType<typeof changeTodoListFilterAC>
-export type GetAllTodoListActionType = ReturnType<typeof getAllTodoListAC>
-export type ChangeTodoListEntityStatusActionType = ReturnType<typeof changeTodoListEntityStatus>
-export type ActionType =
-  RemoveTodoListActionType
-  | AddTodoListActionType
-  | ChangeTodoListTitleActionType
-  | ChangeTodoListFilterActionType
-  | GetAllTodoListActionType
-  | SetStatusActionType
-  | ChangeTodoListEntityStatusActionType
+type ActionsTypes = InferActionsTypes<typeof todoListActions> | SetStatusActionType;
+
 export type TodoListType = {
   id: string,
   title: string,
@@ -177,4 +165,4 @@ export type TodoListDomainType = TodoListType & {
   filter: FilterValueType,
   entityStatus: StatusType
 }
-type ThunkType = ThunkAction<void, AppRootState, unknown, ActionType>;
+type ThunkType = ThunkAction<void, AppRootState, unknown, ActionsTypes>;
