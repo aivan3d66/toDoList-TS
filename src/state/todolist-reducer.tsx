@@ -5,6 +5,7 @@ import {ThunkAction} from "redux-thunk";
 import {ResultCode} from "../api/api";
 import {setAppStatus, SetStatusActionType, StatusType} from "../app/app-reducer";
 import {AppRootState} from "./redux-store";
+import {handleServerAppError, handleServerNetworkError} from "../utils/error-utils";
 
 const REMOVE_TODOLIST = 'REMOVE_TODOLIST';
 const ADD_TODOLIST = 'ADD_TODOLIST';
@@ -86,14 +87,19 @@ export const changeTodoListEntityStatus = (id: string, status: StatusType) => ({
 
 export const getTodoListsThunk = (): ThunkType => async (dispatch) => {
   dispatch(setAppStatus('loading'));
-  try {
-    const response = await todoListsAPI.getAllTodoLists();
-    dispatch(getAllTodoListAC(response.data));
-    dispatch(setAppStatus('succeeded'));
-  } catch (e) {
-    alert(e)
-    dispatch(setAppStatus('failed'));
-  }
+  todoListsAPI.getAllTodoLists()
+    .then(response => {
+      if (response.data) {
+        dispatch(getAllTodoListAC(response.data));
+        dispatch(setAppStatus('succeeded'));
+      } else {
+        handleServerAppError(response.data, dispatch);
+      }
+    })
+    .catch(error => {
+      handleServerNetworkError(error, dispatch);
+      dispatch(setAppStatus('failed'));
+    })
 };
 export const setTodoListsThunk = (title: string): ThunkType => async (dispatch) => {
   try {
