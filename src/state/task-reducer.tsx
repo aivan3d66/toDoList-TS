@@ -1,9 +1,6 @@
 import {TaskPriorities, tasksAPI, TasksResponseType, TaskStatuses, UpdateTaskModelType} from "../api/tasks-api";
 import {
-  AddTodoListActionType,
-  GET_ALL_TODOS,
-  GetAllTodoListActionType,
-  RemoveTodoListActionType
+  GET_ALL_TODOS, todoListActions,
 } from "./todolist-reducer";
 import {ThunkAction} from "redux-thunk";
 import {ResultCode} from "../api/api";
