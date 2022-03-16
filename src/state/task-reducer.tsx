@@ -128,17 +128,19 @@ export const updateTaskAC = (todoListId: string, taskId: string, model: UpdateDo
 
 export const getAllTodoListTasks = (todoListId: string): ThunkType => async (dispatch) => {
   dispatch(setAppStatus('loading'))
-  try {
-    const response = await tasksAPI.getAllTasks(todoListId);
-    if (response.data) {
-      dispatch(getAllTodoListTasksAC(todoListId, response.data.items));
-      dispatch(setAppStatus('succeeded'));
-    }
-  } catch (e) {
-    alert(e);
-    dispatch(setAppStatus('failed'))
-  }
-
+  tasksAPI.getAllTasks(todoListId)
+    .then(response => {
+      if (response.data) {
+        dispatch(getAllTodoListTasksAC(todoListId, response.data.items));
+        dispatch(setAppStatus('succeeded'));
+      } else {
+        handleServerAppError(response.data, dispatch)
+      }
+    })
+    .catch(error => {
+      handleServerNetworkError(error, dispatch)
+      dispatch(setAppStatus('failed'))
+    })
 };
 export const setNewTodoListTask = (todoListId: string, title: string): ThunkType => async (dispatch) => {
   tasksAPI.addTask(todoListId, title)
