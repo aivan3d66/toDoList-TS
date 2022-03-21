@@ -66,7 +66,7 @@ export const App: React.FC<AppPropsTpe> = ({demo = false}) => {
       <Container fixed>
         <Routes>
           <Route path={ROUTES.LOGIN} element={<Login/>}/>
-          <Route path={ROUTES.APP} element={<TodoListsList demo={demo}/>}/>
+          <Route path={ROUTES.HOME} element={<TodoListsList demo={demo}/>}/>
         </Routes>
       </Container>
       <ErrorSnackbar/>
