@@ -34,7 +34,7 @@ export const Login = () => {
     }
   });
 
-  if (isLoggedIn) return <Navigate to={ROUTES.APP}/>
+  if (isLoggedIn) return <Navigate to={ROUTES.HOME}/>
 
   return (
     <Grid item style={{
