@@ -67,6 +67,7 @@ export const App: React.FC<AppPropsTpe> = ({demo = false}) => {
         <Routes>
           <Route path={ROUTES.LOGIN} element={<Login/>}/>
           <Route path={ROUTES.HOME} element={<TodoListsList demo={demo}/>}/>
+          <Route path='*' element={<h1 style={{textAlign:"center"}}>404 Page not found</h1>}/>
         </Routes>
       </Container>
       <ErrorSnackbar/>
