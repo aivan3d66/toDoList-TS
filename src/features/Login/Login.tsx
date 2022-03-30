@@ -7,6 +7,13 @@ import {AppRootState} from "../../state/redux-store";
 import {Navigate} from "react-router-dom";
 import {ROUTES} from "../../common/constants";
 
+const errorStyles = {
+  padding: "8px",
+  color: "white",
+  borderRadius: "5px",
+  backgroundColor: "red"
+}
+
 export const Login = () => {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector<AppRootState>(state => state.auth.isLoginIn)
@@ -65,14 +72,14 @@ export const Login = () => {
               margin="normal"
               {...formik.getFieldProps("email")}
             />
-            {formik.errors.email ? <span>{formik.errors.email}</span> : null}
+            {formik.errors.email ? <span style={errorStyles}>{formik.errors.email}</span> : null}
             <TextField
               type={"password"}
               label="Password"
               margin="normal"
               {...formik.getFieldProps("password")}
             />
-            {formik.errors.password ? <span>{formik.errors.password}</span> : null}
+            {formik.errors.password ? <span style={errorStyles}>{formik.errors.password}</span> : null}
             <FormControlLabel
               control={<Checkbox name="rememberMe"/>}
               label={"Remember me"}
