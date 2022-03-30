@@ -13,6 +13,7 @@ const ADD_TODOLIST = 'ADD_TODOLIST';
 const CHANGE_TODOLIST_TITLE = 'CHANGE_TODOLIST_TITLE';
 const CHANGE_TODOLIST_FILTER = 'CHANGE_TODOLIST_FILTER';
 const CHANGE_TODOLIST_STATUS = 'CHANGE_TODOLIST_STATUS';
+export const CLEAR_TODOLIST = 'CLEAR_TODOLIST';
 export const GET_ALL_TODOS = 'GET_ALL_TODOS';
 
 export const todoListId1 = v1();
@@ -53,8 +54,11 @@ export const todoListsReducer = (state = initialTodoList, action: ActionsTypes):
       return [...state.map(m => m.id === action.id ? {...m, entityStatus: action.status} : m)]
     }
 
+    case CLEAR_TODOLIST:
+      return [];
+
     default:
-      return state
+      return state;
   }
 };
 
@@ -86,6 +90,7 @@ export const todoListActions = {
     id,
     status
   } as const),
+  clearTodoData: () => ({type: CLEAR_TODOLIST} as const)
 };
 
 export const getTodoListsThunk = (): ThunkType => async (dispatch) => {

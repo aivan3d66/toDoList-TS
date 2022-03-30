@@ -1,5 +1,6 @@
 import {TaskPriorities, tasksAPI, TasksResponseType, TaskStatuses, UpdateTaskModelType} from "../api/tasks-api";
 import {
+  CLEAR_TODOLIST,
   GET_ALL_TODOS, todoListActions,
 } from "./todolist-reducer";
 import {ThunkAction} from "redux-thunk";
@@ -69,6 +70,9 @@ export const taskReducer = (state = initialTasksState, action: ActionsTypes): To
       delete stateCopy[action.todoListId]
       return stateCopy
     }
+
+    case CLEAR_TODOLIST:
+      return {};
 
     default:
       return state
@@ -196,7 +200,8 @@ type ActionsTypes =
   | RemoveTodoListActionType
   | GetAllTodoListActionType
   | SetErrorActionType
-  | SetStatusActionType;
+  | SetStatusActionType
+  | ReturnType<typeof todoListActions.clearTodoData>;
 
 export type TodoListTasksType = {
   [key: string]: Array<TasksResponseType>,
