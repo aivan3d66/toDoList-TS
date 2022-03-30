@@ -3,9 +3,10 @@ import {setAppStatus, SetStatusActionType} from "../app/app-reducer";
 import {authAPI, LoginParamsType} from "../api/auth-api";
 import {ResultCode} from "../api/api";
 import {handleServerAppError, handleServerNetworkError} from "../utils/error-utils";
+import {todoListActions} from "./todolist-reducer";
 
 type InitialStateType = typeof initialState;
-type ActionsTypes = InferActionsTypes<typeof actions> | SetStatusActionType;
+type ActionsTypes = InferActionsTypes<typeof actions> | SetStatusActionType | ReturnType<typeof todoListActions.clearTodoData>;
 type ThunkType = BaseThunksType<ActionsTypes>;
 
 const LOGGED_IN = 'login/LOGGED_IN';
@@ -52,6 +53,7 @@ export const getLogOut = (): ThunkType => async (dispatch) => {
       if (response.data.resultCode === ResultCode.Success) {
         dispatch(actions.setIsLoggedIn(false));
         dispatch(setAppStatus('succeeded'));
+        dispatch(todoListActions.clearTodoData())
       } else {
         handleServerAppError(response.data, dispatch)
       }
