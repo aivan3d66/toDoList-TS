@@ -6,6 +6,7 @@ import {ResultCode} from "../api/api";
 import {setAppStatus, SetStatusActionType, StatusType} from "../app/app-reducer";
 import {AppRootState, InferActionsTypes} from "./redux-store";
 import {handleServerAppError, handleServerNetworkError} from "../utils/error-utils";
+import { getAllTodoListTasks } from "./task-reducer";
 
 const REMOVE_TODOLIST = 'REMOVE_TODOLIST';
 const ADD_TODOLIST = 'ADD_TODOLIST';
@@ -94,6 +95,7 @@ export const getTodoListsThunk = (): ThunkType => async (dispatch) => {
       if (response.data) {
         dispatch(todoListActions.getAllTodoListAC(response.data));
         dispatch(setAppStatus('succeeded'));
+        return response.data
       } else {
         handleServerAppError(response.data, dispatch);
       }
@@ -101,6 +103,12 @@ export const getTodoListsThunk = (): ThunkType => async (dispatch) => {
     .catch(error => {
       handleServerNetworkError(error, dispatch);
       dispatch(setAppStatus('failed'));
+    })
+    .then((todos) => {
+        // @ts-ignore
+      todos.forEach((tl) => {
+          dispatch(getAllTodoListTasks(tl.id))
+        })
     })
 };
 export const setTodoListsThunk = (title: string): ThunkType => async (dispatch) => {
