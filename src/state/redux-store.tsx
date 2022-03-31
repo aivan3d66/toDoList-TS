@@ -1,9 +1,10 @@
-import {createStore, combineReducers, applyMiddleware, Action} from "redux";
+import {combineReducers, Action} from "redux";
 import {taskReducer} from "./task-reducer";
 import {todoListsReducer} from "./todolist-reducer";
 import thunkMiddleware, {ThunkAction} from "redux-thunk";
 import {appReducer} from "../app/app-reducer";
 import {loginReducer} from "./login-reducer";
+import {configureStore} from '@reduxjs/toolkit';
 
 type PropertiesType<T> = T extends { [key: string]: infer U } ? U : never;
 export type InferActionsTypes<T extends { [key: string]: (...args: any[]) => any }> = ReturnType<PropertiesType<T>>
@@ -18,7 +19,14 @@ const rootReducer = combineReducers({
   auth: loginReducer,
 })
 
-const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
+// const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
+
+const store = configureStore({
+  reducer: rootReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware()
+      .prepend(thunkMiddleware)
+})
 
 // @ts-ignore
 window.store = store;
