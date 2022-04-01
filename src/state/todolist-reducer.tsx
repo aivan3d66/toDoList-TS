@@ -18,22 +18,22 @@ export const todoListSlice = createSlice({
   initialState: initialTodoList,
   reducers: {
     getAllTodoListAC: (state, action: PayloadAction<{ todoLists: Array<TodoListType> }>) => {
-      return action.payload.todoLists.map(tl => ({...tl, filter: FILTERS.ALL, entityStatus: 'idle'}))
+      return action.payload.todoLists.map(tl => ({...tl, filter: FILTERS.ALL, entityStatus: 'idle'}));
     },
     addTodoListAC: (state, action: PayloadAction<{ todoList: TodoListType }>) => {
-      state.unshift({...action.payload.todoList, filter: FILTERS.ALL, entityStatus: 'idle'})
+      state.push({...action.payload.todoList, filter: FILTERS.ALL, entityStatus: 'idle'});
     },
     removeTodoListAC: (state, action: PayloadAction<{ todoListId: string }>) => {
       state.findIndex(tl => tl.id === action.payload.todoListId) > -1 && state.splice(state.findIndex(tl => tl.id === action.payload.todoListId), 1);
     },
     changeTodoListTitleAC: (state, action: PayloadAction<{ id: string, title: string }>) => {
-      state.filter(tl => tl.id === action.payload.id ? tl.title = action.payload.title : tl)
+      state.filter(tl => tl.id === action.payload.id ? tl.title = action.payload.title : tl);
     },
     changeTodoListFilterAC: (state, action: PayloadAction<{ id: string, filter: FilterValueType }>) => {
-      state[state.findIndex(tl => tl.id === action.payload.id)].filter = action.payload.filter
+      state[state.findIndex(tl => tl.id === action.payload.id)].filter = action.payload.filter;
     },
     changeTodoListEntityStatus: (state, action: PayloadAction<{ id: string, status: StatusType }>) => {
-      state[state.findIndex(tl => tl.id === action.payload.id)].entityStatus = action.payload.status
+      state[state.findIndex(tl => tl.id === action.payload.id)].entityStatus = action.payload.status;
     },
     clearTodoData: (state) => {
       state.splice(0)
@@ -82,6 +82,7 @@ export const setTodoListsThunk = (title: string): ThunkType => async (dispatch) 
       if (response.resultCode === ResultCode.Success) {
         dispatch(addTodoListAC({todoList: response.data.item}));
         dispatch(setAppStatus({status: 'succeeded'}));
+        dispatch(getTodoListsThunk());
       } else {
         handleServerAppError(response, dispatch);
       }
@@ -98,7 +99,6 @@ export const deleteTodoListThunk = (todoListId: string): ThunkType => async (dis
       if (response.data.resultCode === ResultCode.Success) {
         dispatch(removeTodoListAC({todoListId: todoListId}));
         dispatch(setAppStatus({status: 'succeeded'}));
-        dispatch(changeTodoListEntityStatus({id: todoListId, status: 'idle'}));
       } else {
         handleServerAppError(response.data, dispatch);
       }
