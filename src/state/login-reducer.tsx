@@ -3,13 +3,13 @@ import {setAppStatus, SetStatusActionType} from "../app/app-reducer";
 import {authAPI, LoginParamsType} from "../api/auth-api";
 import {ResultCode} from "../api/api";
 import {handleServerAppError, handleServerNetworkError} from "../utils/error-utils";
-import {todoListActions} from "./todolist-reducer";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {clearTodoData} from "./todolist-reducer";
 
 type ActionsTypes =
   InferActionsTypes<typeof slice.actions>
   | SetStatusActionType
-  | ReturnType<typeof todoListActions.clearTodoData>;
+  | ReturnType<typeof clearTodoData>;
 type ThunkType = BaseThunksType<ActionsTypes>;
 
 const initialState = {
@@ -50,12 +50,12 @@ export const getLogOut = (): ThunkType => async (dispatch) => {
       if (response.data.resultCode === ResultCode.Success) {
         dispatch(setIsLoggedIn({value: false}));
         dispatch(setAppStatus({status: 'succeeded'}));
-        dispatch(todoListActions.clearTodoData())
+        dispatch(clearTodoData());
       } else {
         handleServerAppError(response.data, dispatch)
       }
     })
     .catch(error => {
-      handleServerNetworkError(error, dispatch)
+      handleServerNetworkError(error, dispatch);
     })
 };
