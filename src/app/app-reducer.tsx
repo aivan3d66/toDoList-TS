@@ -1,7 +1,8 @@
 import {BaseThunksType} from "../state/redux-store";
 import {authAPI} from "../api/auth-api";
 import {ResultCode} from "../api/api";
-import {actions} from "../state/login-reducer";
+import {setIsLoggedIn} from "../state/login-reducer";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 export type StatusType = 'idle' | 'loading' | 'succeeded' | 'failed';
 export type InitialStateType = {
@@ -9,16 +10,12 @@ export type InitialStateType = {
   error: string | null,
   initialised: boolean
 };
-type SetIsLoggedInType = ReturnType<typeof actions.setIsLoggedIn>;
+type SetIsLoggedInType = ReturnType<typeof setIsLoggedIn>;
 export type SetErrorActionType = ReturnType<typeof setAppError>;
 export type SetStatusActionType = ReturnType<typeof setAppStatus>;
 export type SetAppInitActionType = ReturnType<typeof setAppInitialised>;
 type ActionType = SetErrorActionType | SetStatusActionType | SetAppInitActionType | SetIsLoggedInType;
 type ThunkType = BaseThunksType<ActionType>;
-
-const SET_STATUS = 'APP/SET-STATUS';
-const SET_ERROR = 'APP/SET-ERROR';
-const SET_APP_INITIALISED = 'APP/SET-SET_APP_INITIALISED';
 
 const initialState: InitialStateType = {
   status: 'idle',
