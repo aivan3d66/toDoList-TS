@@ -24,7 +24,6 @@ export const TodoListTasks = React.memo((props: TodoListItemsPropsType) => {
         <Task
           title={task.title}
           id={task.id}
-          todoListID={todoListID}
           key={index}
           todolistId={todoListID}
           status={task.status}
