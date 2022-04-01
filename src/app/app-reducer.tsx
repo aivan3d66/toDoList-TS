@@ -39,7 +39,7 @@ export const appSlice = createSlice({
 });
 
 export const {setAppError, setAppStatus, setAppInitialised} = appSlice.actions;
-export const appReducer = appSlice;
+export const appReducer = appSlice.reducer;
 
 export const initialApp = (): ThunkType => async (dispatch) => {
   authAPI.getAuth()
