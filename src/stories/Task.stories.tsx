@@ -17,13 +17,13 @@ export const TaskExampleDone = Template.bind({});
 TaskExampleDone.args = {
   title: "react",
   id: v1(),
-  todoListID: v1(),
+  todolistId: v1(),
   status: TaskStatuses.Completed
 }
 export const TaskExampleNotDone = Template.bind({});
 TaskExampleNotDone.args = {
   title: "TypeScript",
   id: v1(),
-  todoListID: v1(),
+  todolistId: v1(),
   status: TaskStatuses.New
 }
