@@ -10,14 +10,14 @@ import {v1} from "uuid";
 import {TasksResponseType, TaskStatuses} from "../../../../api/tasks-api";
 
 type TaskPropsType = TasksResponseType & {
-  todoListID: string,
+  todolistId: string,
 }
 
 export const Task = React.memo((props: TaskPropsType) => {
   const {
     title,
     id,
-    todoListID,
+    todolistId,
     status
   } = props;
 
@@ -34,11 +34,11 @@ export const Task = React.memo((props: TaskPropsType) => {
 
   const dispatch = useDispatch();
   const onClickHandler = useCallback(() => {
-    dispatch(deleteTodoListTask(todoListID, id));
-  }, [todoListID, id]);
+    dispatch(deleteTodoListTask(todolistId, id));
+  }, [todolistId, id]);
   const onChangeTitleHandler = useCallback((newTitle: string) => {
-    dispatch(updateTodoListTask(todoListID, id, {title: newTitle}))
-  }, [todoListID, id]);
+    dispatch(updateTodoListTask(todolistId, id, {title: newTitle}))
+  }, [todolistId, id]);
   const onChangeStatusHandler = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     let newStatus;
     if (e.currentTarget.checked) {
@@ -46,8 +46,8 @@ export const Task = React.memo((props: TaskPropsType) => {
     } else if (!e.currentTarget.checked) {
       newStatus = TaskStatuses.New;
     }
-    dispatch(updateTodoListTask(todoListID, id, {status: newStatus}));
-  }, [todoListID, id]);
+    dispatch(updateTodoListTask(todolistId, id, {status: newStatus}));
+  }, [todolistId, id]);
 
   return (
     <li key={v1()} style={taskStyles}>
