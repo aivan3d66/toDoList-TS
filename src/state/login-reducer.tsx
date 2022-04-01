@@ -33,7 +33,7 @@ export const getAuth = (data: LoginParamsType): ThunkType => async (dispatch) =>
   authAPI.login(data)
     .then(response => {
       if (response.data.resultCode === ResultCode.Success) {
-        dispatch(actions.setIsLoggedIn(true));
+        dispatch(setIsLoggedIn({value: true}));
         dispatch(setAppStatus('succeeded'));
       } else {
         handleServerAppError(response.data, dispatch)
@@ -48,7 +48,7 @@ export const getLogOut = (): ThunkType => async (dispatch) => {
   authAPI.logout()
     .then(response => {
       if (response.data.resultCode === ResultCode.Success) {
-        dispatch(actions.setIsLoggedIn(false));
+        dispatch(setIsLoggedIn({value: false}));
         dispatch(setAppStatus('succeeded'));
         dispatch(todoListActions.clearTodoData())
       } else {
@@ -58,4 +58,4 @@ export const getLogOut = (): ThunkType => async (dispatch) => {
     .catch(error => {
       handleServerNetworkError(error, dispatch)
     })
-}
+};
