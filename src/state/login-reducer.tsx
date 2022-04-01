@@ -25,14 +25,8 @@ export const slice = createSlice({
   }
 });
 
-    default:
-      return state
-  }
-}
-
-export const actions = {
-  setIsLoggedIn: (value: boolean) => ({type: LOGGED_IN, value} as const),
-}
+export const loginReducer = slice.reducer;
+export const {setIsLoggedIn} = slice.actions;
 
 export const getAuth = (data: LoginParamsType): ThunkType => async (dispatch) => {
   dispatch(setAppStatus('loading'));
