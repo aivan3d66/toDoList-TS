@@ -1,4 +1,4 @@
-import React, {useCallback} from "react";
+import React, {useCallback, useEffect} from "react";
 import {ChangeFilter, ChangeTodoListTitleType, RemoveTodoList} from "../TodoListsList";
 import {FILTERS} from "../../../common/constants";
 import '../../../app/App.css';
@@ -8,7 +8,7 @@ import {Button, IconButton} from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootState} from "../../../state/redux-store";
-import {setNewTodoListTask} from "../../../state/task-reducer";
+import {getAllTodoListTasks, setNewTodoListTask} from "../../../state/task-reducer";
 import {FilterValueType, TodoListDomainType} from "../../../state/todolist-reducer";
 import {TasksResponseType, TaskStatuses} from "../../../api/tasks-api";
 import {TodoListTasks} from "./TodoListItems/TodoListTasks";
@@ -42,16 +42,23 @@ export const TodoList: React.FC<TodoListProps> = React.memo(({demo = false, ...p
     const dispatch = useDispatch();
     const tasks = useSelector<AppRootState, Array<TasksResponseType>>(state => state.tasks[todoList.id])
 
+    useEffect(() => {
+      if (demo) {
+        return
+      }
+      dispatch(getAllTodoListTasks(todoList.id))
+    }, [todoList.id])
+
     const onChangeTodoListTitle = useCallback((title: string) => {
       changeTodoListTitle(todoList.id, title)
     }, [changeTodoListTitle, todoList.id]);
-    const onRemoveListHandler = useCallback(() => {
+    const onRemoveListHandler = () => {
       removeTodoList(todoList.id);
-    }, [removeTodoList, todoList.id]);
+    };
 
     const addTaskHandler = useCallback((title: string) => {
       dispatch(setNewTodoListTask(todoList.id, title));
-    }, [todoList.id]);
+    }, [todoList.id, setNewTodoListTask]);
 
     let taskForTodoList = tasks;
 
