@@ -103,19 +103,19 @@ export const tasksActions = {
 };
 
 export const getAllTodoListTasks = (todoListId: string): ThunkType => async (dispatch) => {
-  dispatch(setAppStatus('loading'))
+  dispatch(setAppStatus({status: 'loading'}))
   tasksAPI.getAllTasks(todoListId)
     .then(response => {
       if (response.data) {
         dispatch(tasksActions.getAllTodoListTasksAC(todoListId, response.data.items));
-        dispatch(setAppStatus('succeeded'));
+        dispatch(setAppStatus({status: 'succeeded'}));
       } else {
         handleServerAppError(response.data, dispatch)
       }
     })
     .catch(error => {
       handleServerNetworkError(error, dispatch)
-      dispatch(setAppStatus('failed'))
+      dispatch(setAppStatus({status: 'failed'}));
     })
 };
 export const setNewTodoListTask = (todoListId: string, title: string): ThunkType => async (dispatch) => {
@@ -133,17 +133,17 @@ export const setNewTodoListTask = (todoListId: string, title: string): ThunkType
     })
 };
 export const deleteTodoListTask = (todoListId: string, taskId: string): ThunkType => async (dispatch) => {
-  dispatch(setAppStatus('loading'));
+  dispatch(setAppStatus({status: 'loading'}))
   tasksAPI.deleteTask(todoListId, taskId)
     .then(response => {
       if (response.data.resultCode === ResultCode.Success) {
         dispatch(tasksActions.removeTaskAC(todoListId, taskId));
-        dispatch(setAppStatus('succeeded'));
+        dispatch(setAppStatus({status: 'succeeded'}));
       }
     })
     .catch(error => {
       handleServerNetworkError(error, dispatch);
-      dispatch(setAppStatus('failed'));
+      dispatch(setAppStatus({status: 'failed'}));
     })
 };
 export const updateTodoListTask = (todoListId: string, taskId: string, domainModel: UpdateDomainTaskModelType): ThunkType => async (dispatch, getState: () => AppRootState) => {
@@ -174,7 +174,7 @@ export const updateTodoListTask = (todoListId: string, taskId: string, domainMod
     })
     .catch(e => {
       dispatch(setAppError(e.message));
-      dispatch(setAppStatus('failed'));
+      dispatch(setAppStatus({status: 'failed'}));
     })
 
 };
