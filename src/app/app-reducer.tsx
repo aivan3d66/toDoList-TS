@@ -25,20 +25,19 @@ const initialState: InitialStateType = {
   error: null,
   initialised: false
 };
-
-export const appReducer = (state: InitialStateType = initialState, action: ActionType): InitialStateType => {
-  switch (action.type) {
-    case SET_STATUS:
-      return {...state, status: action.status}
-
-    case SET_ERROR:
-      return {...state, error: action.error}
-
-    case SET_APP_INITIALISED:
-      return {...state, initialised: action.value}
-
-    default:
-      return {...state}
+export const appSlice = createSlice({
+  name: 'app-slice',
+  initialState: initialState,
+  reducers: {
+    setAppError: (state, action: PayloadAction<{error: string | null}>) => {
+      state.error = action.payload.error
+    },
+    setAppStatus: (state, action: PayloadAction<{status: StatusType}>) => {
+      state.status = action.payload.status
+    },
+    setAppInitialised: (state, action: PayloadAction<{value: boolean}>) => {
+      state.initialised = action.payload.value
+    },
   }
 }
 
