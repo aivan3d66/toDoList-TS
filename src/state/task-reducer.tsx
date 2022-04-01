@@ -25,7 +25,7 @@ export const tasksSlice = createSlice({
       }
     },
     addTaskAC: (state, action: PayloadAction<{ task: TasksResponseType }>) => {
-      state[action.payload.task.todolistId].push(action.payload.task);
+      state[action.payload.task.todolistId] = [action.payload.task];
     },
     getAllTodoListTasksAC: (state, action: PayloadAction<{ todoListId: string, tasksList: Array<TasksResponseType> }>) => {
       state[action.payload.todoListId] = action.payload.tasksList;
@@ -77,6 +77,7 @@ export const setNewTodoListTask = (todoListId: string, title: string): ThunkType
     .then(response => {
       if (response.resultCode === ResultCode.Success) {
         dispatch(addTaskAC({task: response.data.item}));
+        dispatch(getAllTodoListTasks(todoListId))
         dispatch(setAppStatus({status: 'succeeded'}));
       } else {
         handleServerAppError(response, dispatch)
