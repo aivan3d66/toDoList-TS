@@ -29,12 +29,12 @@ export const loginReducer = slice.reducer;
 export const {setIsLoggedIn} = slice.actions;
 
 export const getAuth = (data: LoginParamsType): ThunkType => async (dispatch) => {
-  dispatch(setAppStatus('loading'));
+  dispatch(setAppStatus({status: 'loading'}));
   authAPI.login(data)
     .then(response => {
       if (response.data.resultCode === ResultCode.Success) {
         dispatch(setIsLoggedIn({value: true}));
-        dispatch(setAppStatus('succeeded'));
+        dispatch(setAppStatus({status: 'succeeded'}));
       } else {
         handleServerAppError(response.data, dispatch)
       }
@@ -44,12 +44,12 @@ export const getAuth = (data: LoginParamsType): ThunkType => async (dispatch) =>
     })
 };
 export const getLogOut = (): ThunkType => async (dispatch) => {
-  dispatch(setAppStatus('loading'));
+  dispatch(setAppStatus({status: 'loading'}));
   authAPI.logout()
     .then(response => {
       if (response.data.resultCode === ResultCode.Success) {
         dispatch(setIsLoggedIn({value: false}));
-        dispatch(setAppStatus('succeeded'));
+        dispatch(setAppStatus({status: 'succeeded'}));
         dispatch(todoListActions.clearTodoData())
       } else {
         handleServerAppError(response.data, dispatch)
