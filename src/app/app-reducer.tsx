@@ -39,20 +39,19 @@ export const appSlice = createSlice({
       state.initialised = action.payload.value
     },
   }
-}
+});
 
-export const setAppError = (error: string | null) => ({type: SET_ERROR, error} as const);
-export const setAppStatus = (status: StatusType) => ({type: SET_STATUS, status} as const);
-export const setAppInitialised = (value: boolean) => ({type: SET_APP_INITIALISED, value} as const);
+export const {setAppError, setAppStatus, setAppInitialised} = appSlice.actions;
+export const appReducer = appSlice;
 
 export const initialApp = (): ThunkType => async (dispatch) => {
   authAPI.getAuth()
     .then(response => {
       if (response.data.resultCode === ResultCode.Success) {
-        dispatch(actions.setIsLoggedIn(true));
+        dispatch(setIsLoggedIn({value: true}));
       } else {
 
       }
-      dispatch(setAppInitialised(true));
+      dispatch(setAppInitialised({value: true}));
     })
 }
