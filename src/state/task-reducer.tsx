@@ -5,7 +5,12 @@ import {setAppError, SetErrorActionType, setAppStatus, SetStatusActionType} from
 import {handleServerAppError, handleServerNetworkError} from "../utils/error-utils";
 import {AppRootState, InferActionsTypes} from "./redux-store";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {addTodoListAC, clearTodoData, getAllTodoListAC, removeTodoListAC} from "./todolist-reducer";
+import {
+  addTodoListAC,
+  clearTodoData,
+  getAllTodoListAC,
+  removeTodoListAC,
+} from "./todolist-reducer";
 
 export const initialTasksState: TodoListTasksType = {};
 export const tasksSlice = createSlice({
@@ -16,10 +21,10 @@ export const tasksSlice = createSlice({
       state[action.payload.todoListId] = state[action.payload.todoListId].filter((f) => f.id !== action.payload.id)
     },
     addTaskAC: (state, action: PayloadAction<{ task: TasksResponseType }>) => {
-      state[action.payload.task.todolistId] = [action.payload.task]
+      state[action.payload.task.todolistId].unshift(action.payload.task)
     },
     getAllTodoListTasksAC: (state, action: PayloadAction<{ todoListId: string, tasksList: Array<TasksResponseType> }>) => {
-      state[action.payload.todoListId] = [...action.payload.tasksList]
+      state[action.payload.todoListId] = action.payload.tasksList
     },
     updateTaskAC: (state, action: PayloadAction<{ todoListId: string, taskId: string, model: UpdateDomainTaskModelType }>) => {
       state[action.payload.todoListId] = state[action.payload.todoListId].map((t) => t.id === action.payload.taskId ? {
@@ -27,8 +32,30 @@ export const tasksSlice = createSlice({
         ...action.payload.model
       } : t)
     }
-  }
+  },
+  extraReducers: (builder => {
+    builder.addCase(addTodoListAC, (state, action) => {
+      state[action.payload.todoList.id] = [];
+    });
+    builder.addCase(removeTodoListAC, (state, action) => {
+      delete state[action.payload.todoListId];
+    });
+    builder.addCase(getAllTodoListAC, (state, action) => {
+      action.payload.todoLists.forEach(tl => {
+        state[tl.id] = [];
+      })
+    });
+  })
 });
+
+
+// [removeTodoListAC.type]: (state, action: PayloadAction<{ todoListId: string }>) => {
+//
+// },
+// [getAllTodoListAC.type]: (state, action: PayloadAction<{ todoLists: Array<TodoListType> }>) => {
+//
+// },
+// [clearTodoData.type]: (state) => {}
 
 export const {removeTaskAC, addTaskAC, getAllTodoListTasksAC, updateTaskAC} = tasksSlice.actions;
 export const taskReducer = tasksSlice.reducer;
