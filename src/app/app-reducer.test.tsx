@@ -12,7 +12,7 @@ beforeEach(() => {
 
 
 test('error message should be set', () => {
-  const endState = appReducer(startState, setAppError('some error'));
+  const endState = appReducer(startState, setAppError({error: 'Мсье, у вас где-то тут бага!'}));
 
   expect(endState.error).toBe('some error');
 })
