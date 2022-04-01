@@ -1,26 +1,29 @@
-import {BaseThunksType, InferActionsTypes } from "./redux-store";
+import {BaseThunksType, InferActionsTypes} from "./redux-store";
 import {setAppStatus, SetStatusActionType} from "../app/app-reducer";
 import {authAPI, LoginParamsType} from "../api/auth-api";
 import {ResultCode} from "../api/api";
 import {handleServerAppError, handleServerNetworkError} from "../utils/error-utils";
 import {todoListActions} from "./todolist-reducer";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
-type InitialStateType = typeof initialState;
-type ActionsTypes = InferActionsTypes<typeof actions> | SetStatusActionType | ReturnType<typeof todoListActions.clearTodoData>;
+type ActionsTypes =
+  InferActionsTypes<typeof slice.actions>
+  | SetStatusActionType
+  | ReturnType<typeof todoListActions.clearTodoData>;
 type ThunkType = BaseThunksType<ActionsTypes>;
-
-const LOGGED_IN = 'login/LOGGED_IN';
 
 const initialState = {
   isLoginIn: false,
 };
-
-export const loginReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
-  switch (action.type) {
-    case LOGGED_IN:
-      return {
-        ...state, isLoginIn: action.value
-      }
+export const slice = createSlice({
+  name: "login",
+  initialState: initialState,
+  reducers: {
+    setIsLoggedIn(state, action: PayloadAction<{ value: boolean }>) {
+      state.isLoginIn = action.payload.value;
+    },
+  }
+});
 
     default:
       return state
