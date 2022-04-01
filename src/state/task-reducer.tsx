@@ -18,13 +18,17 @@ export const tasksSlice = createSlice({
   initialState: initialTasksState,
   reducers: {
     removeTaskAC: (state, action: PayloadAction<{ todoListId: string, id: string }>) => {
-      state[action.payload.todoListId] = state[action.payload.todoListId].filter((f) => f.id !== action.payload.id)
+      const tasks = state[action.payload.todoListId];
+      const index = tasks.findIndex(t => t.id === action.payload.id);
+      if (index > -1) {
+        tasks.splice(index, 1)
+      }
     },
     addTaskAC: (state, action: PayloadAction<{ task: TasksResponseType }>) => {
-      state[action.payload.task.todolistId].unshift(action.payload.task)
+      state[action.payload.task.todolistId].push(action.payload.task);
     },
     getAllTodoListTasksAC: (state, action: PayloadAction<{ todoListId: string, tasksList: Array<TasksResponseType> }>) => {
-      state[action.payload.todoListId] = action.payload.tasksList
+      state[action.payload.todoListId] = action.payload.tasksList;
     },
     updateTaskAC: (state, action: PayloadAction<{ todoListId: string, taskId: string, model: UpdateDomainTaskModelType }>) => {
       state[action.payload.todoListId] = state[action.payload.todoListId].map((t) => t.id === action.payload.taskId ? {
@@ -48,15 +52,6 @@ export const tasksSlice = createSlice({
   })
 });
 
-
-// [removeTodoListAC.type]: (state, action: PayloadAction<{ todoListId: string }>) => {
-//
-// },
-// [getAllTodoListAC.type]: (state, action: PayloadAction<{ todoLists: Array<TodoListType> }>) => {
-//
-// },
-// [clearTodoData.type]: (state) => {}
-
 export const {removeTaskAC, addTaskAC, getAllTodoListTasksAC, updateTaskAC} = tasksSlice.actions;
 export const taskReducer = tasksSlice.reducer;
 
@@ -77,17 +72,19 @@ export const getAllTodoListTasks = (todoListId: string): ThunkType => async (dis
     })
 };
 export const setNewTodoListTask = (todoListId: string, title: string): ThunkType => async (dispatch) => {
+  dispatch(setAppStatus({status: 'loading'}))
   tasksAPI.addTask(todoListId, title)
     .then(response => {
       if (response.resultCode === ResultCode.Success) {
         dispatch(addTaskAC({task: response.data.item}));
+        dispatch(setAppStatus({status: 'succeeded'}));
       } else {
         handleServerAppError(response, dispatch)
       }
-      dispatch(getAllTodoListTasks(todoListId));
     })
     .catch(error => {
-      handleServerNetworkError(error, dispatch)
+      handleServerNetworkError(error, dispatch);
+      dispatch(setAppStatus({status: 'failed'}));
     })
 };
 export const deleteTodoListTask = (todoListId: string, taskId: string): ThunkType => async (dispatch) => {
