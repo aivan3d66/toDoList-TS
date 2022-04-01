@@ -1,11 +1,11 @@
 import {TaskPriorities, tasksAPI, TasksResponseType, TaskStatuses, UpdateTaskModelType} from "../api/tasks-api";
-import {todoListActions} from "./todolist-reducer";
 import {ThunkAction} from "redux-thunk";
 import {ResultCode} from "../api/api";
 import {setAppError, SetErrorActionType, setAppStatus, SetStatusActionType} from "../app/app-reducer";
 import {handleServerAppError, handleServerNetworkError} from "../utils/error-utils";
 import {AppRootState, InferActionsTypes} from "./redux-store";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {addTodoListAC, clearTodoData, getAllTodoListAC, removeTodoListAC} from "./todolist-reducer";
 
 export const initialTasksState: TodoListTasksType = {};
 export const tasksSlice = createSlice({
@@ -124,9 +124,9 @@ export type TodoListTasksType = {
   [key: string]: Array<TasksResponseType>,
 };
 
-type AddTodoListActionType = ReturnType<typeof todoListActions.addTodoListAC>;
-type RemoveTodoListActionType = ReturnType<typeof todoListActions.removeTodoListAC>;
-type GetAllTodoListActionType = ReturnType<typeof todoListActions.getAllTodoListAC>;
+type AddTodoListActionType = ReturnType<typeof addTodoListAC>;
+type RemoveTodoListActionType = ReturnType<typeof removeTodoListAC>;
+type GetAllTodoListActionType = ReturnType<typeof getAllTodoListAC>;
 
 type ActionsTypes =
   InferActionsTypes<typeof tasksSlice.actions>
@@ -135,7 +135,7 @@ type ActionsTypes =
   | GetAllTodoListActionType
   | SetErrorActionType
   | SetStatusActionType
-  | ReturnType<typeof todoListActions.clearTodoData>;
+  | ReturnType<typeof clearTodoData>;
 
 
 type ThunkType = ThunkAction<void, AppRootState, unknown, ActionsTypes>;
