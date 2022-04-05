@@ -1,7 +1,7 @@
 import React, {useCallback, useEffect} from 'react';
 import './App.css';
 import AppBar from '@mui/material/AppBar';
-import {Toolbar, IconButton, Container, LinearProgress, CircularProgress, Button} from '@mui/material';
+import {Toolbar, IconButton, Container, LinearProgress, CircularProgress, Button, Tooltip} from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import {getTodoListsThunk,} from "../state/todolist-reducer";
 import {useDispatch, useSelector} from "react-redux";
@@ -17,62 +17,63 @@ import {getLogOut} from "../state/login-reducer";
 type AppPropsTpe = { demo?: boolean };
 
 export const App: React.FC<AppPropsTpe> = ({demo = false}) => {
-  const dispatch = useDispatch();
-  const status = useSelector<AppRootState, StatusType>(state => state.app.status);
-  const initialised = useSelector<AppRootState>(state => state.app.initialised);
-  const isLoggedIn = useSelector<AppRootState>(state => state.auth.isLoginIn)
+    const dispatch = useDispatch();
+    const status = useSelector<AppRootState, StatusType>(state => state.app.status);
+    const initialised = useSelector<AppRootState>(state => state.app.initialised);
+    const isLoggedIn = useSelector<AppRootState>(state => state.auth.isLoginIn)
 
-  useEffect(() => {
-    dispatch(initialApp());
-    if (!demo) {
-      dispatch(getTodoListsThunk())
+    useEffect(() => {
+        dispatch(initialApp());
+        if (!demo) {
+            dispatch(getTodoListsThunk())
+        }
+    }, []);
+
+    const logOutHandler = useCallback(() => {
+        dispatch(getLogOut());
+    }, [])
+
+    if (!initialised) {
+        return <CircularProgress style={{
+            display: "flex",
+            margin: "100px auto",
+        }}/>
     }
-  }, []);
 
-  const logOutHandler = useCallback(() => {
-    dispatch(getLogOut());
-  }, [])
+    return (
+        <div className="App">
+            <AppBar position="static">
+                <Toolbar>
+                    <IconButton
+                        size="large"
+                        edge="start"
+                        color="inherit"
+                        aria-label="menu"
+                        sx={{mr: 2}}
+                    >
+                        <MenuIcon/>
+                    </IconButton>
+                    {isLoggedIn && <Tooltip title="Log out"><Button color="inherit" onClick={logOutHandler}>Log
+                        out</Button></Tooltip>}
+                </Toolbar>
 
-  if (!initialised) {
-    return <CircularProgress style={{
-      display: "flex",
-      margin: "100px auto",
-    }}/>
-  }
-
-  return (
-    <div className="App">
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{mr: 2}}
-          >
-            <MenuIcon/>
-          </IconButton>
-          {isLoggedIn && <Button color="inherit" onClick={logOutHandler}>Log out</Button>}
-        </Toolbar>
-
-        <div style={{
-          position: "relative",
-          height: "2px",
-        }}>
-          {status === 'loading' && <LinearProgress/>}
+                <div style={{
+                    position: "relative",
+                    height: "2px",
+                }}>
+                    {status === 'loading' && <LinearProgress/>}
+                </div>
+            </AppBar>
+            <Container fixed style={{width: "100%", padding: "0"}}>
+                <Routes>
+                    <Route path={ROUTES.LOGIN} element={<Login/>}/>
+                    <Route path={ROUTES.HOME} element={<TodoListsList demo={demo}/>}/>
+                    <Route path='*' element={<h1 style={{textAlign: "center"}}>404 Page not found</h1>}/>
+                </Routes>
+            </Container>
+            <ErrorSnackbar/>
         </div>
-      </AppBar>
-      <Container fixed>
-        <Routes>
-          <Route path={ROUTES.LOGIN} element={<Login/>}/>
-          <Route path={ROUTES.HOME} element={<TodoListsList demo={demo}/>}/>
-          <Route path='*' element={<h1 style={{textAlign:"center"}}>404 Page not found</h1>}/>
-        </Routes>
-      </Container>
-      <ErrorSnackbar/>
-    </div>
-  );
+    );
 }
 
 export default App;

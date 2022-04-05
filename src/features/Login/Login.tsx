@@ -1,5 +1,5 @@
 import React from "react";
-import {Button, Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, Grid, TextField} from "@mui/material";
+import {Button, Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, Grid, TextField, Tooltip} from "@mui/material";
 import {FormikHelpers, useFormik} from "formik";
 import {useDispatch, useSelector} from "react-redux";
 import {getAuth} from "../../state/login-reducer";
@@ -101,13 +101,15 @@ export const Login = () => {
                             label={"Remember me"}
                             {...formik.getFieldProps("rememberMe")}
                         />
-                        <Button
-                            type={"submit"}
-                            variant={"contained"}
-                            color={"primary"}
-                        >
-                            Login
-                        </Button>
+                        <Tooltip title="Hurry up, login!">
+                            <Button
+                                type={"submit"}
+                                variant={"contained"}
+                                color={"primary"}
+                            >
+                                Login
+                            </Button>
+                        </Tooltip>
                     </FormGroup>
                 </FormControl>
             </form>
