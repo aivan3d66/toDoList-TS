@@ -51,9 +51,9 @@ export enum TaskPriorities {
 }
 
 export const tasksAPI = {
-  getAllTasks(todoListId: string) {
-    return instance.get<GetTasksResponse>(`/todo-lists/${todoListId}/tasks`)
-  },
+    getAllTasks: (args: GetAllTasksArgsType) => {
+        return instance.get<GetTasksResponse>(`/todo-lists/${args.todoListId}/tasks`)
+    },
   addTask(todoListId: string, title: string) {
     return instance.post<ApiResponseType<SetTasksResponse>>(`/todo-lists/${todoListId}/tasks`, {title: title}).then(res => res.data)
   },
