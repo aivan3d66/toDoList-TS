@@ -1,17 +1,10 @@
-import {BaseThunksType, InferActionsTypes} from "./redux-store";
-import {setAppStatus, SetStatusActionType} from "../app/app-reducer";
+import {setAppStatus} from "../app/app-reducer";
 import {authAPI, LoginParamsType} from "../api/auth-api";
 import {FieldsErrorsType, ResultCode} from "../api/api";
 import {handleServerAppError, handleServerNetworkError} from "../utils/error-utils";
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {clearTodoData} from "./todolist-reducer";
 import {AxiosError} from "axios";
-
-type ActionsTypes =
-    InferActionsTypes<typeof slice.actions>
-    | SetStatusActionType
-    | ReturnType<typeof clearTodoData>;
-type ThunkType = BaseThunksType<ActionsTypes>;
 
 export const getAuth = createAsyncThunk<{ isLogged: boolean }, LoginParamsType, { rejectValue: { errors: Array<string>, fieldsErrors?: FieldsErrorsType } }>(
     'loading/getAuth',
@@ -35,7 +28,28 @@ export const getAuth = createAsyncThunk<{ isLogged: boolean }, LoginParamsType, 
             return thunkAPI.rejectWithValue({errors: [error.message], fieldsErrors: undefined});
         }
     });
-
+export const getLogOut = createAsyncThunk(
+    'loading/logOut',
+    async (arg, thunkAPI) => {
+        thunkAPI.dispatch(setAppStatus({status: 'loading'}));
+        try {
+            const response = await authAPI.logout()
+            if (response.data.resultCode === ResultCode.Success) {
+                thunkAPI.dispatch(setAppStatus({status: 'succeeded'}));
+                thunkAPI.dispatch(clearTodoData());
+                return {isLogged: false}
+            } else {
+                handleServerAppError(response.data, thunkAPI.dispatch)
+                return thunkAPI.rejectWithValue({
+                    errors: response.data.messages,
+                    fieldsErrors: response.data.fieldsErrors
+                });
+            }
+        } catch (error: any) {
+            handleServerNetworkError(error, thunkAPI.dispatch);
+            return thunkAPI.rejectWithValue({errors: [error.message], fieldsErrors: undefined});
+        }
+    });
 
 export const slice = createSlice({
     name: "login",
@@ -51,25 +65,12 @@ export const slice = createSlice({
         builder.addCase(getAuth.fulfilled, (state, action) => {
             state.isLoginIn = action.payload.isLogged;
         });
+        builder.addCase(getLogOut.fulfilled, (state, action) => {
+            state.isLoginIn = action.payload.isLogged;
+        });
     }
 });
 
 export const loginReducer = slice.reducer;
 export const {setIsLoggedIn} = slice.actions;
 
-export const getLogOut = (): ThunkType => async (dispatch) => {
-    dispatch(setAppStatus({status: 'loading'}));
-    authAPI.logout()
-        .then(response => {
-            if (response.data.resultCode === ResultCode.Success) {
-                dispatch(setIsLoggedIn({value: false}));
-                dispatch(setAppStatus({status: 'succeeded'}));
-                dispatch(clearTodoData());
-            } else {
-                handleServerAppError(response.data, dispatch)
-            }
-        })
-        .catch(error => {
-            handleServerNetworkError(error, dispatch);
-        })
-};
