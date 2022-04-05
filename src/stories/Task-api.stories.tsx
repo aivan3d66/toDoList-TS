@@ -10,7 +10,7 @@ export const GetTasks = () => {
   const [todoListId, setTodoListId] = useState<string>('');
 
   const getTasks = () => {
-    tasksAPI.getAllTasks(todoListId)
+    tasksAPI.getAllTasks({todoListId: todoListId})
       .then(res => setState(res.data.items));
   }
 
