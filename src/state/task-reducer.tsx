@@ -98,11 +98,15 @@ export const tasksSlice = createSlice({
                 state[tl.id] = [];
             });
         });
-        builder.addCase(getAllTodoListTasks.fulfilled, (state, action: PayloadAction<any>) => {
-            state[action.payload.todoListId] = action.payload.tasksList;
+        builder.addCase(getAllTodoListTasks.fulfilled, (state, action) => {
+            if (action.payload) {
+                state[action.payload.todoListId] = action.payload.tasksList;
+            }
         });
-        builder.addCase(setNewTodoListTask.fulfilled, (state, action: PayloadAction<any>) => {
-            state[action.payload.task.todolistId] = [action.payload.task];
+        builder.addCase(setNewTodoListTask.fulfilled, (state, action) => {
+            if (action.payload) {
+                state[action.payload.task.todolistId] = [action.payload.task];
+            }
         });
         builder.addCase(deleteTodoListTask.fulfilled, (state, action: PayloadAction<any>) => {
             const tasks = state[action.payload.todoListId];
@@ -135,7 +139,7 @@ export const updateTodoListTask = (todoListId: string, taskId: string, domainMod
         ...domainModel
     };
 
-    tasksAPI.updateTask(todoListId, taskId, apiModel)
+    tasksAPI.updateTask({todoListId, taskId, model: apiModel})
         .then(res => {
             if (res.data.resultCode === ResultCode.Success) {
                 dispatch(updateTaskAC({todoListId, taskId, model: domainModel}));
