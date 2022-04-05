@@ -46,7 +46,7 @@ export const TodoList: React.FC<TodoListProps> = React.memo(({demo = false, ...p
       if (demo) {
         return
       }
-      dispatch(getAllTodoListTasks(todoList.id))
+      dispatch(getAllTodoListTasks({todoListId: todoList.id}))
     }, [todoList.id])
 
     const onChangeTodoListTitle = useCallback((title: string) => {

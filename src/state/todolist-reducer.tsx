@@ -71,7 +71,7 @@ export const getTodoListsThunk = (): ThunkType => async (dispatch) => {
     .then((todos) => {
       // @ts-ignore
       todos.forEach((tl) => {
-        dispatch(getAllTodoListTasks(tl.id))
+        dispatch(getAllTodoListTasks({todoListId: tl.id}))
       })
     })
 };
