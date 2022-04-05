@@ -24,9 +24,10 @@ export type TodoListsListPropsType = {
 
 export const TodoListsList: React.FC<TodoListsListPropsType> = ({demo}) => {
   const paperAppStyles = {
-    width: "300px",
+    width: "280px",
     minHeight: "200px",
     padding: "16px",
+    fontSize: "14px",
   };
   const gridItemAppStyles = {
     width: "100%",
