@@ -62,39 +62,24 @@ export const tasksAPI = {
     deleteTask: (args: DeleteTaskType) => {
         return instance.delete<ApiResponseType>(`/todo-lists/${args.todoListId}/tasks/${args.taskId}`)
     },
-    updateTask(todoListId: string, taskId: string, model: UpdateTaskModelType) {
-        return instance.put<ApiResponseType<UpdateTaskType>>(`/todo-lists/${todoListId}/tasks/${taskId}`, model)
-    },
-}
+    updateTask: (args: UpdateTaskArgsType) => {
+        return instance.put<ApiResponseType<UpdateTaskType>>(`/todo-lists/${args.todoListId}/tasks/${args.taskId}`, args.model)
+    }
+};
 
 export type GetAllTasksArgsType = {
     todoListId: string
-}
+};
 export type AddTaskArgsType = {
     todoListId: string,
     title: string
-}
+};
 export type DeleteTaskType = {
     todoListId: string,
     taskId: string
-}
+};
 export type UpdateTaskArgsType = {
     todoListId: string,
     taskId: string,
     model: UpdateTaskModelType
-}
-
-// export const tasksAPI = {
-//     getAllTasks: (args: GetAllTasksArgsType) => {
-//         return instance.get<GetTasksResponse>(`/todo-lists/${args.todoListId}/tasks`)
-//     },
-//     addTask: (args: AddTaskArgsType) => {
-//         return instance.post<ApiResponseType<SetTasksResponse>>(`/todo-lists/${args.todoListId}/tasks`, {title: args.title}).then(res => res.data)
-//     },
-//     deleteTask: (args: DeleteTaskType) => {
-//         return instance.delete<ApiResponseType>(`/todo-lists/${args.todoListId}/tasks/${args.taskId}`)
-//     },
-//     updateTask: (args: UpdateTaskArgsType) => {
-//         return instance.put<ApiResponseType<UpdateTaskType>>(`/todo-lists/${args.todoListId}/tasks/${args.taskId}`, args.model)
-//     }
-// }
+};
