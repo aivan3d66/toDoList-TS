@@ -1,6 +1,5 @@
 import {
-  addTaskAC,
-  getAllTodoListTasksAC,
+  addTaskAC, getAllTodoListTasks,
   removeTaskAC,
   taskReducer,
   TodoListTasksType,
@@ -158,7 +157,7 @@ test('property with todolistId should be deleted', () => {
 });
 
 test('tasks should be added', () => {
-  const action = getAllTodoListTasksAC({todoListId: "todoListId1", tasksList: startState["todoListId1"]});
+  const action = getAllTodoListTasks.fulfilled({todoListId: "todoListId1", tasksList: startState["todoListId1"]}, '',  {todoListId: 'todoListId1'});
 
   const endState = taskReducer({
     "todoListId2": [],
