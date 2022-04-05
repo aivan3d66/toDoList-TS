@@ -1,6 +1,7 @@
 import {
+    deleteTodoListTask,
     getAllTodoListTasks,
-    removeTaskAC, setNewTodoListTask,
+    setNewTodoListTask,
     taskReducer,
     TodoListTasksType,
     updateTaskAC,
@@ -88,7 +89,7 @@ export const startState: TodoListTasksType = {
 };
 
 test('current task should be removed', () => {
-    const action = removeTaskAC({todoListId: "todoListId2", id: "2"})
+    const action = deleteTodoListTask.fulfilled({todoListId: "todoListId2", id: "2"}, '', {todoListId: 'todoListId2', taskId: "2"})
 
     const endState = taskReducer(startState, action)
 
