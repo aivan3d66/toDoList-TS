@@ -1,6 +1,6 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from "react";
 import {SET_ERROR_NAME} from "../../common/constants";
-import {Button, TextField, Grid, Alert} from "@mui/material";
+import {Button, TextField, Grid, Alert, Tooltip} from "@mui/material";
 import {Add} from "@mui/icons-material";
 
 type AddItemFormPropsType = {
@@ -72,14 +72,17 @@ export const AddItemForm: React.FC<AddItemFormPropsType> = React.memo(({addTask,
         disabled={disabled}
         label="Write the title"
       />
-      <Button
-        onClick={addItemHandler}
-        startIcon={<Add/>}
-        variant={'contained'}
-        disabled={disabled}
-      >
-        add
-      </Button>
+      <Tooltip title="Add some title">
+        <Button
+            onClick={addItemHandler}
+            startIcon={<Add/>}
+            variant={'contained'}
+            disabled={disabled}
+        >
+          add
+        </Button>
+      </Tooltip>
+
       {error && <Alert
         severity="error"
         variant={"filled"}
