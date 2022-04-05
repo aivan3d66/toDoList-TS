@@ -38,6 +38,8 @@ export const TodoListsList: React.FC<TodoListsListPropsType> = ({demo}) => {
   const gridContainerAppStyles = {
     display: "flex",
     justifyContent: "center",
+    width: "100%",
+    margin: "0 auto",
   };
 
   const dispatch = useDispatch();
@@ -68,8 +70,12 @@ export const TodoListsList: React.FC<TodoListsListPropsType> = ({demo}) => {
   if (!isLoggedIn) return <Navigate to={ROUTES.LOGIN}/>
 
   return (
-    <Container fixed maxWidth="xl">
-      <Grid container style={{maxWidth: "760px", margin: "0 auto"}}>
+    <Container fixed style={{
+      width: "100%",
+      margin: "0 auto",
+      padding: "0",
+    }}>
+      <Grid container style={{maxWidth: "700px", margin: "0 auto"}}>
         <Grid item style={gridItemAppStyles}>
           <AddItemForm addTask={addTodoList}/>
         </Grid>
