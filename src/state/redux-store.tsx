@@ -10,7 +10,8 @@ type PropertiesType<T> = T extends { [key: string]: infer U } ? U : never;
 export type InferActionsTypes<T extends { [key: string]: (...args: any[]) => any }> = ReturnType<PropertiesType<T>>
 export type BaseThunksType<A extends Action, R = Promise<void>> = ThunkAction<R, AppRootState, unknown, A>
 
-export type AppRootState = ReturnType<typeof rootReducer>
+export type AppRootState = ReturnType<typeof store.getState>
+export type AppDispatchType = ReturnType<typeof store.dispatch>
 
 const rootReducer = combineReducers({
   tasks: taskReducer,
