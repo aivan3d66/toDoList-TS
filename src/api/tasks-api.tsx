@@ -59,8 +59,8 @@ export const tasksAPI = {
     addTask: (args: AddTaskArgsType) => {
         return instance.post<ApiResponseType<SetTasksResponse>>(`/todo-lists/${args.todoListId}/tasks`, {title: args.title}).then(res => res.data)
     },
-    deleteTask(todoListId: string, taskId: string) {
-        return instance.delete<ApiResponseType>(`/todo-lists/${todoListId}/tasks/${taskId}`)
+    deleteTask: (args: DeleteTaskType) => {
+        return instance.delete<ApiResponseType>(`/todo-lists/${args.todoListId}/tasks/${args.taskId}`)
     },
     updateTask(todoListId: string, taskId: string, model: UpdateTaskModelType) {
         return instance.put<ApiResponseType<UpdateTaskType>>(`/todo-lists/${todoListId}/tasks/${taskId}`, model)
