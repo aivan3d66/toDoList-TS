@@ -4,6 +4,8 @@ export enum ResultCode {
   Success = 0,
   Error,
 }
+
+export type FieldsErrorsType = Array<{ field: string, error: string }>;
 export type ApiResponseType<D = {}, RC = ResultCode> = {
   data: D,
   messages: Array<string>,
