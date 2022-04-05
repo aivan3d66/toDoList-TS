@@ -12,9 +12,30 @@ type ActionsTypes =
   | ReturnType<typeof clearTodoData>;
 type ThunkType = BaseThunksType<ActionsTypes>;
 
-const initialState = {
-  isLoginIn: false,
-};
+export const getAuth = createAsyncThunk<{ isLogged: boolean }, LoginParamsType, { rejectValue: { errors: Array<string>, fieldsErrors?: FieldsErrorsType } }>(
+    'loading/getAuth',
+    async (data, thunkAPI) => {
+        thunkAPI.dispatch(setAppStatus({status: 'loading'}));
+        try {
+            const response = await authAPI.login(data);
+            if (response.data.resultCode === ResultCode.Success) {
+                thunkAPI.dispatch(setAppStatus({status: 'succeeded'}));
+                return {isLogged: true}
+            } else {
+                handleServerAppError(response.data, thunkAPI.dispatch);
+                return thunkAPI.rejectWithValue({
+                    errors: response.data.messages,
+                    fieldsErrors: response.data.fieldsErrors
+                });
+            }
+        } catch (err: any) {
+            const error: AxiosError = err;
+            handleServerNetworkError(error, thunkAPI.dispatch)
+            return thunkAPI.rejectWithValue({errors: [error.message], fieldsErrors: undefined});
+        }
+    });
+
+
 export const slice = createSlice({
   name: "login",
   initialState: initialState,
