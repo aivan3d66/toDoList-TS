@@ -2,7 +2,7 @@ import {BaseThunksType} from "../state/redux-store";
 import {authAPI} from "../api/auth-api";
 import {ResultCode} from "../api/api";
 import {setIsLoggedIn} from "../state/login-reducer";
-import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 export type StatusType = 'idle' | 'loading' | 'succeeded' | 'failed';
 export type InitialStateType = {
@@ -16,6 +16,18 @@ export type SetStatusActionType = ReturnType<typeof setAppStatus>;
 export type SetAppInitActionType = ReturnType<typeof setAppInitialised>;
 type ActionType = SetErrorActionType | SetStatusActionType | SetAppInitActionType | SetIsLoggedInType;
 type ThunkType = BaseThunksType<ActionType>;
+
+export const initialApp = createAsyncThunk('app-slice/initApp', async (arg, thunkAPI) => {
+  return await authAPI.getAuth()
+      .then(response => {
+        if (response.data.resultCode === ResultCode.Success) {
+          thunkAPI.dispatch(setIsLoggedIn({value: true}));
+        } else {
+
+        }
+        thunkAPI.dispatch(setAppInitialised({value: true}));
+      })
+})
 
 const initialState: InitialStateType = {
   status: 'idle',
@@ -41,14 +53,14 @@ export const appSlice = createSlice({
 export const {setAppError, setAppStatus, setAppInitialised} = appSlice.actions;
 export const appReducer = appSlice.reducer;
 
-export const initialApp = (): ThunkType => async (dispatch) => {
-  authAPI.getAuth()
-    .then(response => {
-      if (response.data.resultCode === ResultCode.Success) {
-        dispatch(setIsLoggedIn({value: true}));
-      } else {
-
-      }
-      dispatch(setAppInitialised({value: true}));
-    })
-}
+// export const initialApp = (): ThunkType => async (dispatch) => {
+//   authAPI.getAuth()
+//     .then(response => {
+//       if (response.data.resultCode === ResultCode.Success) {
+//         dispatch(setIsLoggedIn({value: true}));
+//       } else {
+//
+//       }
+//       dispatch(setAppInitialised({value: true}));
+//     })
+// }
