@@ -7,6 +7,12 @@ import {AppRootState} from "../../state/redux-store";
 import {Navigate} from "react-router-dom";
 import {ROUTES} from "../../common/constants";
 
+type FormValues = {
+    email: string,
+    password: string,
+    rememberMe: boolean
+}
+
 const errorStyles = {
   padding: "8px",
   color: "white",
