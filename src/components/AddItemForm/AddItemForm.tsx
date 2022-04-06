@@ -1,17 +1,25 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from "react";
 import {SET_ERROR_NAME} from "../../common/constants";
-import {Button, TextField, Grid, Alert, Tooltip} from "@mui/material";
+import {TextField, Grid, Alert, Tooltip} from "@mui/material";
 import {Add} from "@mui/icons-material";
+import {LoadingButton} from "@mui/lab";
 
 type AddItemFormPropsType = {
     addTask: (title: string) => void,
-    disabled?: boolean
+    disabled?: boolean,
+    loading?: boolean
 };
 export type OnKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => void;
 export type OnChangeHandler = (e: ChangeEvent<HTMLInputElement>) => void;
 export type AddTaskHandler = () => void;
 
-export const AddItemForm: React.FC<AddItemFormPropsType> = React.memo(({addTask, disabled = false}) => {
+export const AddItemForm: React.FC<AddItemFormPropsType> = React.memo((
+    {
+        addTask,
+        loading = false,
+        disabled = false
+    }
+) => {
     console.log('AddItemForm called');
 
     const addItemListContStyles = {
@@ -74,14 +82,15 @@ export const AddItemForm: React.FC<AddItemFormPropsType> = React.memo(({addTask,
                 label="Write the title"
             />
             <Tooltip title="Add some title">
-                <Button
+                <LoadingButton
                     onClick={addItemHandler}
-                    startIcon={<Add/>}
-                    variant={'contained'}
-                    disabled={disabled}
+                    endIcon={<Add/>}
+                    loading={loading}
+                    loadingPosition="end"
+                    variant="contained"
                 >
-                    add
-                </Button>
+                    Add
+                </LoadingButton>
             </Tooltip>
 
             {error && <Alert
