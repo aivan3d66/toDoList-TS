@@ -7,15 +7,12 @@ import {
     TaskStatuses,
     UpdateTaskModelType
 } from "../api/tasks-api";
-import {ThunkAction} from "redux-thunk";
 import {ResultCode} from "../api/api";
-import {setAppError, SetErrorActionType, setAppStatus, SetStatusActionType} from "../app/app-reducer";
+import {setAppError, setAppStatus} from "../app/app-reducer";
 import {handleServerAppError, handleServerNetworkError} from "../utils/error-utils";
-import {AppRootState, InferActionsTypes} from "./redux-store";
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {
     addTodoListAC,
-    clearTodoData,
     getAllTodoListAC,
     removeTodoListAC,
 } from "./todolist-reducer";
@@ -74,18 +71,46 @@ export const deleteTodoListTask = createAsyncThunk(
             })
     });
 
+export const updateTodoListTask = createAsyncThunk('task/updateTodoListTask', async (payload: UpdatePayloadType, thunkAPI) => {
+    const state = thunkAPI.getState();
+    // @ts-ignore
+    const currentTask = state.tasks[payload.todoListId].find((t: TasksResponseType) => t.id === payload.taskId);
+
+    if (!currentTask) {
+        return console.warn('The task is not found in state');
+    }
+
+    const apiModel: UpdateTaskModelType = {
+        deadline: currentTask.deadline,
+        description: currentTask.description,
+        priority: currentTask.priority,
+        startDate: currentTask.startDate,
+        status: currentTask.status,
+        title: currentTask.title,
+        ...currentTask.domainModel
+    };
+
+    return await tasksAPI.updateTask({todoListId: payload.todoListId, taskId: payload.taskId, model: apiModel})
+        .then(res => {
+            if (res.data.resultCode === ResultCode.Success) {
+                return {todoListId: payload.todoListId, taskId: payload.taskId, model: currentTask.domainModel}
+            } else {
+                handleServerAppError(res.data, thunkAPI.dispatch)
+            }
+        })
+        .catch(e => {
+            thunkAPI.dispatch(setAppError(e.message));
+            thunkAPI.dispatch(setAppStatus({status: 'failed'}));
+        })
+
+});
+
+
 export const initialTasksState: TodoListTasksType = {};
 export const tasksSlice = createSlice({
     name: 'tasks',
     initialState: initialTasksState,
-    reducers: {
-        updateTaskAC: (state, action: PayloadAction<{ todoListId: string, taskId: string, model: UpdateDomainTaskModelType }>) => {
-            state[action.payload.todoListId] = state[action.payload.todoListId].map((t) => t.id === action.payload.taskId ? {
-                ...t,
-                ...action.payload.model
-            } : t)
-        }
-    },
+    reducers: {},
     extraReducers: (builder => {
         builder.addCase(addTodoListAC, (state, action) => {
             state[action.payload.todoList.id] = [];
@@ -115,47 +140,21 @@ export const tasksSlice = createSlice({
                 tasks.splice(index, 1)
             }
         });
+        builder.addCase(updateTodoListTask.fulfilled, (state, action: PayloadAction<any>) => {
+            state[action.payload.todoListId] = state[action.payload.todoListId].map((t) => t.id === action.payload.taskId ? {
+                ...t,
+                ...action.payload.model
+            } : t)
+        });
     })
 });
 
-export const {updateTaskAC} = tasksSlice.actions;
+type UpdatePayloadType = {
+    todoListId: string,
+    taskId: string,
+    domainModel: UpdateDomainTaskModelType
+}
 export const taskReducer = tasksSlice.reducer;
-
-export const updateTodoListTask = (todoListId: string, taskId: string, domainModel: UpdateDomainTaskModelType): ThunkType => async (dispatch, getState: () => AppRootState) => {
-    const state = getState();
-    const currentTask = state.tasks[todoListId].find(t => t.id === taskId);
-
-    if (!currentTask) {
-        return console.warn('The task is not found in state');
-    }
-
-    const apiModel: UpdateTaskModelType = {
-        deadline: currentTask.deadline,
-        description: currentTask.description,
-        priority: currentTask.priority,
-        startDate: currentTask.startDate,
-        status: currentTask.status,
-        title: currentTask.title,
-        ...domainModel
-    };
-
-    tasksAPI.updateTask({todoListId, taskId, model: apiModel})
-        .then(res => {
-            if (res.data.resultCode === ResultCode.Success) {
-                dispatch(updateTaskAC({todoListId, taskId, model: domainModel}));
-            } else {
-                handleServerAppError(res.data, dispatch)
-            }
-        })
-        .catch(e => {
-            dispatch(setAppError(e.message));
-            dispatch(setAppStatus({status: 'failed'}));
-        })
-
-};
-
-// types
-
 export type UpdateDomainTaskModelType = {
     description?: string,
     title?: string,
@@ -167,19 +166,3 @@ export type UpdateDomainTaskModelType = {
 export type TodoListTasksType = {
     [key: string]: Array<TasksResponseType>,
 };
-
-type AddTodoListActionType = ReturnType<typeof addTodoListAC>;
-type RemoveTodoListActionType = ReturnType<typeof removeTodoListAC>;
-type GetAllTodoListActionType = ReturnType<typeof getAllTodoListAC>;
-
-type ActionsTypes =
-    InferActionsTypes<typeof tasksSlice.actions>
-    | AddTodoListActionType
-    | RemoveTodoListActionType
-    | GetAllTodoListActionType
-    | SetErrorActionType
-    | SetStatusActionType
-    | ReturnType<typeof clearTodoData>;
-
-
-type ThunkType = ThunkAction<void, AppRootState, unknown, ActionsTypes>;
