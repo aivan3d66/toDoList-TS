@@ -3,8 +3,7 @@ import {
     getAllTodoListTasks,
     setNewTodoListTask,
     taskReducer,
-    TodoListTasksType,
-    updateTaskAC,
+    TodoListTasksType, updateTodoListTask,
 } from "../task-reducer";
 import {removeTodoListAC, todoListId1} from "../todolist-reducer";
 import {TaskPriorities, TaskStatuses} from "../../api/tasks-api";
@@ -89,7 +88,10 @@ export const startState: TodoListTasksType = {
 };
 
 test('current task should be removed', () => {
-    const action = deleteTodoListTask.fulfilled({todoListId: "todoListId2", id: "2"}, '', {todoListId: 'todoListId2', taskId: "2"})
+    const action = deleteTodoListTask.fulfilled({todoListId: "todoListId2", id: "2"}, '', {
+        todoListId: 'todoListId2',
+        taskId: "2"
+    })
 
     const endState = taskReducer(startState, action)
 
@@ -110,22 +112,27 @@ test('current task should be added', () => {
             order: 0,
             description: '',
         }
-    }, '', {todoListId: 'setNewTodoListTask', title: 'beer'})
+    }, '', {todoListId: 'todoListId2', title: 'beer'})
 
     const endState = taskReducer(startState, action)
 
     expect(endState["todoListId1"].length).toBe(3);
-    expect(endState["todoListId2"].length).toBe(4);
+    expect(endState["todoListId2"].length).toBe(1);
     expect(endState["todoListId2"][0].id).toBeDefined();
     expect(endState["todoListId2"][0].title).toBe("beer");
 });
 
 test('current task should change his name', () => {
     const newTitle = "SASS or LESS"
-    const action = updateTaskAC({
-        todoListId: "todoListId2", taskId: "3", model: {
-            title: "SASS or LESS"
-        }
+    const action = updateTodoListTask.fulfilled({
+        todoListId: "todoListId2",
+        taskId: "3",
+        model: {title: "SASS or LESS"},
+    }, '', {
+        todoListId: "todoListId2",
+        taskId: "3",
+        domainModel: {title: "SASS or LESS"}
+
     })
 
     const endState = taskReducer(startState, action)
@@ -135,11 +142,20 @@ test('current task should change his name', () => {
 
 test('current task checkbox should be changed', () => {
     const newIsDone = TaskStatuses.New
-    const action = updateTaskAC({
-        todoListId: "todoListId1", taskId: "1", model: {
+    const action = updateTodoListTask.fulfilled({
+        todoListId: "todoListId1",
+        taskId: "1",
+        model: {
             status: TaskStatuses.New
         }
+    }, '', {
+        todoListId: "todoListId1",
+        taskId: "1", domainModel: {
+            status: TaskStatuses.New
+        }
+
     })
+
 
     const endState = taskReducer(startState, action)
 
