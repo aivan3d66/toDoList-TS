@@ -87,22 +87,31 @@ export const updateTodoListTask = createAsyncThunk('task/updateTodoListTask', as
         startDate: currentTask.startDate,
         status: currentTask.status,
         title: currentTask.title,
-        ...currentTask.domainModel
+        ...payload.domainModel
     };
 
-    return await tasksAPI.updateTask({todoListId: payload.todoListId, taskId: payload.taskId, model: apiModel})
-        .then(res => {
-            if (res.data.resultCode === ResultCode.Success) {
-                return {todoListId: payload.todoListId, taskId: payload.taskId, model: currentTask.domainModel}
-            } else {
-                handleServerAppError(res.data, thunkAPI.dispatch)
-            }
-        })
-        .catch(e => {
-            thunkAPI.dispatch(setAppError(e.message));
-            thunkAPI.dispatch(setAppStatus({status: 'failed'}));
-        })
+    try {
+        const response = await tasksAPI.updateTask({
+            todoListId: payload.todoListId,
+            taskId: payload.taskId,
+            model: apiModel
+        });
 
+        if (response.data.resultCode === ResultCode.Success) {
+            return {todoListId: payload.todoListId, taskId: payload.taskId, model: payload.domainModel}
+        } else {
+            handleServerAppError(response.data, thunkAPI.dispatch)
+            return thunkAPI.rejectWithValue({
+                errors: response.data.messages,
+                fieldsErrors: response.data.fieldsErrors
+            });
+        }
+
+    } catch (e: any) {
+        thunkAPI.dispatch(setAppError(e.message));
+        thunkAPI.dispatch(setAppStatus({status: 'failed'}));
+        return thunkAPI.rejectWithValue({errors: [e.message], fieldsErrors: undefined});
+    }
 });
 
 
