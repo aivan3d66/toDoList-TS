@@ -8,12 +8,6 @@ type TodoListItemsPropsType = {
 }
 
 export const TodoListTasks = React.memo((props: TodoListItemsPropsType) => {
-  const tasksListStyles = {
-    listStyle: "none",
-    width: "100%",
-    margin: "20px 0 40px 0",
-    padding: "0",
-  }
   const {
     tasks,
     todoListID,
@@ -39,8 +33,22 @@ export const TodoListTasks = React.memo((props: TodoListItemsPropsType) => {
   );
 
   return (
-    <ul style={tasksListStyles}>
-      {tasks.length === 0 ? <p>No tasks yet ...</p> : tasksList}
+    <ul style={{
+      listStyle: "none",
+      width: "100%",
+      height: "205px",
+      margin: "20px 0 40px 0",
+      padding: "0",
+      overflowY: tasks.length > 4 ? "scroll" : "hidden",
+    }}>
+      {tasks.length === 0 ? <p style={{
+        width: "100%",
+        marginTop: "50px",
+        color: "#bababa",
+        fontSize: "20px",
+        textAlign: "center",
+        textTransform: "uppercase"
+      }}>Empty list</p> : tasksList}
     </ul>
   )
 });
