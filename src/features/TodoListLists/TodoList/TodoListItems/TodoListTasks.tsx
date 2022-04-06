@@ -52,7 +52,9 @@ export const TodoListTasks = React.memo((props: TodoListItemsPropsType) => {
 
                 {tasks.length === 0 ? <p style={{
                     width: "100%",
-                    marginTop: "50px",
+                    height: "100%",
+                    margin: "0",
+                    padding: "50px 10px 0 10px",
                     color: "#bababa",
                     fontSize: "20px",
                     textAlign: "center",
