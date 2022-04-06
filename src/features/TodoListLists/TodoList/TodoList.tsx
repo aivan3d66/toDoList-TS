@@ -4,7 +4,7 @@ import {FILTERS} from "../../../common/constants";
 import '../../../app/App.css';
 import {AddItemForm} from "../../../components/AddItemForm/AddItemForm";
 import {EditableSpan} from "../../../components/EditableSpan/EditableSpan";
-import {Button, IconButton} from "@mui/material";
+import {Button, IconButton, Tooltip} from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootState} from "../../../state/redux-store";
@@ -76,14 +76,30 @@ export const TodoList: React.FC<TodoListProps> = React.memo(({demo = false, ...p
         const getActiveBtnClassName = (filterValue: FilterValueType) => {
             return filter === filterValue ? 'contained' : 'outlined';
         };
+        const getCurrentDate = (value: string) => {
+            const setCurrentDate = new Date(value);
+            return `Added date: ${setCurrentDate.toUTCString()}`
+        }
+        const date = getCurrentDate(props.todoList.addedDate)
+
 
         return (
             <div style={{
+                position: "relative",
                 display: "flex",
                 flexDirection: "column",
                 width: "100%",
                 minHeight: "400px"
             }}>
+                <span style={{
+                    position: "absolute",
+                    top: "-40px",
+                    left: "-15px",
+                    fontSize: "12px",
+                    color: "#b2b2b2"
+                }}>
+                     {date}
+                </span>
                 <div style={{
                     display: "flex",
                     flexDirection: "row",
@@ -97,17 +113,21 @@ export const TodoList: React.FC<TodoListProps> = React.memo(({demo = false, ...p
                     fontFamily: "Noto Sans, sans-serif"
                 }}>
                     <EditableSpan title={todoList.title} onChange={onChangeTodoListTitle}/>
-                    <IconButton
-                        onClick={onRemoveListHandler}
-                        color={'default'}
-                        size={'small'}
-                        disabled={todoList.entityStatus === 'loading'}
-                    >
-                        <DeleteIcon/>
-                    </IconButton>
+                    <Tooltip title="Delete this todolist">
+                        <IconButton
+                            onClick={onRemoveListHandler}
+                            color={'default'}
+                            size={'small'}
+                            disabled={todoList.entityStatus === 'loading'}
+                        >
+                            <DeleteIcon/>
+                        </IconButton>
+                    </Tooltip>
+
                 </div>
                 <AddItemForm
                     addTask={addTaskHandler}
+                    loading={todoList.entityStatus === 'loading'}
                     disabled={todoList.entityStatus === 'loading'}
                 />
 
