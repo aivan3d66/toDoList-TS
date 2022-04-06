@@ -64,8 +64,7 @@ export const Login = () => {
             flexDirection: "column",
             justifyContent: "center",
             margin: "100px auto",
-            minWidth: "320px",
-            maxWidth: "400px"
+            width: "320px"
         }}>
             <form onSubmit={formik.handleSubmit}>
                 <FormControl>
