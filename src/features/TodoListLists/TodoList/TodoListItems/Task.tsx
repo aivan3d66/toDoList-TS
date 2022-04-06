@@ -37,7 +37,7 @@ export const Task = React.memo((props: TaskPropsType) => {
         dispatch(deleteTodoListTask({todoListId: todolistId, taskId: id}));
     }, [todolistId, id]);
     const onChangeTitleHandler = useCallback((newTitle: string) => {
-        dispatch(updateTodoListTask(todolistId, id, {title: newTitle}))
+        dispatch(updateTodoListTask({todoListId: todolistId, taskId: id, domainModel: {title: newTitle}}))
     }, [todolistId, id]);
     const onChangeStatusHandler = useCallback((e: ChangeEvent<HTMLInputElement>) => {
         let newStatus;
@@ -46,7 +46,7 @@ export const Task = React.memo((props: TaskPropsType) => {
         } else if (!e.currentTarget.checked) {
             newStatus = TaskStatuses.New;
         }
-        dispatch(updateTodoListTask(todolistId, id, {status: newStatus}));
+        dispatch(updateTodoListTask({todoListId: todolistId, taskId: id, domainModel: {status: newStatus}}));
     }, [todolistId, id]);
 
     return (
