@@ -40,7 +40,7 @@ export const TodoListsList: React.FC<TodoListsListPropsType> = ({demo}) => {
     display: "flex",
     justifyContent: "center",
     width: "100%",
-    margin: "0 auto",
+    margin: "0 auto 60px auto",
   };
 
   const dispatch = useDispatch();
