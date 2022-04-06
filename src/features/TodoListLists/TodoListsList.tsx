@@ -27,6 +27,7 @@ export const TodoListsList: React.FC<TodoListsListPropsType> = ({demo}) => {
     width: "280px",
     minHeight: "200px",
     padding: "16px",
+    margin: "0 0 40px 0",
     fontSize: "14px",
   };
   const gridItemAppStyles = {
