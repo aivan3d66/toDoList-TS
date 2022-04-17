@@ -1,7 +1,7 @@
-import {setAppStatus} from "../app/app-reducer";
-import {authAPI, LoginParamsType} from "../api/auth-api";
-import {FieldsErrorsType, ResultCode} from "../api/api";
-import {handleServerAppError, handleServerNetworkError} from "../utils/error-utils";
+import {setAppStatus} from "../../app/app-reducer";
+import {authAPI, LoginParamsType} from "../../api/auth-api";
+import {FieldsErrorsType, ResultCode} from "../../api/api";
+import {handleServerAppError, handleServerNetworkError} from "../../utils/error-utils";
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {clearTodoData} from "./todolist-reducer";
 import {AxiosError} from "axios";

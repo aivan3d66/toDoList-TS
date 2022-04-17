@@ -8,7 +8,7 @@ import {
   getTodoListsThunk,
   setTodoListsThunk,
   TodoListDomainType, updateTodoListTitleThunk
-} from "../../state/todolist-reducer";
+} from "../../state/slices/todolist-reducer";
 import {TodoList} from "./TodoList/TodoList";
 import {AddItemForm} from "../../components/AddItemForm/AddItemForm";
 import {Navigate} from "react-router-dom";

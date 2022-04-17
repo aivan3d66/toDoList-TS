@@ -1,4 +1,4 @@
-import {TodoListType} from "../state/todolist-reducer";
+import {TodoListType} from "../state/slices/todolist-reducer";
 import {ApiResponseType, instance} from "./api";
 
 export type SetResponseItemType = {

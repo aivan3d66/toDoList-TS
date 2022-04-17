@@ -3,7 +3,7 @@ import './App.css';
 import AppBar from '@mui/material/AppBar';
 import {Toolbar, IconButton, Container, LinearProgress, CircularProgress, Button, Tooltip} from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import {getTodoListsThunk,} from "../state/todolist-reducer";
+import {getTodoListsThunk,} from "../state/slices/todolist-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootState} from '../state/redux-store';
 import ErrorSnackbar from "../components/ErrorSnackbar/ErrorSnackbar";
@@ -12,7 +12,7 @@ import {Login} from "../features/Login/Login";
 import {Routes, Route} from 'react-router-dom';
 import {TodoListsList} from '../features/TodoListLists/TodoListsList';
 import {ROUTES} from '../common/constants';
-import {getLogOut} from "../state/login-reducer";
+import {getLogOut} from "../state/slices/login-reducer";
 
 type AppPropsTpe = { demo?: boolean };
 

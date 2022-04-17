@@ -1,9 +1,9 @@
 import {combineReducers, Action} from "redux";
-import {taskReducer} from "./task-reducer";
-import {todoListsReducer} from "./todolist-reducer";
+import {taskReducer} from "./slices/task-reducer";
+import {todoListsReducer} from "./slices/todolist-reducer";
 import thunkMiddleware, {ThunkAction} from "redux-thunk";
 import {appReducer} from "../app/app-reducer";
-import {loginReducer} from "./login-reducer";
+import {loginReducer} from "./slices/login-reducer";
 import {configureStore} from '@reduxjs/toolkit';
 
 type PropertiesType<T> = T extends { [key: string]: infer U } ? U : never;

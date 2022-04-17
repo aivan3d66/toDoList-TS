@@ -6,10 +6,10 @@ import {
     TasksResponseType,
     TaskStatuses,
     UpdateTaskModelType
-} from "../api/tasks-api";
-import {ResultCode} from "../api/api";
-import {setAppError, setAppStatus} from "../app/app-reducer";
-import {handleServerAppError, handleServerNetworkError} from "../utils/error-utils";
+} from "../../api/tasks-api";
+import {ResultCode} from "../../api/api";
+import {setAppError, setAppStatus} from "../../app/app-reducer";
+import {handleServerAppError, handleServerNetworkError} from "../../utils/error-utils";
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {
     addTodoListAC,

@@ -4,7 +4,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import React, {ChangeEvent, useCallback} from "react";
 import {
     deleteTodoListTask, updateTodoListTask
-} from "../../../../state/task-reducer";
+} from "../../../../state/slices/task-reducer";
 import {useDispatch} from "react-redux";
 import {v1} from "uuid";
 import {TasksResponseType, TaskStatuses} from "../../../../api/tasks-api";

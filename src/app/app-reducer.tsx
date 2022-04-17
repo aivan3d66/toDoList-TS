@@ -1,7 +1,7 @@
 import {BaseThunksType} from "../state/redux-store";
 import {authAPI} from "../api/auth-api";
 import {ResultCode} from "../api/api";
-import {setIsLoggedIn} from "../state/login-reducer";
+import {setIsLoggedIn} from "../state/slices/login-reducer";
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 export type StatusType = 'idle' | 'loading' | 'succeeded' | 'failed';

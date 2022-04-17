@@ -8,8 +8,8 @@ import {Button, IconButton, Tooltip} from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootState} from "../../../state/redux-store";
-import {getAllTodoListTasks, setNewTodoListTask} from "../../../state/task-reducer";
-import {FilterValueType, TodoListDomainType} from "../../../state/todolist-reducer";
+import {getAllTodoListTasks, setNewTodoListTask} from "../../../state/slices/task-reducer";
+import {FilterValueType, TodoListDomainType} from "../../../state/slices/todolist-reducer";
 import {TasksResponseType, TaskStatuses} from "../../../api/tasks-api";
 import {TodoListTasks} from "./TodoListItems/TodoListTasks";
 

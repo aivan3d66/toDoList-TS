@@ -2,7 +2,7 @@ import React from "react";
 import {Button, Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, Grid, TextField, Tooltip} from "@mui/material";
 import {FormikHelpers, useFormik} from "formik";
 import {useDispatch, useSelector} from "react-redux";
-import {getAuth} from "../../state/login-reducer";
+import {getAuth} from "../../state/slices/login-reducer";
 import {AppDispatchType, AppRootState} from "../../state/redux-store";
 import {Navigate} from "react-router-dom";
 import {ROUTES} from "../../common/constants";

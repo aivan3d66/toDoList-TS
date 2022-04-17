@@ -1,8 +1,8 @@
 import React from "react"
 import {Provider} from "react-redux"
 import {applyMiddleware, combineReducers, createStore} from "redux";
-import {taskReducer} from "../state/task-reducer";
-import {todoListId1, todoListId2, todoListsReducer} from "../state/todolist-reducer";
+import {taskReducer} from "../state/slices/task-reducer";
+import {todoListId1, todoListId2, todoListsReducer} from "../state/slices/todolist-reducer";
 import {FILTERS} from "../common/constants";
 import {TaskPriorities, TaskStatuses} from "../api/tasks-api";
 import {appReducer} from "../app/app-reducer";

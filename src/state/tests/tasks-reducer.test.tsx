@@ -4,8 +4,8 @@ import {
     setNewTodoListTask,
     taskReducer,
     TodoListTasksType, updateTodoListTask,
-} from "../task-reducer";
-import {removeTodoListAC, todoListId1} from "../todolist-reducer";
+} from "../slices/task-reducer";
+import {removeTodoListAC, todoListId1} from "../slices/todolist-reducer";
 import {TaskPriorities, TaskStatuses} from "../../api/tasks-api";
 
 export const startState: TodoListTasksType = {

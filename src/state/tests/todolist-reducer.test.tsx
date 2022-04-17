@@ -5,7 +5,7 @@ import {
   removeTodoListAC,
   TodoListDomainType,
   todoListsReducer
-} from "../todolist-reducer";
+} from "../slices/todolist-reducer";
 import {v1} from "uuid";
 import {FILTERS} from "../../common/constants";
 import {StatusType} from "../../app/app-reducer";

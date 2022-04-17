@@ -1,11 +1,11 @@
-import {FILTERS} from "../common/constants";
+import {FILTERS} from "../../common/constants";
 import {v1} from "uuid";
-import {todoListsAPI} from "../api/todoList-api";
+import {todoListsAPI} from "../../api/todoList-api";
 import {ThunkAction} from "redux-thunk";
-import {ResultCode} from "../api/api";
-import {setAppStatus, SetStatusActionType, StatusType} from "../app/app-reducer";
-import {AppRootState, InferActionsTypes} from "./redux-store";
-import {handleServerAppError, handleServerNetworkError} from "../utils/error-utils";
+import {ResultCode} from "../../api/api";
+import {setAppStatus, SetStatusActionType, StatusType} from "../../app/app-reducer";
+import {AppRootState, InferActionsTypes} from "../redux-store";
+import {handleServerAppError, handleServerNetworkError} from "../../utils/error-utils";
 import {getAllTodoListTasks} from "./task-reducer";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
