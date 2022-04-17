@@ -3,7 +3,7 @@ import {Button, Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, G
 import {FormikHelpers, useFormik} from "formik";
 import {useDispatch, useSelector} from "react-redux";
 import {getAuth} from "../../state/slices/login-reducer";
-import {AppDispatchType, AppRootState} from "../../state/redux-store";
+import {AppDispatch, AppRootState} from "../../state/redux-store";
 import {Navigate} from "react-router-dom";
 import {ROUTES} from "../../common/constants";
 
@@ -21,7 +21,7 @@ const errorStyles = {
 }
 
 export const Login = () => {
-    const dispatch: AppDispatchType = useDispatch();
+    const dispatch: AppDispatch = useDispatch();
     const isLoggedIn = useSelector<AppRootState>(state => state.auth.isLoginIn)
 
     const formik = useFormik({
