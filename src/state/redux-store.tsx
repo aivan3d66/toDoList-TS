@@ -1,4 +1,4 @@
-import {combineReducers, Action} from "redux";
+import {Action} from "redux";
 import {taskReducer} from "./slices/task-reducer";
 import {todoListsReducer} from "./slices/todolist-reducer";
 import thunkMiddleware, {ThunkAction} from "redux-thunk";
@@ -11,25 +11,18 @@ export type InferActionsTypes<T extends { [key: string]: (...args: any[]) => any
 export type BaseThunksType<A extends Action, R = Promise<void>> = ThunkAction<R, AppRootState, unknown, A>
 
 export type AppRootState = ReturnType<typeof store.getState>
-export type AppDispatchType = ReturnType<typeof store.dispatch>
-
-const rootReducer = combineReducers({
-  tasks: taskReducer,
-  todoLists: todoListsReducer,
-  app: appReducer,
-  auth: loginReducer,
-})
-
-// const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
+export type AppDispatch = typeof store.dispatch
 
 const store = configureStore({
-  reducer: rootReducer,
+  reducer: {
+    tasks: taskReducer,
+    todoLists: todoListsReducer,
+    app: appReducer,
+    auth: loginReducer,
+  },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware()
       .prepend(thunkMiddleware)
 })
-
-// @ts-ignore
-window.store = store;
 
 export default store;
