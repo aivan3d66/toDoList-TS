@@ -1,6 +1,9 @@
 import {ApiResponseType} from "../api/api";
-import {setAppError, setAppStatus, SetErrorActionType, SetStatusActionType} from "../app/app-reducer";
+import {setAppError, setAppStatus} from "../app/app-reducer";
 import {Dispatch} from "react";
+
+type SetErrorActionType = ReturnType<typeof setAppError>;
+type SetStatusActionType = ReturnType<typeof setAppStatus>;
 
 export const handleServerAppError = (data: ApiResponseType, dispatch: Dispatch<SetErrorActionType |SetStatusActionType>) => {
   if (data.messages.length) {
