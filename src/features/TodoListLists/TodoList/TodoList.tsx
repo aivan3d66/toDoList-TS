@@ -6,12 +6,13 @@ import {AddItemForm} from "../../../components/AddItemForm/AddItemForm";
 import {EditableSpan} from "../../../components/EditableSpan/EditableSpan";
 import {Button, IconButton, Tooltip} from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import {AppRootState} from "../../../state/redux-store";
-import {getAllTodoListTasks, setNewTodoListTask} from "../../../state/slices/task-reducer";
+import {taskReducerThunks} from "../../../state/slices/task-reducer";
 import {FilterValueType, TodoListDomainType} from "../../../state/slices/todolist-reducer";
 import {TasksResponseType, TaskStatuses} from "../../../api/tasks-api";
 import {TodoListTasks} from "./TodoListItems/TodoListTasks";
+import {useActions} from "../../../utils/helpers";
 
 export type TodoListProps = {
     todoList: TodoListDomainType,
@@ -39,14 +40,14 @@ export const TodoList: React.FC<TodoListProps> = React.memo(({demo = false, ...p
             changeFilter,
         } = props;
 
-        const dispatch = useDispatch();
         const tasks = useSelector<AppRootState, Array<TasksResponseType>>(state => state.tasks[todoList.id])
+        const {getAllTodoListTasks, setNewTodoListTask} = useActions(taskReducerThunks);
 
         useEffect(() => {
             if (demo) {
                 return
             }
-            dispatch(getAllTodoListTasks({todoListId: todoList.id}))
+            getAllTodoListTasks({todoListId: todoList.id})
         }, [todoList.id])
 
         const onChangeTodoListTitle = useCallback((title: string) => {
@@ -57,7 +58,7 @@ export const TodoList: React.FC<TodoListProps> = React.memo(({demo = false, ...p
         };
 
         const addTaskHandler = useCallback((title: string) => {
-            dispatch(setNewTodoListTask({todoListId: todoList.id, title}));
+            setNewTodoListTask({todoListId: todoList.id, title});
         }, [todoList.id, setNewTodoListTask]);
 
         let taskForTodoList = tasks;
