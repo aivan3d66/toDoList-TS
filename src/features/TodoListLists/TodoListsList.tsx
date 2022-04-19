@@ -1,20 +1,18 @@
 import React, {useCallback, useEffect} from "react";
 import {Container, Grid, Paper} from "@mui/material";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import {AppRootState} from "../../state/redux-store";
 import {
   changeTodoListFilterAC,
-  deleteTodoListThunk, FilterValueType,
-  getTodoListsThunk,
-  setTodoListsThunk,
-  TodoListDomainType, updateTodoListTitleThunk
+  FilterValueType,
+  TodoListDomainType, todoListsThunks
 } from "../../state/slices/todolist-reducer";
 import {TodoList} from "./TodoList/TodoList";
 import {AddItemForm} from "../../components/AddItemForm/AddItemForm";
 import {Navigate} from "react-router-dom";
 import {ROUTES} from "../../common/constants";
+import {useActions} from "../../utils/helpers";
 
-export type AddTodoList = (title: string) => void;
 export type RemoveTodoList = (todoListId: string) => void;
 export type ChangeTodoListTitleType = (todoListID: string, title: string) => void;
 export type ChangeFilter = (todoListId: string, value: FilterValueType) => void;
@@ -44,30 +42,30 @@ export const TodoListsList: React.FC<TodoListsListPropsType> = ({demo}) => {
     margin: "0 auto 60px auto",
   };
 
-  const dispatch = useDispatch();
   const todoLists = useSelector<AppRootState, Array<TodoListDomainType>>(state => state.todoLists);
   const isLoggedIn = useSelector<AppRootState>(state => state.auth.isLoginIn);
+  const {getTodoLists, setTodoLists, deleteTodoList, updateTodoListTitle} = useActions(todoListsThunks)
 
   useEffect(() => {
     if (demo || !isLoggedIn) {
       return;
     }
-    dispatch(getTodoListsThunk())
+    getTodoLists({})
   }, [])
 
   const addTodoList = useCallback((title: string) => {
-    dispatch(setTodoListsThunk(title));
-  }, [dispatch]);
+    setTodoLists({title});
+  }, []);
   const removeTodoList = useCallback((todoListId: string) => {
-    dispatch(deleteTodoListThunk(todoListId));
-  }, [dispatch]);
+    deleteTodoList({todoListId});
+  }, []);
   const changeTodoListTitle = useCallback((todoListID: string, newTitle: string) => {
-    dispatch(updateTodoListTitleThunk(todoListID, newTitle));
-  }, [dispatch]);
+    updateTodoListTitle({todoListId: todoListID, title: newTitle});
+  }, []);
 
   const changeFilter = useCallback((todoListId: string, value: FilterValueType) => {
-    dispatch(changeTodoListFilterAC({id: todoListId, filter: value}));
-  }, [dispatch]);
+    changeTodoListFilterAC({id: todoListId, filter: value});
+  }, []);
 
   if (!isLoggedIn) return <Navigate to={ROUTES.LOGIN}/>
 
