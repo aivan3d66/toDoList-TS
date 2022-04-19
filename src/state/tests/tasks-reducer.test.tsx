@@ -5,8 +5,10 @@ import {
     taskReducer,
     TodoListTasksType, updateTodoListTask,
 } from "../slices/task-reducer";
-import {removeTodoListAC, todoListId1} from "../slices/todolist-reducer";
+import {deleteTodoList, getTodoLists, setTodoLists, todoListId1} from "../slices/todolist-reducer";
 import {TaskPriorities, TaskStatuses} from "../../api/tasks-api";
+
+export const todoListsThunks = {getTodoLists, setTodoLists, deleteTodoList};
 
 export const startState: TodoListTasksType = {
     "todoListId1": [
@@ -94,7 +96,6 @@ test('current task should be removed', () => {
     })
 
     const endState = taskReducer(startState, action)
-
     expect(endState["todoListId2"].length).toBe(2)
 });
 
@@ -156,14 +157,13 @@ test('current task checkbox should be changed', () => {
 
     })
 
-
     const endState = taskReducer(startState, action)
 
     expect(endState["todoListId1"][0].status).toBe(newIsDone)
 });
 
 test('property with todolistId should be deleted', () => {
-    const action = removeTodoListAC({todoListId: "todolistId2"});
+    const action = deleteTodoList.fulfilled({todoListId: "todolistId2"}, '', {todoListId: "todolistId2"});
 
     const endState = taskReducer(startState, action)
 
