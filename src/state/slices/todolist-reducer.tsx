@@ -84,9 +84,6 @@ export const todoListSlice = createSlice({
   name: 'todoLists',
   initialState: [] as Array<TodoListDomainType>,
   reducers: {
-    removeTodoListAC: (state, action: PayloadAction<{ todoListId: string }>) => {
-      state.findIndex(tl => tl.id === action.payload.todoListId) > -1 && state.splice(state.findIndex(tl => tl.id === action.payload.todoListId), 1);
-    },
     changeTodoListTitleAC: (state, action: PayloadAction<{ id: string, title: string }>) => {
       state.filter(tl => tl.id === action.payload.id ? tl.title = action.payload.title : tl);
     },
@@ -108,34 +105,22 @@ export const todoListSlice = createSlice({
       .addCase(setTodoLists.fulfilled, (state, action) => {
         state.push({...action.payload.todoList, filter: FILTERS.ALL, entityStatus: 'idle'});
       })
+      .addCase(deleteTodoList.fulfilled, (state, action) => {
+        state.findIndex(tl => tl.id === action.payload.todoListId) > -1 && state.splice(state.findIndex(tl => tl.id === action.payload.todoListId), 1);
+      })
   }
 });
 
 export const todoListsReducer = todoListSlice.reducer;
+export const todoListsThunks = {getTodoLists, setTodoLists, deleteTodoList};
 export const {
-  removeTodoListAC,
   changeTodoListTitleAC,
   changeTodoListFilterAC,
   changeTodoListEntityStatus,
   clearTodoData
 } = todoListSlice.actions;
 
-export const deleteTodoListThunk = (todoListId: string): ThunkType => async (dispatch) => {
-  dispatch(setAppStatus({status: 'loading'}));
-  todoListsAPI.deleteTodoList(todoListId)
-    .then(response => {
-      if (response.data.resultCode === ResultCode.Success) {
-        dispatch(removeTodoListAC({todoListId: todoListId}));
-        dispatch(setAppStatus({status: 'succeeded'}));
-      } else {
-        handleServerAppError(response.data, dispatch);
-      }
-    })
-    .catch(error => {
-      handleServerNetworkError(error, dispatch);
-      dispatch(setAppStatus({status: 'failed'}));
-    })
-};
+
 export const updateTodoListTitleThunk = (todoListId: string, title: string): ThunkType => async (dispatch) => {
   dispatch(setAppStatus({status: 'loading'}));
   todoListsAPI.updateTodoList(todoListId, title)
