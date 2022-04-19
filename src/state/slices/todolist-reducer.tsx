@@ -59,6 +59,27 @@ export const setTodoLists = createAsyncThunk(
     }
   });
 
+export const deleteTodoList = createAsyncThunk(
+  'todoList/deleteTodoList',
+  async (payload: {todoListId: string}, thunkAPI) => {
+    thunkAPI.dispatch(setAppStatus({status: 'loading'}));
+    try {
+      const response = await todoListsAPI.deleteTodoList(payload.todoListId)
+      if (response.data.resultCode === ResultCode.Success) {
+        thunkAPI.dispatch(setAppStatus({status: 'succeeded'}));
+        return {todoListId: payload.todoListId}
+      } else {
+        handleServerAppError(response.data, thunkAPI.dispatch);
+        return thunkAPI.rejectWithValue(null)
+      }
+    } catch (error: any) {
+      handleServerNetworkError(error, thunkAPI.dispatch);
+      thunkAPI.dispatch(setAppStatus({status: 'failed'}));
+      return thunkAPI.rejectWithValue(null)
+    }
+});
+
+
 export const todoListSlice = createSlice({
   name: 'todoLists',
   initialState: [] as Array<TodoListDomainType>,
