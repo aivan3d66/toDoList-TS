@@ -116,61 +116,62 @@ export const updateTodoListTask = createAsyncThunk(
   });
 
 export const tasksSlice = createSlice({
-    name: 'tasks',
-    initialState: initialTasksState,
-    reducers: {},
-    extraReducers: (builder => {
-        builder.addCase(addTodoListAC, (state, action) => {
-            state[action.payload.todoList.id] = [];
+  name: 'tasks',
+  initialState: {} as TodoListTasksType,
+  reducers: {},
+  extraReducers: (builder => {
+    builder
+      .addCase(addTodoListAC, (state, action) => {
+        state[action.payload.todoList.id] = [];
+      })
+      .addCase(removeTodoListAC, (state, action) => {
+        delete state[action.payload.todoListId];
+      })
+      .addCase(getAllTodoListAC, (state, action) => {
+        action.payload.todoLists.forEach(tl => {
+          state[tl.id] = [];
         });
-        builder.addCase(removeTodoListAC, (state, action) => {
-            delete state[action.payload.todoListId];
-        });
-        builder.addCase(getAllTodoListAC, (state, action) => {
-            action.payload.todoLists.forEach(tl => {
-                state[tl.id] = [];
-            });
-        });
-        builder.addCase(getAllTodoListTasks.fulfilled, (state, action) => {
-            if (action.payload) {
-                state[action.payload.todoListId] = action.payload.tasksList;
-            }
-        });
-        builder.addCase(setNewTodoListTask.fulfilled, (state, action) => {
-            if (action.payload) {
-                state[action.payload.task.todolistId] = [action.payload.task];
-            }
-        });
-        builder.addCase(deleteTodoListTask.fulfilled, (state, action: PayloadAction<any>) => {
-            const tasks = state[action.payload.todoListId];
-            const index = tasks.findIndex(t => t.id === action.payload.id);
-            if (index > -1) {
-                tasks.splice(index, 1)
-            }
-        });
-        builder.addCase(updateTodoListTask.fulfilled, (state, action: PayloadAction<any>) => {
-            state[action.payload.todoListId] = state[action.payload.todoListId].map((t) => t.id === action.payload.taskId ? {
-                ...t,
-                ...action.payload.model
-            } : t)
-        });
-    })
+      })
+      .addCase(getAllTodoListTasks.fulfilled, (state, action) => {
+        if (action.payload) {
+          state[action.payload.todoListId] = action.payload.tasksList;
+        }
+      })
+      .addCase(setNewTodoListTask.fulfilled, (state, action) => {
+        if (action.payload) {
+          state[action.payload.task.todolistId] = [action.payload.task];
+        }
+      })
+      .addCase(deleteTodoListTask.fulfilled, (state, action) => {
+        const tasks = state[action.payload.todoListId];
+        const index = tasks.findIndex(t => t.id === action.payload.id);
+        if (index > -1) {
+          tasks.splice(index, 1)
+        }
+      })
+      .addCase(updateTodoListTask.fulfilled, (state, action) => {
+        state[action.payload.todoListId] = state[action.payload.todoListId].map((t) => t.id === action.payload.taskId ? {
+          ...t,
+          ...action.payload.model
+        } : t)
+      })
+  })
 });
 
 type UpdatePayloadType = {
-    todoListId: string,
-    taskId: string,
-    domainModel: UpdateDomainTaskModelType
+  todoListId: string,
+  taskId: string,
+  domainModel: UpdateDomainTaskModelType
 }
 export const taskReducer = tasksSlice.reducer;
 export type UpdateDomainTaskModelType = {
-    description?: string,
-    title?: string,
-    status?: TaskStatuses,
-    priority?: TaskPriorities,
-    startDate?: string,
-    deadline?: string,
+  description?: string,
+  title?: string,
+  status?: TaskStatuses,
+  priority?: TaskPriorities,
+  startDate?: string,
+  deadline?: string,
 };
 export type TodoListTasksType = {
-    [key: string]: Array<TasksResponseType>,
+  [key: string]: Array<TasksResponseType>,
 };
