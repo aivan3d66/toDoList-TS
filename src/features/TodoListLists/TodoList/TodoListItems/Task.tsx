@@ -2,12 +2,10 @@ import {Checkbox, IconButton, Tooltip} from "@mui/material";
 import {EditableSpan} from "../../../../components/EditableSpan/EditableSpan";
 import DeleteIcon from "@mui/icons-material/Delete";
 import React, {ChangeEvent, useCallback} from "react";
-import {
-    deleteTodoListTask, updateTodoListTask
-} from "../../../../state/slices/task-reducer";
-import {useDispatch} from "react-redux";
+import {taskReducerThunks} from "../../../../state/slices/task-reducer";
 import {v1} from "uuid";
 import {TasksResponseType, TaskStatuses} from "../../../../api/tasks-api";
+import {useActions} from "../../../../utils/helpers";
 
 type TaskPropsType = TasksResponseType & {
     todolistId: string,
@@ -31,13 +29,13 @@ export const Task = React.memo((props: TaskPropsType) => {
         borderBottom: "1px solid #bababa",
         opacity: status === TaskStatuses.Completed ? "0.4" : "",
     }
+    const {deleteTodoListTask, updateTodoListTask} = useActions(taskReducerThunks);
 
-    const dispatch = useDispatch();
     const onClickHandler = useCallback(() => {
-        dispatch(deleteTodoListTask({todoListId: todolistId, taskId: id}));
+        deleteTodoListTask({todoListId: todolistId, taskId: id});
     }, [todolistId, id]);
     const onChangeTitleHandler = useCallback((newTitle: string) => {
-        dispatch(updateTodoListTask({todoListId: todolistId, taskId: id, domainModel: {title: newTitle}}))
+        updateTodoListTask({todoListId: todolistId, taskId: id, domainModel: {title: newTitle}})
     }, [todolistId, id]);
     const onChangeStatusHandler = useCallback((e: ChangeEvent<HTMLInputElement>) => {
         let newStatus;
@@ -46,7 +44,7 @@ export const Task = React.memo((props: TaskPropsType) => {
         } else if (!e.currentTarget.checked) {
             newStatus = TaskStatuses.New;
         }
-        dispatch(updateTodoListTask({todoListId: todolistId, taskId: id, domainModel: {status: newStatus}}));
+        updateTodoListTask({todoListId: todolistId, taskId: id, domainModel: {status: newStatus}});
     }, [todolistId, id]);
 
     return (
