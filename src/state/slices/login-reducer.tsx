@@ -73,5 +73,6 @@ export const slice = createSlice({
 });
 
 export const loginReducer = slice.reducer;
+export const loginReducerThunk = {getAuth, getLogOut};
 export const {setIsLoggedIn} = slice.actions;
 
