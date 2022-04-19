@@ -12,9 +12,8 @@ import {setAppError, setAppStatus} from "../../app/app-reducer";
 import {handleServerAppError, handleServerNetworkError} from "../../utils/error-utils";
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {
-  addTodoListAC,
-  getAllTodoListAC,
-  removeTodoListAC,
+  deleteTodoList,
+  getTodoLists, setTodoLists
 } from "./todolist-reducer";
 import {AppRootState} from "../redux-store";
 
@@ -121,13 +120,13 @@ export const tasksSlice = createSlice({
   reducers: {},
   extraReducers: (builder => {
     builder
-      .addCase(addTodoListAC, (state, action) => {
+      .addCase(setTodoLists.fulfilled, (state, action) => {
         state[action.payload.todoList.id] = [];
       })
-      .addCase(removeTodoListAC, (state, action) => {
+      .addCase(deleteTodoList.fulfilled, (state, action) => {
         delete state[action.payload.todoListId];
       })
-      .addCase(getAllTodoListAC, (state, action) => {
+      .addCase(getTodoLists.fulfilled, (state, action) => {
         action.payload.todoLists.forEach(tl => {
           state[tl.id] = [];
         });
