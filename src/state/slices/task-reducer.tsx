@@ -157,12 +157,14 @@ export const tasksSlice = createSlice({
   })
 });
 
+export const taskReducer = tasksSlice.reducer;
+export const taskReducerThunks = {getAllTodoListTasks, setNewTodoListTask, deleteTodoListTask, updateTodoListTask};
+
 type UpdatePayloadType = {
   todoListId: string,
   taskId: string,
   domainModel: UpdateDomainTaskModelType
 }
-export const taskReducer = tasksSlice.reducer;
 export type UpdateDomainTaskModelType = {
   description?: string,
   title?: string,
