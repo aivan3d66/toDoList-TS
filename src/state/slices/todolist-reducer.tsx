@@ -12,7 +12,30 @@ import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 export const todoListId1 = v1();
 export const todoListId2 = v1();
 
-export const initialTodoList: Array<TodoListDomainType> = [];
+export const getTodoLists = createAsyncThunk(
+  'todolist/getTodoLists',
+  async (payload: any, thunkAPI) => {
+    thunkAPI.dispatch(setAppStatus({status: 'loading'}));
+    try {
+      const response = await todoListsAPI.getAllTodoLists();
+      if (response.data) {
+        thunkAPI.dispatch(setAppStatus({status: 'succeeded'}));
+        return {todoLists: response.data};
+      } else {
+        handleServerAppError(response.data, thunkAPI.dispatch);
+        return thunkAPI.rejectWithValue(null);
+      }
+    } catch (error: any) {
+      handleServerNetworkError(error, thunkAPI.dispatch);
+      thunkAPI.dispatch(setAppStatus({status: 'failed'}));
+      return thunkAPI.rejectWithValue(null);
+    }
+  // .then((todos) => {
+  //     todos.forEach((tl) => {
+  //       thunkAPI.dispatch(getAllTodoListTasks({todoListId: tl.id}))
+  //     })
+  });
+
 export const todoListSlice = createSlice({
   name: 'todoLists',
   initialState: initialTodoList,
