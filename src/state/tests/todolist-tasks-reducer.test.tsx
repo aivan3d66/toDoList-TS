@@ -1,5 +1,7 @@
-import {addTodoListAC, TodoListDomainType, todoListsReducer, TodoListType} from "../slices/todolist-reducer";
+import {TodoListDomainType, todoListsReducer, todoListsThunks, TodoListType} from "../slices/todolist-reducer";
 import {taskReducer, TodoListTasksType} from "../slices/task-reducer";
+
+const {setTodoLists} = todoListsThunks;
 
 test('new array should be added when new todolist is added', () => {
   const startTasksState: TodoListTasksType = {};
@@ -10,7 +12,7 @@ test('new array should be added when new todolist is added', () => {
     order: 0
   }
 
-  const action = addTodoListAC({todoList: newTodoList});
+  const action = setTodoLists.fulfilled({todoList: newTodoList}, '', {title: newTodoList.title});
 
   const endState = taskReducer(startTasksState, action)
 
@@ -35,7 +37,7 @@ test('ids should be equals', () => {
     order: 0
   }
 
-  const action = addTodoListAC({todoList: newTodoList});
+  const action = setTodoLists.fulfilled({todoList: newTodoList}, '', {title: newTodoList.title});
   const endTasksState = taskReducer(startTasksState, action)
   const endTodoListsState = todoListsReducer(startTodoListsState, action)
 

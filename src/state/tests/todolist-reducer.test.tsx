@@ -1,14 +1,15 @@
 import {
-  addTodoListAC, changeTodoListEntityStatus, changeTodoListFilterAC,
+  changeTodoListEntityStatus, changeTodoListFilterAC,
   changeTodoListTitleAC,
-  getAllTodoListAC,
   removeTodoListAC,
   TodoListDomainType,
-  todoListsReducer
+  todoListsReducer, todoListsThunks
 } from "../slices/todolist-reducer";
 import {v1} from "uuid";
 import {FILTERS} from "../../common/constants";
 import {StatusType} from "../../app/app-reducer";
+
+const {getTodoLists, setTodoLists} = todoListsThunks;
 
 const todoListId1 = v1();
 const todoListId2 = v1();
@@ -47,10 +48,14 @@ test('current todolist should be added', () => {
     order: 0,
   }
 
-  const endState = todoListsReducer(startState, addTodoListAC({todoList: newObj}));
+  const action = setTodoLists.fulfilled({
+    todoList: newObj
+  }, '', {title: newObj.title})
+
+  const endState = todoListsReducer(startState, action);
 
   expect(endState.length).toBe(3);
-  expect(endState[0].title).toBe("New TodoList")
+  expect(endState[2].title).toBe("New TodoList")
   expect(endState[2].filter).toBe(FILTERS.ALL)
 })
 
@@ -75,7 +80,11 @@ test('current filter should be changed', () => {
 })
 
 test('todoLists should be added', () => {
-  const endState = todoListsReducer([], getAllTodoListAC({todoLists: startState}));
+  const action = getTodoLists.fulfilled({
+    todoLists: startState
+  }, '', {todoLists: startState})
+
+  const endState = todoListsReducer([], action);
 
   expect(endState.length).toBe(2);
   expect(endState[0].id).toBe(todoListId1);
