@@ -62,6 +62,5 @@ export const TodoListTasks = React.memo((props: TodoListItemsPropsType) => {
                 }}>Empty list</p> : tasksList}
             </ul>
         </Scrollbars>
-
     )
 });
