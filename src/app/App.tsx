@@ -3,10 +3,10 @@ import './App.css';
 import AppBar from '@mui/material/AppBar';
 import {Toolbar, IconButton, Container, LinearProgress, CircularProgress, Button, Tooltip} from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import {AppRootState} from '../state/redux-store';
 import ErrorSnackbar from "../components/ErrorSnackbar/ErrorSnackbar";
-import {initialApp, StatusType} from "./app-reducer";
+import {appThunk, StatusType} from "./app-reducer";
 import {Login} from "../features/Login/Login";
 import {Routes, Route} from 'react-router-dom';
 import {TodoListsList} from '../features/TodoListLists/TodoListsList';
@@ -18,21 +18,21 @@ import {todoListsThunks} from "../state/slices/todolist-reducer";
 type AppPropsTpe = { demo?: boolean };
 
 export const App: React.FC<AppPropsTpe> = ({demo = false}) => {
-  const dispatch = useDispatch();
   const status = useSelector<AppRootState, StatusType>(state => state.app.status);
   const initialised = useSelector<AppRootState>(state => state.app.initialised);
   const isLoggedIn = useSelector<AppRootState>(state => state.auth.isLoginIn);
   const {getTodoLists} = useActions(todoListsThunks)
+  const {initialApp} = useActions(appThunk)
 
   useEffect(() => {
-    dispatch(initialApp());
+    initialApp({});
     if (!demo) {
-      dispatch(getTodoLists({}))
+      getTodoLists({})
     }
   }, []);
 
   const logOutHandler = useCallback(() => {
-    dispatch(getLogOut());
+    getLogOut();
   }, [])
 
   if (!initialised) {
